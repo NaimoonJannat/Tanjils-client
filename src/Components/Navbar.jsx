@@ -9,7 +9,7 @@ const Navbar = () => {
 
     console.log(user);
     return (
-        <div className='navbar absolute z-10  bg-transparent secondaryTextColor shadow-sm flex flex-row justify-between px-4 mx-auto'>
+        <div className='navbar absolute z-10  bg-transparent text-secondary shadow-sm flex flex-row justify-between px-4 mx-auto'>
             <div className='flex w-full md:w-1/2'>
                 <Link to='/' className='flex gap-2 items-center'>
                     <img className='w-auto h-20' src='./logo.png' alt='solo-sphere logo' />
