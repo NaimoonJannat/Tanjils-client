@@ -2,8 +2,34 @@
 
 @import "tailwindcss";
 @plugin "daisyui";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.primaryColor{
+:root {
+  --color-primary: #04203E;
+  --color-secondary: #96DFF1;
+  --color-tertiary: #FFFFFF;
+}
+
+
+@layer utilities {
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-tertiary {
+    color: var(--color-tertiary);
+  }
+}
+
+
+/* .primaryColor{
     background-color: #001f3f;    
 }
 .secondaryColor{
@@ -14,10 +40,7 @@
 }
 .secondaryTextColor{
     color: #d4ff00;
-}
-
-
-
+} */
 
 .font-title{
       font-family: "Newsreader", serif;
