@@ -28,20 +28,35 @@
   }
 }
 
+/* Floating animation */
+@keyframes floatAnimation {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
 
-/* .primaryColor{
-    background-color: #001f3f;    
+/* Slow gradient rotation */
+@keyframes slowSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-.secondaryColor{
-    background-color: #d4ff00;
+
+.float-animation {
+  animation: floatAnimation 6s ease-in-out infinite;
 }
-.primaryTextColor{
-    color: #001f3f;    
+
+.spin-slow {
+  animation: slowSpin 18s linear infinite;
 }
-.secondaryTextColor{
-    color: #d4ff00;
-} */
 
 .font-title{
       font-family: "Newsreader", serif;
 }
+
