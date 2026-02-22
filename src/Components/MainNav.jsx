@@ -31,22 +31,22 @@ export default function MainNav() {
           {/* Desktop Menu */}
           <ul className="hidden md:flex items-center gap-8 text-white font-medium">
             <li>
-              <Link to="/" className="hover:text-primary transition">
+              <Link to="/" className="hover:text-secondary transition">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-primary transition">
+              <Link to="/about" className="hover:text-secondary transition">
                 About
               </Link>
             </li>
             <li>
-              <Link to="/services" className="hover:text-primary transition">
+              <Link to="/services" className="hover:text-secondary transition">
                 Services
               </Link>
             </li>
             <li>
-              <Link to="/appointments" className="hover:text-primary transition">
+              <Link to="/appointments" className="hover:text-secondary transition">
                 Appointments
               </Link>
             </li>
