@@ -1,4 +1,5 @@
 import AboutMe from "./AboutMe";
+import AppointmentSection from "./AppointmentSection";
 import HeroBanner from "./HeroBanner";
 import TreatmentSection from "./TreatmentSection";
 
@@ -8,6 +9,7 @@ const Home = () => {
           <HeroBanner></HeroBanner>
           <AboutMe></AboutMe>
           <TreatmentSection></TreatmentSection>
+          <AppointmentSection></AppointmentSection>
         </div>
     );
 };

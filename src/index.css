@@ -28,34 +28,42 @@
   }
 }
 
-/* Floating animation */
-/* @keyframes floatAnimation {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-} */
+/* Hand Tap Animation */
+@keyframes tap {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 
-/* Slow gradient rotation */
-/* @keyframes slowSpin {
+.hand {
+  font-size: 40px;
+  animation: tap 1.5s infinite;
+}
+
+/* Dial Pulse Animation */
+@keyframes pulseRing {
   0% {
-    transform: rotate(0deg);
+    transform: scale(0.8);
+    opacity: 0.7;
   }
   100% {
-    transform: rotate(360deg);
+    transform: scale(1.6);
+    opacity: 0;
   }
 }
 
-.float-animation {
-  animation: floatAnimation 6s ease-in-out infinite;
+.dial-pulse {
+  animation: pulseRing 2s infinite;
 }
 
-.spin-slow {
-  animation: slowSpin 18s linear infinite;
-} */
+/* Button slight press animation */
+@keyframes press {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+}
 
+.phone-button {
+  animation: press 2s infinite;
+}
 .font-title{
       font-family: "Newsreader", serif;
 }
