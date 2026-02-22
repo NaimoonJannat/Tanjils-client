@@ -13,28 +13,51 @@ const AboutMe = () => {
         {/* Image Section */}
         <div className="flex justify-center md:justify-start">
          {/* Image Section */}
+{/* Image Section */}
+
 <div className="flex justify-center md:justify-start">
-  <div className="relative group float-animation">
-    
-    {/* Animated Gradient Border */}
-    <div className="absolute inset-0 bg-gradient-to-tr from-primary to-blue-300 rounded-[40px] spin-slow opacity-80"></div>
-    
-    <img
-      src="/dp.png"
-      alt="Dr ASM Tanjilur Rahman"
-      className="relative w-80 md:w-[420px] rounded-[40px] shadow-2xl object-cover border-8 border-white
-                 transition-all duration-500
-                 group-hover:scale-105
-                 group-hover:-rotate-1"
-    />
+  <div
+    className="relative perspective-[1200px]"
+    onMouseMove={(e) => {
+      const card = e.currentTarget.querySelector(".tilt-card");
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    {/* Floating Experience Badge */}
-    <div className="absolute -bottom-6 -right-6 bg-white shadow-xl rounded-2xl px-6 py-4 backdrop-blur-md 
-                    transition-all duration-500 group-hover:-translate-y-2">
-      <h4 className="text-primary font-bold text-xl">15+ Years</h4>
-      <p className="text-sm text-gray-500">Surgical Excellence</p>
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
+
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+    }}
+    onMouseLeave={(e) => {
+      const card = e.currentTarget.querySelector(".tilt-card");
+      card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+    }}
+  >
+    <div className="tilt-card transition-all duration-300 ease-out relative">
+      
+      {/* Rotated Gradient Background Layer (previous design restored) */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-primary to-blue-300 
+                      rounded-[40px] rotate-3"></div>
+      
+      <img
+        src="/dp.png"
+        alt="Dr ASM Tanjilur Rahman"
+        className="relative w-80 md:w-[420px] rounded-[40px] shadow-2xl 
+                   object-cover border-8 border-white"
+      />
+
+      {/* Experience Badge (same as before) */}
+      <div className="absolute -bottom-6 -right-6 bg-white shadow-xl 
+                      rounded-2xl px-6 py-4 backdrop-blur-md">
+        <h4 className="text-primary font-bold text-xl">15+ Years</h4>
+        <p className="text-sm text-gray-500">Surgical Excellence</p>
+      </div>
+
     </div>
-
   </div>
 </div>
         </div>

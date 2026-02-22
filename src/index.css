@@ -29,17 +29,17 @@
 }
 
 /* Floating animation */
-@keyframes floatAnimation {
+/* @keyframes floatAnimation {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
     transform: translateY(-12px);
   }
-}
+} */
 
 /* Slow gradient rotation */
-@keyframes slowSpin {
+/* @keyframes slowSpin {
   0% {
     transform: rotate(0deg);
   }
@@ -54,7 +54,7 @@
 
 .spin-slow {
   animation: slowSpin 18s linear infinite;
-}
+} */
 
 .font-title{
       font-family: "Newsreader", serif;
