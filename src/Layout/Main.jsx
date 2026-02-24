@@ -7,13 +7,27 @@ const Main = () => {
   return (
     <>
       <style>{`
+        /*
+         * WHITE GAP FIX:
+         * The gap was caused by the body/layout background (#F8F5F0 cream)
+         * showing through the space between the fixed nav and the first section.
+         * Fix: set the layout background to match the HeroBanner's dark navy
+         * so no gap is visible. Individual sections paint their own backgrounds.
+         */
+        body, html {
+          margin: 0;
+          padding: 0;
+          background: #0A1628;   /* match HeroBanner — eliminates the gap */
+        }
+
         .layout-root {
           display: flex;
           flex-direction: column;
           min-height: 100vh;
-          background: #F8F5F0;
+          background: transparent;  /* let body color show through */
         }
-        /* Fixed nav stack */
+
+        /* Fixed nav stack — TopNavbar (40px) + MainNav (~60px) = ~100px total */
         .nav-stack {
           position: fixed;
           top: 0;
@@ -21,15 +35,28 @@ const Main = () => {
           width: 100%;
           z-index: 50;
         }
-        /* Push content below fixed nav (TopNavbar 36px + MainNav ~60px) */
+
+        /*
+         * HeroBanner uses position:relative and fills 100svh,
+         * so it naturally starts right at 0 — no padding needed.
+         *
+         * For every OTHER page/section that is NOT the hero,
+         * we add padding-top to clear the nav stack.
+         * Target: direct children of .page-content that are NOT .hero-root
+         */
         .page-content {
           flex: 1;
-          /* HeroBanner handles its own offset;
-             for other pages, padding-top pushes content below the nav */
         }
-        /* Non-hero pages: add padding so content isn't hidden under nav */
+
+        /* Non-hero pages get pushed below the nav */
         .page-content > *:not(.hero-root) {
-          padding-top: 96px;
+          padding-top: 100px;
+        }
+
+        /* If first child IS the hero, no padding — hero is full-bleed */
+        .page-content > .hero-root {
+          padding-top: 0;
+          margin-top: 0;
         }
       `}</style>
 
