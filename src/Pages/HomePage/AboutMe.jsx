@@ -63,46 +63,52 @@ const AboutMe = () => {
         </div>
 
         {/* Text Section */}
-        <div className="relative">
-          
-          {/* Vertical Accent Line */}
-          <div className="absolute -left-6 top-2 w-1 h-20 bg-primary rounded-full hidden md:block"></div>
+      <div className="relative">
+  
+  {/* Vertical Accent Line */}
+  <div className="absolute -left-6 top-2 w-1 h-20 bg-primary rounded-full hidden md:block"></div>
 
-          <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 leading-tight">
-            About <span className="text-black">Dr. ASM Tanjilur Rahman</span>
-          </h2>
+  <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 leading-tight">
+    About <span className="text-black">Dr. ASM Tanjilur Rahman</span>
+  </h2>
 
-          <p className="text-gray-600 leading-relaxed mb-6 text-lg">
-            Dr. ASM Tanjilur Rahman is a highly accomplished surgeon 
-            specializing in advanced laparoscopic and minimally invasive 
-            procedures. With a deep commitment to precision, safety, and 
-            patient-centered care, he has built a reputation for excellence 
-            in complex gastrointestinal and general surgical treatments.
-          </p>
+  <p className="text-gray-600 leading-relaxed mb-6 text-lg">
+    Dr. ASM Tanjilur Rahman, FCPS (Surgery), FMAS (India), is a highly skilled 
+    Laser, Advanced Laparoscopic and Cancer Surgeon with specialized fellowship 
+    training in Laparoscopic Colorectal and Hernia Surgery from GEM, India. 
+    He is currently serving as Assistant Professor (Surgery) at Faridpur Medical College, Faridpur.
+  </p>
 
-          <p className="text-gray-600 leading-relaxed mb-8 text-lg">
-            Combining modern surgical techniques with compassionate 
-            consultation, he ensures each patient receives a tailored 
-            treatment plan designed for optimal recovery and long-term 
-            wellness.
-          </p>
+  <p className="text-gray-600 leading-relaxed mb-6 text-lg">
+    With extensive expertise in minimally invasive surgery, laser procedures, 
+    and complex oncological operations, Dr. Rahman provides evidence-based, 
+    patient-centered surgical care ensuring faster recovery, reduced pain, 
+    and optimal long-term outcomes.
+  </p>
 
-          {/* Info Cards */}
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="bg-white/60 backdrop-blur-md border border-gray-100 shadow-md rounded-xl p-4">
-              <h4 className="text-primary font-semibold">5000+</h4>
-              <p className="text-sm text-gray-500">Successful Surgeries</p>
-            </div>
-            <div className="bg-white/60 backdrop-blur-md border border-gray-100 shadow-md rounded-xl p-4">
-              <h4 className="text-primary font-semibold">Advanced</h4>
-              <p className="text-sm text-gray-500">Minimally Invasive Care</p>
-            </div>
-          </div>
+  <p className="text-gray-600 leading-relaxed mb-8 text-lg">
+    His areas of expertise include laparoscopic gall bladder, appendix, 
+    and hernia surgery (male & female), laser treatment for piles, anal fissure 
+    and fistula, as well as advanced cancer surgeries including breast, abdominal, 
+    colon and rectal cancer.
+  </p>
 
-          <button className="bg-primary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-            Book Consultation
-          </button>
-        </div>
+  {/* Info Cards */}
+  <div className="grid grid-cols-2 gap-4 mb-8">
+    <div className="bg-white/60 backdrop-blur-md border border-gray-100 shadow-md rounded-xl p-4">
+      <h4 className="text-primary font-semibold">Advanced</h4>
+      <p className="text-sm text-gray-500">Laparoscopic & Laser Surgery</p>
+    </div>
+    <div className="bg-white/60 backdrop-blur-md border border-gray-100 shadow-md rounded-xl p-4">
+      <h4 className="text-primary font-semibold">Specialized</h4>
+      <p className="text-sm text-gray-500">Colorectal & Cancer Care</p>
+    </div>
+  </div>
+
+  <button className="bg-primary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    Book Consultation
+  </button>
+</div>
       </div>
     </section>
   );
