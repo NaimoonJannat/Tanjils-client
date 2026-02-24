@@ -5,7 +5,8 @@ import Login from "../Pages/Authentication/LogIn";
 
 import { createBrowserRouter } from "react-router";
 import Home from "../Pages/HomePage/Home";
-import TreatmentDetails from "c:/Users/Naimun Jannat/Downloads/TreatmentDetails";
+import TreatmentDetails from "../Pages/TreatmentPage/TreatmentDetails";
+
 
 
 const Routes = createBrowserRouter([
