@@ -16,12 +16,14 @@ const TreatmentCard = ({ treatment }) => {
     >
       {/* Background Image */}
       <img
-        src={treatment.image}
-        alt={treatment.title}
-        className="w-full h-64 object-cover 
-                   transform group-hover:scale-110 
-                   transition duration-500 ease-in-out"
-      />
+  src={treatment.image}
+  alt={treatment.title}
+  loading="lazy"
+  decoding="async"
+  className="w-full h-64 object-cover 
+             transform group-hover:scale-105 
+             transition duration-300 ease-in-out"
+/>
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50 

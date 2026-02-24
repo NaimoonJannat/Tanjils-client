@@ -6,31 +6,31 @@ const TreatmentSection = () => {
   const [treatments, setTreatments] = useState([]);
   const [loading, setLoading] = useState(true);
 
- useEffect(() => {
-  const fetchTreatments = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/treatments");
+  useEffect(() => {
+    const fetchTreatments = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/treatments");
 
-      if (Array.isArray(res.data)) {
-        setTreatments(res.data);
-      } else {
-        console.error("Expected array but got:", res.data);
+        if (Array.isArray(res.data)) {
+          setTreatments(res.data);
+        } else {
+          setTreatments([]);
+        }
+      } catch (error) {
+        console.error(error);
         setTreatments([]);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error(error);
-      setTreatments([]);
-    }
-  };
+    };
 
-  fetchTreatments();
-}, []); 
+    fetchTreatments();
+  }, []);
 
   return (
     <section className="py-16 bg-primary">
       <div className="container mx-auto px-4">
-        
-        {/* Section Header */}
+
         <div className="text-center mb-12">
           <h2 className="text-4xl font-semibold text-white mb-4">
             Center Of Excellence
@@ -41,23 +41,20 @@ const TreatmentSection = () => {
           </p>
         </div>
 
-        {/* Loading */}
-        {loading && (
-          <div className="text-center text-white">Loading treatments...</div>
+        {loading ? (
+          <div className="text-center text-white">
+            Loading treatments...
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {treatments.map((treatment) => (
+              <TreatmentCard
+                key={treatment._id}
+                treatment={treatment}
+              />
+            ))}
+          </div>
         )}
-
-        {/* Grid */}
-        <div className="grid gap-6 
-                        sm:grid-cols-2 
-                        md:grid-cols-3 
-                        lg:grid-cols-4">
-          {treatments.map((treatment) => (
-            <TreatmentCard
-              key={treatment._id}
-              treatment={treatment}
-            />
-          ))}
-        </div>
       </div>
     </section>
   );
