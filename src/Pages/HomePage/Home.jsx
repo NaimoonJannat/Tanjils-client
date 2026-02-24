@@ -1,8 +1,15 @@
+import AboutMe from "./AboutMe";
+import AppointmentSection from "./AppointmentSection";
+import HeroBanner from "./HeroBanner";
+import TreatmentSection from "./TreatmentSection";
 
 const Home = () => {
     return (
         <div>
-           <h2 className="text-5xl">This is Home</h2>
+          <HeroBanner></HeroBanner>
+          <AboutMe></AboutMe>
+          <TreatmentSection></TreatmentSection>
+          <AppointmentSection></AppointmentSection>
         </div>
     );
 };
