@@ -5,6 +5,7 @@ import Login from "../Pages/Authentication/LogIn";
 
 import { createBrowserRouter } from "react-router";
 import Home from "../Pages/HomePage/Home";
+import TreatmentDetails from "c:/Users/Naimun Jannat/Downloads/TreatmentDetails";
 
 
 const Routes = createBrowserRouter([
@@ -26,6 +27,10 @@ const Routes = createBrowserRouter([
                     path: '/login',
                     element: <Login></Login>,
                 },
+                {
+                    path: "/treatments/:slug",    
+                    element: <TreatmentDetails />,
+                      }
             ]
     }
 ]);
