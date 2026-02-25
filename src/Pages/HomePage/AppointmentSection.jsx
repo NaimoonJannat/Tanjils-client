@@ -245,7 +245,7 @@ function AnimatedPhone() {
         }
       `}</style>
 
-      <div style={{ position:"relative", display:"flex", justifyContent:"center", alignItems:"center" }}>
+      <div id="appointment" style={{ position:"relative", display:"flex", justifyContent:"center", alignItems:"center" }}>
         {/* Glow rings */}
         <div className="phone-glow" style={{ width:300,height:300, background:"radial-gradient(circle,rgba(201,169,110,.12) 0%,transparent 70%)" }}/>
         <div className="phone-glow" style={{ width:420,height:420, background:"radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%)", animationDelay:"2s" }}/>

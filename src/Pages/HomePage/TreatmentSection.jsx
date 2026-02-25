@@ -180,7 +180,7 @@ const TreatmentSection = () => {
         .treatment-stat-label { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(248,245,240,.4); }
       `}</style>
 
-      <section className="treatment-section" ref={sectionRef}>
+      <section id="treatments" className="treatment-section" ref={sectionRef}>
         <div className="treat-blob" style={{width:400,height:400,top:-100,right:-100,background:"radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%)"}}/>
         <div className="treat-blob" style={{width:300,height:300,bottom:-80,left:-60,background:"radial-gradient(circle,rgba(201,169,110,.04) 0%,transparent 70%)",animationDelay:"5s"}}/>
         {[...Array(8)].map((_,i)=>(

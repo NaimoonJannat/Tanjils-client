@@ -15,7 +15,7 @@ const slides = [
   {
     id: 2,
     type: "image",
-    image: "slide1.jpg",
+    image: "slide1.jpeg",
     tag: "Minimally Invasive",
     title: "Advanced Laparoscopic Surgery",
     description:
@@ -281,6 +281,7 @@ export default function HeroBanner() {
 
       <div
         className="hero-root"
+        id="hero"
         style={{
           position: "relative",
           width: "100%",

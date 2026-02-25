@@ -238,7 +238,7 @@ const AboutMe = () => {
         .about-btn-outline:hover { border-color:#C9A96E; background:rgba(201,169,110,.06); gap:14px; }
       `}</style>
 
-      <section className="about-section" ref={sectionRef}>
+      <section id="about" className="about-section" ref={sectionRef}>
         <div className="about-blob" style={{ width:500,height:500,top:-120,right:-120, background:"radial-gradient(circle,rgba(201,169,110,.07) 0%,transparent 70%)" }} />
         <div className="about-blob" style={{ width:300,height:300,bottom:-80,left:-80, background:"radial-gradient(circle,rgba(201,169,110,.05) 0%,transparent 70%)", animationDelay:"4s" }} />
 

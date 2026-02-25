@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const navLinks = [
-  { to: "/",            label: "Home" },
-  { to: "/about",       label: "About" },
-  { to: "/services",    label: "Services" },
-  { to: "/appointments",label: "Appointments" },
+  { to: "/",       hash: "#hero",     label: "Home" },
+  { to: "/",       hash: "#about",    label: "About" },
+  { to: "/",       hash: "#treatments", label: "Services" },
 ];
 
 export default function MainNav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
@@ -19,8 +19,26 @@ export default function MainNav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu on route change
   useEffect(() => setMenuOpen(false), [location]);
+
+  // Smooth scroll to hash section, navigating to home first if needed
+  const handleNavClick = (e, hash) => {
+    e.preventDefault();
+    const scrollToSection = () => {
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      // Wait for navigation then scroll
+      setTimeout(scrollToSection, 100);
+    } else {
+      scrollToSection();
+    }
+  };
 
   return (
     <>
@@ -53,9 +71,19 @@ export default function MainNav() {
         /* Logo */
         .nav-logo {
           display: flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+        }
+        .nav-logo-img {
+          height: 40px;
+          width: auto;
+          object-fit: contain;
+        }
+        .nav-logo-text {
+          display: flex;
           flex-direction: column;
           line-height: 1;
-          text-decoration: none;
           gap: 2px;
         }
         .nav-logo-name {
@@ -65,9 +93,7 @@ export default function MainNav() {
           color: #F8F5F0;
           letter-spacing: -0.01em;
         }
-        .nav-logo-name span {
-          color: #C9A96E;
-        }
+        .nav-logo-name span { color: #C9A96E; }
         .nav-logo-sub {
           font-size: 0.62rem;
           letter-spacing: 0.14em;
@@ -92,6 +118,10 @@ export default function MainNav() {
           text-decoration: none;
           transition: color 0.2s;
           border-radius: 2px;
+          cursor: pointer;
+          background: none;
+          border: none;
+          font-family: inherit;
         }
         .nav-link::after {
           content: '';
@@ -135,7 +165,6 @@ export default function MainNav() {
           transform: translateY(-1px);
           box-shadow: 0 6px 24px rgba(201,169,110,0.4);
         }
-        /* Gold dot separator */
         .nav-dot {
           width: 3px; height: 3px;
           border-radius: 50%;
@@ -154,13 +183,10 @@ export default function MainNav() {
           border-radius: 3px;
           transition: background 0.2s;
         }
-        .hamburger:hover {
-          background: rgba(201,169,110,0.1);
-        }
+        .hamburger:hover { background: rgba(201,169,110,0.1); }
         .hamburger span {
           display: block;
-          width: 22px;
-          height: 1.5px;
+          width: 22px; height: 1.5px;
           background: #C9A96E;
           border-radius: 1px;
           transition: all 0.3s;
@@ -171,9 +197,7 @@ export default function MainNav() {
         /* Mobile drawer */
         .mobile-menu {
           position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
+          top: 100%; left: 0; right: 0;
           background: rgba(10,22,40,0.98);
           backdrop-filter: blur(16px);
           border-bottom: 1px solid rgba(201,169,110,0.15);
@@ -182,20 +206,13 @@ export default function MainNav() {
           transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
           opacity: 0;
         }
-        .mobile-menu.open {
-          max-height: 360px;
-          opacity: 1;
-        }
+        .mobile-menu.open { max-height: 360px; opacity: 1; }
         .mobile-menu-inner {
           padding: 16px 24px 24px;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
+          display: flex; flex-direction: column; gap: 4px;
         }
         .mobile-link {
-          display: flex;
-          align-items: center;
-          gap: 10px;
+          display: flex; align-items: center; gap: 10px;
           padding: 11px 14px;
           font-size: 0.9rem;
           color: rgba(248,245,240,0.75);
@@ -203,31 +220,26 @@ export default function MainNav() {
           border-radius: 3px;
           border: 1px solid transparent;
           transition: all 0.2s;
+          cursor: pointer;
+          background: none;
+          font-family: inherit;
+          text-align: left;
         }
         .mobile-link::before {
           content: '';
-          width: 4px;
-          height: 4px;
+          width: 4px; height: 4px;
           border-radius: 50%;
           background: rgba(201,169,110,0.4);
           flex-shrink: 0;
           transition: background 0.2s;
         }
-        .mobile-link:hover,
-        .mobile-link.active {
+        .mobile-link:hover, .mobile-link.active {
           color: #F8F5F0;
           background: rgba(201,169,110,0.07);
           border-color: rgba(201,169,110,0.15);
         }
-        .mobile-link:hover::before,
-        .mobile-link.active::before {
-          background: #C9A96E;
-        }
-        .mobile-cta {
-          margin-top: 8px;
-          display: flex;
-          justify-content: center;
-        }
+        .mobile-link:hover::before, .mobile-link.active::before { background: #C9A96E; }
+        .mobile-cta { margin-top: 8px; display: flex; justify-content: center; }
         @media (max-width: 768px) {
           .nav-links-desktop { display: none !important; }
           .hamburger { display: flex; }
@@ -243,30 +255,35 @@ export default function MainNav() {
       >
         <div className="nav-inner">
           {/* Logo */}
-          <Link to="/" className="nav-logo">
-            <div className="nav-logo-name">
-              <span>Dr. </span>ASM Tanjilur Rahman
+          <a href="/#hero" className="nav-logo" onClick={(e) => handleNavClick(e, "#hero")}>
+            <img src="/logo.png" alt="Dr. ASM Tanjilur Rahman" className="nav-logo-img" />
+            <div className="nav-logo-text">
+              <div className="nav-logo-name">
+                <span>Dr. </span>ASM Tanjilur Rahman
+              </div>
+              <div className="nav-logo-sub">Surgeon & Specialist</div>
             </div>
-            <div className="nav-logo-sub">Surgeon & Specialist</div>
-          </Link>
+          </a>
 
           {/* Desktop links */}
           <ul className="nav-links nav-links-desktop">
             {navLinks.map((link, i) => (
               <>
                 {i > 0 && <li key={`dot-${i}`} className="nav-dot" />}
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    className={`nav-link ${location.pathname === link.to ? "active" : ""}`}
+                <li key={link.hash}>
+                  <a
+                    href={link.hash}
+                    className="nav-link"
+                    onClick={(e) => handleNavClick(e, link.hash)}
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               </>
             ))}
             <li>
-              <Link to="/contact" className="nav-cta">
+             <a href="/#appointment">
+               <Link  onClick={(e) => handleNavClick(e, "#appointment")} className="nav-cta">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <rect x="3" y="4" width="18" height="18" rx="2"/>
                   <line x1="16" y1="2" x2="16" y2="6"/>
@@ -275,6 +292,7 @@ export default function MainNav() {
                 </svg>
                 Book Appointment
               </Link>
+             </a>
             </li>
           </ul>
 
@@ -292,13 +310,14 @@ export default function MainNav() {
         <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
           <div className="mobile-menu-inner">
             {navLinks.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`mobile-link ${location.pathname === link.to ? "active" : ""}`}
+              <a
+                key={link.hash}
+                href={link.hash}
+                className="mobile-link"
+                onClick={(e) => handleNavClick(e, link.hash)}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
             <div className="mobile-cta">
               <Link to="/contact" className="nav-cta" style={{ width: "100%", justifyContent: "center" }}>
