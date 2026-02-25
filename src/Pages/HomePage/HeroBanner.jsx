@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation } from "react-router";
 
 const slides = [
   {
@@ -55,6 +56,36 @@ export default function HeroBanner() {
   const [progress, setProgress] = useState(0);
   const timerRef = useRef(null);
   const progressRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleAppointmentRedirect = (e) => {
+    e.preventDefault();
+    const scrollToSection = () => {
+      const el = document.querySelector("#appointment");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(scrollToSection, 120);
+    } else {
+      scrollToSection();
+    }
+  };
+
+  const handleLearnMoreRedirect = (e) => {
+    e.preventDefault();
+    const scrollToSection = () => {
+      const el = document.querySelector("#about");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(scrollToSection, 120);
+    } else {
+      scrollToSection();
+    }
+  };
 
   const goTo = (idx) => {
     setCurrent(idx);
@@ -449,11 +480,11 @@ export default function HeroBanner() {
                           </p>
 
                           <div className="anim-btn btn-row" style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-                            <button className="btn-primary">
+                            <button className="btn-primary" onClick={handleAppointmentRedirect}>
                               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                               Book Appointment
                             </button>
-                            <button className="btn-secondary">Learn More →</button>
+                            <button className="btn-secondary" onClick={handleLearnMoreRedirect}>Learn More →</button>
                           </div>
                         </div>
                       </div>
@@ -530,11 +561,11 @@ export default function HeroBanner() {
                         </div>
 
                         <div className="anim-btn btn-row" style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-                          <button className="btn-primary">
+                          <button className="btn-primary" onClick={handleAppointmentRedirect}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                             Book Appointment
                           </button>
-                          <button className="btn-secondary">Learn More →</button>
+                          <button className="btn-secondary" onClick={handleLearnMoreRedirect}>Learn More →</button>
                         </div>
                       </div>
                     )}

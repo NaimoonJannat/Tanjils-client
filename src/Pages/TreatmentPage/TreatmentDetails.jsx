@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams, useNavigate, Link } from "react-router";
+import { useParams, useNavigate, Link, useLocation } from "react-router";
 import axios from "axios";
 
 const categoryColors = {
@@ -128,12 +128,31 @@ function Reveal({ children, direction = "up", delay = 0, style = {} }) {
 export default function TreatmentDetails() {
   const { slug }                  = useParams();
   const navigate                  = useNavigate();
+  const location                  = useLocation(); 
   const [treatment, setTreatment] = useState(null);
   const [related, setRelated]     = useState([]);
   const [loading, setLoading]     = useState(true);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [parallaxY, setParallaxY] = useState(0);
   const heroRef                   = useRef(null);
+
+  const handleAppointmentRedirect = (e) => {
+    e.preventDefault();
+
+    const scrollToSection = () => {
+      const el = document.querySelector("#appointment");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(scrollToSection, 120);
+    } else {
+      scrollToSection();
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -406,8 +425,17 @@ export default function TreatmentDetails() {
                   <div className="td-phone-icon">📞</div>
                   <div><div className="td-phone-lbl">Jhenaidah</div><div className="td-phone-num">01535-165256</div></div>
                 </a>
-                <Link to="/" className="td-cta">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <Link
+                  to="/"
+                  onClick={handleAppointmentRedirect}
+                  className="td-cta"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
                   View Appointment Info
                 </Link>
               </div>
@@ -491,7 +519,11 @@ export default function TreatmentDetails() {
                   <div className="td-phone-icon">📞</div>
                   <div><div className="td-phone-lbl">Jhenaidah Hotline</div><div className="td-phone-num">01535-165256</div></div>
                 </a>
-                <Link to="/" className="td-cta">
+                <Link
+                  to="/"
+                  onClick={handleAppointmentRedirect}
+                  className="td-cta"
+                >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                   View Appointment Info
                 </Link>
