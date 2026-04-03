@@ -279,10 +279,43 @@ export default function AppointmentSection() {
         /* Chamber */
         .chamber-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,169,110,.15); border-radius:12px; overflow:hidden; transition:border-color .3s,box-shadow .3s; }
         .chamber-card:hover { border-color:rgba(201,169,110,.3); box-shadow:0 8px 40px rgba(0,0,0,.3); }
-        .chamber-tabs { display:flex; border-bottom:1px solid rgba(201,169,110,.12); }
-        .chamber-tab { flex:1; padding:14px; font-size:.82rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:rgba(248,245,240,.4); background:transparent; border:none; cursor:pointer; transition:color .2s,background .2s; position:relative; font-family:'DM Sans',sans-serif; }
-        .chamber-tab::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:#C9A96E; transform:scaleX(0); transition:transform .25s; }
-        .chamber-tab.active { color:#C9A96E; background:rgba(201,169,110,.05); }
+        .chamber-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(201,169,110,.12);
+  background: rgba(201,169,110,.04);
+  padding: 8px 10px;
+  gap: 8px;
+}
+      .chamber-tab {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(248,245,240,.45);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(201,169,110,.15);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color .2s, background .2s, border-color .2s, box-shadow .2s;
+  position: relative;
+  font-family: 'DM Sans', sans-serif;
+}
+
+        .chamber-tab::after { display: none; }
+        .chamber-tab:hover {
+  color: rgba(201,169,110,.8);
+  background: rgba(201,169,110,.08);
+  border-color: rgba(201,169,110,.3);
+}
+
+       .chamber-tab.active {
+  color: #0A1628;
+  background: linear-gradient(135deg, #C9A96E, #A87C40);
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(201,169,110,.35);
+}
         .chamber-tab.active::after { transform:scaleX(1); }
         .chamber-body { padding:22px; }
         .chamber-city { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:700; color:#F8F5F0; margin-bottom:6px; }

@@ -3,7 +3,7 @@ import axios from "axios";
 import TreatmentCard from "./TreatmentCard";
 
 const stats = [
-  { num: 5000, suffix: "+", label: "Surgeries Performed" },
+  { num: 7000, suffix: "+", label: "Surgeries Performed" },
   { num: 98,   suffix: "%", label: "Success Rate" },
   { num: 15,   suffix: "+", label: "Years Experience" },
   { num: 3,    suffix: "",  label: "Specializations" },
