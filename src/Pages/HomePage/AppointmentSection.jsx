@@ -174,7 +174,7 @@ function AnimatedPhone() {
                     </div>
                   </div>
                   <div className="ws-info-strip">
-                    {[["5000+","Surgeries"],["15+","Yrs Exp"],["98%","Success"]].map(([v,l])=>(
+                    {[["7000+","Surgeries"],["15+","Yrs Exp"],["98%","Success"]].map(([v,l])=>(
                       <div key={l} className="ws-info-item"><div className="ws-info-val">{v}</div><div className="ws-info-lbl">{l}</div></div>
                     ))}
                   </div>
@@ -421,23 +421,15 @@ export default function AppointmentSection() {
               </div>
 
               <div className="contact-card" data-reveal="left" data-delay="280">
-                <div className="contact-card-title">Direct Contact</div>
-                <a href="tel:01300263332" className="contact-item">
-                  <div className="contact-icon-wrap">📞</div>
-                  <div><div className="contact-label">Faridpur Hotline</div><div className="contact-value">01300-263332</div></div>
-                </a>
-                <a href="tel:01535165256" className="contact-item">
-                  <div className="contact-icon-wrap">📞</div>
-                  <div><div className="contact-label">Jhenaidah Hotline</div><div className="contact-value">01535-165256</div></div>
-                </a>
+                <div className="contact-card-title">Direct Contact with Sergeon</div>
                 <a href="mailto:btanjil17@gmail.com" className="contact-item">
                   <div className="contact-icon-wrap">✉</div>
                   <div><div className="contact-label">Email</div><div className="contact-value">btanjil17@gmail.com</div></div>
                 </a>
-                <a href="mailto:laser.lapunit@gmail.com" className="contact-item">
+                {/* <a href="mailto:laser.lapunit@gmail.com" className="contact-item">
                   <div className="contact-icon-wrap">✉</div>
                   <div><div className="contact-label">Laser & Lap Unit</div><div className="contact-value">laser.lapunit@gmail.com</div></div>
-                </a>
+                </a> */}
               </div>
 
               <a href="tel:01300263332" className="appt-cta-btn" data-reveal="up" data-delay="380">

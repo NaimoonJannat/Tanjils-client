@@ -319,7 +319,7 @@ const AboutMe = () => {
             <div className="about-gold-line" data-reveal="up" data-delay="200"/>
 
             <h2 className="about-h2" data-reveal="up" data-delay="250">
-              Dr. ASM<br/><span>Tanjilur Rahman</span>
+              Dr. <br/><span>ASM Tanjilur Rahman</span>
             </h2>
 
             <div className="about-credentials" data-reveal="up" data-delay="320">
