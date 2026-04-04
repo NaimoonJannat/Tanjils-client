@@ -111,8 +111,8 @@ export default function MainNav() {
         .nav-link {
           position: relative;
           padding: 6px 14px;
-          font-size: 0.875rem;
-          font-weight: 400;
+          font-size: 1rem;
+          font-weight: 600;
           letter-spacing: 0.02em;
           color: rgba(248,245,240,0.78);
           text-decoration: none;
