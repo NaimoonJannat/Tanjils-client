@@ -21,7 +21,7 @@ const slides = [
     title: "Advanced Laparoscopic Surgery",
     description:
       "Specialized in gall bladder, appendix, and hernia surgeries using modern minimally invasive techniques for faster recovery and less pain.",
-    stat1: { value: "5000+", label: "Surgeries" },
+    stat1: { value: "7000+", label: "Surgeries" },
     stat2: { value: "98%", label: "Success Rate" },
   },
   {
