@@ -454,7 +454,7 @@ export default function AppointmentSection() {
               </div>
 
               <div className="contact-card" data-reveal="left" data-delay="280">
-                <div className="contact-card-title">Direct Contact with Sergeon</div>
+                <div className="contact-card-title">Direct Contact with Surgeon</div>
                 <a href="mailto:btanjil17@gmail.com" className="contact-item">
                   <div className="contact-icon-wrap">✉</div>
                   <div><div className="contact-label">Email</div><div className="contact-value">btanjil17@gmail.com</div></div>
