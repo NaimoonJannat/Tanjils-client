@@ -213,7 +213,7 @@ const Footer = () => {
                 <a href="https://www.facebook.com/TanjilsLaserandLaparoscopy" target="_blank" rel="noreferrer" className="footer-social" aria-label="Facebook">
                   <FaFacebookF />
                 </a>
-                <a href="https://youtube.com/@tanjilslaserlaparoscopy5289/" target="_blank" rel="noreferrer" className="footer-social" aria-label="Youtube">
+                <a href="https://www.youtube.com/@tanjilslaserlaparoscopy4123" target="_blank" rel="noreferrer" className="footer-social" aria-label="Youtube">
                   <FaYoutube />
                 </a>
               </div>

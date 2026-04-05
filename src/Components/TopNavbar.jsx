@@ -285,7 +285,7 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
           {/* Socials */}
           <div className="tnav-left">
             <a href="https://www.facebook.com/TanjilsLaserandLaparoscopy" target="_blank" rel="noreferrer" className="tnav-social fb"><FaFacebookF/></a>
-            <a href="https://youtube.com/@tanjilslaserlaparoscopy5289?si=4Dx1QXfHeZKIpfvp"  target="_blank" rel="noreferrer" className="tnav-social yt"><FaYoutube/></a>
+            <a href="https://www.youtube.com/@tanjilslaserlaparoscopy4123"  target="_blank" rel="noreferrer" className="tnav-social yt"><FaYoutube/></a>
             <a href="mailto:btanjil17@gmail.com"                            className="tnav-social em"><FaEnvelope/></a>
           </div>
 

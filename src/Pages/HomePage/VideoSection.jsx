@@ -1,53 +1,53 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const YT_CHANNEL_URL = "https://www.youtube.com/@tanjilslaserlaparoscopy4123"; // ← update with real channel
+const YT_CHANNEL_URL = "https://www.youtube.com/@tanjilslaserlaparoscopy4123"; 
 
 const videos = [
   {
     id: "dp3FTjobM6g", 
     title: "পাইলস রোগ কি ও কেন",
-    views: "12.4K",
-    duration: "18:42",
-    date: "2 weeks ago",
+    views: "7.3K",
+    duration: "04:47",
+    date: "5 years ago",
     featured: true,
   },
   {
     id: "Qm09emjZS-4",
     title: "ল্যাপারোস্কোপির মাধ্যমে পিত্তথরির পাথর অপারেশন",
-    views: "9.1K",
-    duration: "12:05",
+    // views: "9.1K",
+    duration: "07:00",
     date: "1 month ago",
     featured: false,
   },
   {
     id: "6pvthXmPxRI",
     title: "মলদ্বারে ফিস্টুলা কী করবেন বুঝতে পারছেন না",
-    views: "9.1K",
-    duration: "12:05",
+    // views: "9.1K",
+    duration: "06:18",
     date: "1 month ago",
     featured: false,
   },
   {
     id: "0nFDr1oIyYA",
     title: "Laser Haemorrhoidoplasty",
-    views: "9.1K",
-    duration: "12:05",
+    // views: "9.1K",
+    duration: "02:33",
     date: "1 month ago",
     featured: false,
   },
   {
     id: "TuhFNZOMAKc",
     title: "স্তন ক্যান্সার সচেতনতা পার্ট -১",
-    views: "9.1K",
-    duration: "12:05",
+    // views: "9.1K",
+    duration: "05:23",
     date: "1 month ago",
     featured: false,
   },
   {
     id: "RvIFkRYGr_A",
     title: "পাইলস রোগে অত্যাধুনিক লেজার চিকিৎসা এখন ফরিদপুরে",
-    views: "9.1K",
-    duration: "12:05",
+    // views: "9.1K",
+    duration: "01:57",
     date: "1 month ago",
     featured: false,
   },
@@ -148,7 +148,6 @@ function VideoCard({ video, onClick, delay }) {
         <div className="vid-card-title">{video.title}</div>
         <div className="vid-card-meta">
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <span className="vid-meta-item">👁 {video.views}</span>
             <span className="vid-meta-item">{video.date}</span>
           </div>
           <a
