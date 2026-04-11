@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const YT_CHANNEL_URL = "https://www.youtube.com/@tanjilslaserlaparoscopy4123"; 
 
@@ -75,7 +76,7 @@ function YTLogoSVG() {
     </svg>
   );
 }
-
+ 
 /* ── Modal ── */
 function VideoModal({ video, onClose }) {
   useEffect(() => {
@@ -105,24 +106,27 @@ function VideoModal({ video, onClose }) {
         .modal-btn-close { display:inline-flex; align-items:center; gap:8px; background:transparent; color:#F8F5F0; font-family:'DM Sans',sans-serif; font-weight:400; font-size:.82rem; padding:10px 20px; border-radius:3px; border:1px solid rgba(255,255,255,.15); cursor:pointer; transition:border-color .25s; }
         .modal-btn-close:hover { border-color:#C9A96E; }
       `}</style>
-      <div className="modal-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
-        <div className="modal-box">
-          <div className="modal-iframe-wrap">
-            <iframe src={embedUrl(video.id)} allowFullScreen allow="autoplay; encrypted-media" title={video.title} />
-            <button className="modal-close-btn" onClick={onClose}>✕</button>
-          </div>
-          <div className="modal-info">
-            <div className="modal-cat">{video.category}</div>
-            <div className="modal-title">{video.title}</div>
-            <div className="modal-actions">
-              <a className="modal-btn-yt" href={ytUrl(video.id)} target="_blank" rel="noopener noreferrer">
-                <YTLogoSVG /> Open on YouTube
-              </a>
-              <button className="modal-btn-close" onClick={onClose}>Close</button>
+      {createPortal(
+        <div className="modal-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
+          <div className="modal-box">
+            <div className="modal-iframe-wrap">
+              <iframe src={embedUrl(video.id)} allowFullScreen allow="autoplay; encrypted-media; picture-in-picture; web-share" title={video.title} />
+              <button className="modal-close-btn" onClick={onClose}>✕</button>
+            </div>
+            <div className="modal-info">
+              <div className="modal-cat">{video.category}</div>
+              <div className="modal-title">{video.title}</div>
+              <div className="modal-actions">
+                <a className="modal-btn-yt" href={ytUrl(video.id)} target="_blank" rel="noopener noreferrer">
+                  <YTLogoSVG /> Open on YouTube
+                </a>
+                <button className="modal-btn-close" onClick={onClose}>Close</button>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div>,
+        document.body
+      )}
     </>
   );
 }
@@ -340,7 +344,7 @@ export default function VideoSection() {
             )}
             {featuredPlaying && (
               <div className="vid-featured-embed active">
-                <iframe src={embedUrl(featured.id)} allowFullScreen allow="autoplay; encrypted-media" title={featured.title} />
+                <iframe src={embedUrl(featured.id)} allowFullScreen allow="autoplay; encrypted-media; picture-in-picture; web-share" title={featured.title} />
                 <button className="vid-embed-close" onClick={(e) => { e.stopPropagation(); setFeaturedPlaying(false); }}>✕</button>
               </div>
             )}

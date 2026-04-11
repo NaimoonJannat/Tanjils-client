@@ -123,7 +123,7 @@ const socialData = [
     category: "Medical Camp",
     participants: "400+ patients",
     img: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=600&q=80",
-    desc: "Organised a free surgical consultation camp in a remote coastal region, providing diagnostic services, medicines, and post-operative follow-up to underprivileged patients.",
+    desc: "In February 2024, Dr. ASM Tanjilur Rahman led a large-scale free surgical consultation camp on the remote coastal island of Char Fasson in Bhola district — one of the most geographically isolated regions of Bangladesh. Accessible only by boat, this community has historically been underserved by the formal healthcare system, with limited access to specialist surgical care.\n\nOver the course of two days, a multidisciplinary team of doctors, nurses, and medical volunteers attended to more than 400 patients. Services included clinical examinations, ultrasound diagnostics, wound dressings, post-operative follow-ups for previously operated patients, and free distribution of essential medicines. Special attention was given to patients with hernias, abdominal masses, skin tumours, and anorectal conditions who had been unable to travel to city hospitals due to financial and logistical barriers.\n\nSeveral critical cases identified during the camp were subsequently referred for surgery at Faridpur Medical College Hospital, with all costs waived. The camp was coordinated in partnership with local NGOs and Union Parishad representatives, ensuring community trust and wide outreach. Dr. Rahman has pledged to make this an annual event, expanding its scope each year to cover more specialties and surrounding chars.",
   },
   {
     id: 2,
@@ -132,7 +132,7 @@ const socialData = [
     category: "Awareness",
     participants: "250+ attendees",
     img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80",
-    desc: "Led a community health awareness session covering early cancer detection, healthy lifestyle, and the importance of timely surgical intervention.",
+    desc: "In December 2023, Dr. Rahman organised and led a half-day community health awareness programme at a local school auditorium in Faridpur, drawing an audience of over 250 residents including teachers, homemakers, farmers, shopkeepers, and local government officials.\n\nThe programme focused on three core themes: early detection of common cancers (breast, colorectal, and thyroid), the importance of not delaying surgical consultation for symptoms such as lumps, bleeding, or persistent abdominal pain, and practical guidance on maintaining a healthy lifestyle to reduce surgical risk. Interactive demonstrations, bilingual handouts in Bengali and English, and a live Q&A session made the event highly engaging and accessible for all literacy levels.\n\nDr. Rahman stressed that in rural Bangladesh, many patients present at advanced stages of disease simply because they did not recognise early warning signs or feared the cost of treatment. The programme aimed to dismantle those barriers through education. A follow-up free screening booth was set up the following morning, during which 40 participants sought further individual consultation. The event received coverage in local newspapers and inspired similar programmes in adjacent upazilas.",
   },
   {
     id: 3,
@@ -141,7 +141,7 @@ const socialData = [
     category: "Blood Drive",
     participants: "120+ donors",
     img: "https://images.unsplash.com/photo-1615461065929-4f8ffed6ca40?w=600&q=80",
-    desc: "Coordinated a blood donation drive with medical students and junior doctors, collecting over 120 units of blood for critical surgical patients.",
+    desc: "On World Blood Donor Day, October 2023, Dr. Rahman coordinated a structured blood donation drive within the campus of Dhaka Medical College Hospital, mobilising over 120 voluntary donors — primarily medical students, intern doctors, and nursing staff.\n\nThe drive was conceived in response to a recurring crisis in the surgical wards: during major elective operations, particularly for cancer resections and trauma surgeries, compatible blood units were frequently unavailable at short notice, causing dangerous delays. Dr. Rahman worked with the hospital's blood bank to streamline the donation-to-storage pipeline, ensuring that all units collected were processed, screened, and made shelf-ready within 48 hours.\n\nBeyond logistics, the drive carried a strong educational message. Dr. Rahman delivered a brief address reminding participants that a single donation can save up to three lives and that surgical patients are among the most dependent on timely transfusions. Each donor received a certificate of appreciation and a personalised blood group card. Plans are underway to make this a quarterly initiative, with a target of registering 500 regular voluntary donors by the end of 2025.",
   },
   {
     id: 4,
@@ -150,7 +150,7 @@ const socialData = [
     category: "Charity Surgery",
     participants: "35 children",
     img: "https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&q=80",
-    desc: "Volunteered in a charitable surgical mission performing cleft lip and palate repairs on children from low-income families, transforming lives at no cost.",
+    desc: "In August 2023, Dr. Rahman joined an international charitable surgical mission in Mymensingh to perform free cleft lip and cleft palate repair surgeries on children from low-income families. The mission, co-organised with a visiting surgical team from South Korea, operated out of Mymensingh Medical College Hospital over a focused five-day period.\n\nThirty-five children aged between four months and eleven years underwent corrective surgery, many of whom had been living with the condition since birth due to the prohibitive cost of private surgical care — which can exceed 40,000 BDT per procedure. Beyond the physical correction, the psychosocial impact was profound: parents reported that their children had faced severe social stigma, difficulty feeding, and speech impairments that affected schooling.\n\nDr. Rahman led the anaesthesia coordination for paediatric cases and performed eight of the surgeries himself, with the remaining cases handled jointly with the visiting team. Post-operative care protocols, including feeding guidance and wound management instructions, were provided in Bengali. A three-month remote follow-up programme was established via phone, with local community health workers assigned to each family. Dr. Rahman described the mission as one of the most personally meaningful experiences of his surgical career.",
   },
   {
     id: 5,
@@ -159,7 +159,7 @@ const socialData = [
     category: "Telemedicine",
     participants: "500+ consultations",
     img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80",
-    desc: "Launched a weekly telemedicine consultation service reaching patients in remote areas of Rajshahi and Sylhet divisions, providing free surgical advice.",
+    desc: "Recognising that geography should not be a barrier to quality surgical advice, Dr. Rahman launched a structured weekly telemedicine consultation service in June 2023, specifically targeting patients in the remote divisions of Rajshahi and Sylhet — areas with limited access to tertiary surgical expertise.\n\nRunning every Thursday evening, the service operates through a secure video platform and is publicised through union-level health workers, local radio, and community Facebook groups. Patients are assisted by a trained volunteer who helps them log in and describe their symptoms. Dr. Rahman reviews any relevant imaging or reports shared digitally and provides a clear recommendation — whether to seek urgent in-person care, continue with medication, or schedule a planned elective surgery.\n\nIn its first six months, over 500 consultations were conducted, covering conditions including hernias, gallstones, anorectal disorders, and suspected abdominal malignancies. Approximately 18% of patients were triaged for urgent referral, potentially averting late presentations. The initiative has drawn interest from other surgeons at Faridpur Medical College, and Dr. Rahman is working to expand the service into a multi-specialist platform by the end of 2025, with dedicated slots for gynaecology and orthopaedics.",
   },
   {
     id: 6,
@@ -168,7 +168,7 @@ const socialData = [
     category: "Education",
     participants: "12 beneficiaries",
     img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80",
-    desc: "Established a merit-based scholarship fund supporting economically disadvantaged medical students at Faridpur Medical College to pursue their studies.",
+    desc: "In March 2023, Dr. ASM Tanjilur Rahman established a merit-based medical scholarship fund at Faridpur Medical College, aimed at supporting economically disadvantaged students who demonstrate academic excellence but lack the financial means to continue their education without assistance.\n\nThe fund was seeded with a personal contribution from Dr. Rahman and supplemented by donations from colleagues and former patients. In its inaugural year, twelve students — eight in the MBBS programme and four in nursing — received grants covering tuition fees, hostel accommodation, and a monthly stipend for books and study materials. Recipients were selected through a transparent panel review process evaluating both financial need and academic performance.\n\nDr. Rahman has spoken openly about his motivation: having witnessed bright students drop out due to financial hardship during his own years as a trainee, he wanted to create a safety net that allows talent to flourish regardless of economic background. The fund also includes a mentorship component, where scholarship recipients are paired with senior doctors for career guidance. By 2025, the fund aims to support 30 students annually and is exploring formal registration as an independent charitable trust to attract wider institutional donations.",
   },
 ];
 
@@ -252,7 +252,11 @@ const researchData = [
 export default function Activity() {
   const [activeTab, setActiveTab] = useState("Academic");
   const [revealed, setRevealed] = useState(false);
+  const [expandedBlogs, setExpandedBlogs] = useState({});
   const heroRef = useRef(null);
+
+  const toggleBlog = (id) =>
+    setExpandedBlogs((prev) => ({ ...prev, [id]: !prev[id] }));
 
   useEffect(() => {
     const t = setTimeout(() => setRevealed(true), 100);
@@ -272,9 +276,9 @@ export default function Activity() {
         /* ── Base ── */
         .act-page {
           min-height: 100vh;
-          background: var(--bg-primary, #0A1628);
+          background: #0A1628;
           font-family: 'DM Sans', sans-serif;
-          color: var(--text-primary, #F8F5F0);
+          color: #F8F5F0;
         }
 
         /* ── Hero Banner ── */
@@ -284,6 +288,16 @@ export default function Activity() {
           padding: 90px 24px 70px;
           text-align: center;
           background: linear-gradient(160deg, #0A1628 0%, #0F2040 50%, #0A1628 100%);
+        }
+        .act-hero-bg {
+          position: absolute;
+          inset: 0;
+          background-image: url('/doctor.jpg');
+          background-size: cover;
+          background-position: center top;
+          background-repeat: no-repeat;
+          opacity: 0.13;
+          pointer-events: none;
         }
         .act-hero::before {
           content: '';
@@ -786,85 +800,172 @@ export default function Activity() {
         /* ══════════════════════════════════════
            SOCIAL TAB
         ══════════════════════════════════════ */
-        .social-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-          gap: 24px;
+        /* ── Social Blog Layout ── */
+        .blog-list {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
         }
-        .social-card {
-          background: rgba(255,255,255,.03);
-          border: 1px solid rgba(201,169,110,.13);
-          border-radius: 14px;
-          overflow: hidden;
-          transition: transform .3s, box-shadow .3s, border-color .3s;
+        .blog-entry {
+          display: flex;
+          gap: 0;
+          border-bottom: 1px solid rgba(201,169,110,.12);
+          padding: 36px 0;
+          animation: actFadeUp .55s both;
         }
-        .social-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 18px 55px rgba(0,0,0,.32);
-          border-color: rgba(201,169,110,.38);
-        }
-        .social-img-wrap {
+        .blog-entry:first-child { padding-top: 0; }
+        .blog-entry:last-child { border-bottom: none; }
+        .blog-entry.img-right { flex-direction: row-reverse; }
+        .blog-img-col {
+          flex: 0 0 280px;
           position: relative;
-          height: 190px;
+          border-radius: 10px;
           overflow: hidden;
+          align-self: flex-start;
+          margin-right: 32px;
         }
-        .social-img {
-          width: 100%; height: 100%;
+        .blog-entry.img-right .blog-img-col {
+          margin-right: 0;
+          margin-left: 32px;
+        }
+        .blog-img-col img {
+          width: 100%;
+          height: 195px;
           object-fit: cover;
-          transition: transform .5s ease;
-          filter: brightness(.7) saturate(.8);
+          display: block;
+          filter: brightness(.75) saturate(.85);
+          transition: transform .5s ease, filter .4s ease;
         }
-        .social-card:hover .social-img { transform: scale(1.06); filter: brightness(.8) saturate(1); }
-        .social-img-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, rgba(10,22,40,.9) 0%, transparent 55%);
+        .blog-entry:hover .blog-img-col img {
+          transform: scale(1.05);
+          filter: brightness(.88) saturate(1);
         }
-        .social-cat {
+        .blog-img-badge {
           position: absolute;
-          top: 14px; left: 14px;
-          font-size: .65rem;
+          top: 10px; left: 10px;
+          font-size: .62rem;
           font-weight: 700;
-          letter-spacing: .08em;
+          letter-spacing: .09em;
           text-transform: uppercase;
-          background: rgba(201,169,110,.18);
-          border: 1px solid rgba(201,169,110,.3);
+          background: rgba(10,22,40,.72);
+          border: 1px solid rgba(201,169,110,.35);
           color: #C9A96E;
-          padding: 4px 12px;
+          padding: 4px 11px;
           border-radius: 20px;
           backdrop-filter: blur(6px);
         }
-        .social-participants {
+        .blog-participants-badge {
           position: absolute;
-          bottom: 14px; right: 14px;
-          font-size: .72rem;
+          bottom: 10px; right: 10px;
+          font-size: .68rem;
           font-weight: 600;
-          color: rgba(248,245,240,.7);
+          color: rgba(248,245,240,.78);
           background: rgba(10,22,40,.65);
-          backdrop-filter: blur(6px);
           border: 1px solid rgba(201,169,110,.15);
           border-radius: 20px;
-          padding: 4px 12px;
+          padding: 3px 10px;
+          backdrop-filter: blur(5px);
         }
-        .social-body { padding: 22px; }
-        .social-date {
-          font-size: .7rem;
-          letter-spacing: .08em;
+        .blog-text-col {
+          flex: 1;
+          min-width: 0;
+        }
+        .blog-meta {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 10px;
+          flex-wrap: wrap;
+        }
+        .blog-date {
+          font-size: .68rem;
+          letter-spacing: .1em;
           text-transform: uppercase;
           color: #C9A96E;
-          margin-bottom: 8px;
         }
-        .social-title {
-          font-size: .95rem;
+        .blog-meta-sep {
+          width: 3px; height: 3px;
+          border-radius: 50%;
+          background: rgba(201,169,110,.4);
+        }
+        .blog-cat-inline {
+          font-size: .66rem;
+          letter-spacing: .08em;
+          text-transform: uppercase;
+          color: rgba(248,245,240,.4);
+        }
+        .blog-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.35rem;
           font-weight: 700;
           color: #F8F5F0;
-          margin-bottom: 10px;
-          line-height: 1.4;
+          line-height: 1.3;
+          margin-bottom: 12px;
         }
-        .social-desc {
-          font-size: .8rem;
+        .blog-divider {
+          width: 38px;
+          height: 2px;
+          background: linear-gradient(90deg, #C9A96E, transparent);
+          margin-bottom: 13px;
+          border-radius: 2px;
+        }
+        .blog-excerpt {
+          font-size: .85rem;
+          color: rgba(248,245,240,.52);
+          line-height: 1.8;
+          margin-bottom: 18px;
+        }
+        .blog-expanded-text {
+          font-size: .85rem;
           color: rgba(248,245,240,.45);
-          line-height: 1.7;
+          line-height: 1.8;
+          margin-bottom: 18px;
+          overflow: hidden;
+          max-height: 0;
+          transition: max-height .45s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+          opacity: 0;
+        }
+        .blog-expanded-text.open {
+          max-height: 400px;
+          opacity: 1;
+        }
+        .blog-read-more {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          font-size: .75rem;
+          font-weight: 700;
+          letter-spacing: .07em;
+          text-transform: uppercase;
+          color: #C9A96E;
+          background: rgba(201,169,110,.08);
+          border: 1px solid rgba(201,169,110,.28);
+          border-radius: 20px;
+          padding: 7px 18px;
+          cursor: pointer;
+          transition: background .25s, border-color .25s, transform .2s;
+        }
+        .blog-read-more:hover {
+          background: rgba(201,169,110,.16);
+          border-color: rgba(201,169,110,.55);
+          transform: translateX(3px);
+        }
+        .blog-read-more svg {
+          transition: transform .3s ease;
+        }
+        .blog-read-more.expanded svg {
+          transform: rotate(180deg);
+        }
+        @media (max-width: 640px) {
+          .blog-entry, .blog-entry.img-right { flex-direction: column; }
+          .blog-img-col {
+            flex: none;
+            width: 100%;
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+            margin-bottom: 20px;
+          }
+          .blog-img-col img { height: 200px; }
         }
 
         /* ══════════════════════════════════════
@@ -990,6 +1091,8 @@ export default function Activity() {
 
         {/* ── Hero ── */}
         <div className="act-hero" ref={heroRef}>
+          {/* Background image */}
+          <div className="act-hero-bg" />
           {/* Glow blobs */}
           <div className="act-hero-glow" style={{ width: 500, height: 500, top: -150, left: "50%", marginLeft: -250, background: "radial-gradient(circle, rgba(201,169,110,.12) 0%, transparent 70%)" }} />
           <div className="act-hero-glow" style={{ width: 300, height: 300, bottom: -80, right: "10%", background: "radial-gradient(circle, rgba(201,169,110,.07) 0%, transparent 70%)" }} />
@@ -1013,7 +1116,7 @@ export default function Activity() {
             {[
               { num: "15+", label: "Years Experience" },
               null,
-              { num: "3000+", label: "Surgeries Performed" },
+              { num: "7000+", label: "Surgeries Performed" },
               null,
               { num: "6", label: "Research Papers" },
               null,
@@ -1181,22 +1284,49 @@ export default function Activity() {
                 </p>
               </div>
 
-              <div className="social-grid">
-                {socialData.map((s, i) => (
-                  <div key={s.id} className="social-card" style={{ animationDelay: `${i * 0.09}s` }}>
-                    <div className="social-img-wrap">
-                      <img src={s.img} alt={s.title} className="social-img" loading="lazy" />
-                      <div className="social-img-overlay" />
-                      <div className="social-cat">{s.category}</div>
-                      <div className="social-participants">{s.participants}</div>
+              <div className="blog-list">
+                {socialData.map((s, i) => {
+                  const isExpanded = !!expandedBlogs[s.id];
+                  const isRight = i % 2 !== 0;
+                  return (
+                    <div
+                      key={s.id}
+                      className={`blog-entry${isRight ? " img-right" : ""}`}
+                      style={{ animationDelay: `${i * 0.08}s` }}
+                    >
+                      {/* Image column */}
+                      <div className="blog-img-col">
+                        <img src={s.img} alt={s.title} loading="lazy" />
+                        <div className="blog-img-badge">{s.category}</div>
+                        <div className="blog-participants-badge">{s.participants}</div>
+                      </div>
+
+                      {/* Text column */}
+                      <div className="blog-text-col">
+                        <div className="blog-meta">
+                          <span className="blog-date">{s.date}</span>
+                          <span className="blog-meta-sep" />
+                          <span className="blog-cat-inline">{s.category}</span>
+                        </div>
+                        <div className="blog-title">{s.title}</div>
+                        <div className="blog-divider" />
+                        <p className="blog-excerpt">{s.desc.slice(0, 100)}&hellip;</p>
+                        <div className={`blog-expanded-text${isExpanded ? " open" : ""}`}>
+                          {s.desc}
+                        </div>
+                        <button
+                          className={`blog-read-more${isExpanded ? " expanded" : ""}`}
+                          onClick={() => toggleBlog(s.id)}
+                        >
+                          {isExpanded ? "Read Less" : "Read More"}
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M2 4.5L6 8.5L10 4.5" stroke="#C9A96E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </button>
+                      </div>
                     </div>
-                    <div className="social-body">
-                      <div className="social-date">{s.date}</div>
-                      <div className="social-title">{s.title}</div>
-                      <div className="social-desc">{s.desc}</div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}

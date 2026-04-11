@@ -19,44 +19,9 @@ import axios from "axios";
  *   shows a dropdown of results, clicking navigates to /treatments/:slug.
  */
 
-const THEME_VARS = {
-  dark: {
-    "--bg-primary":   "#0A1628",
-    "--bg-secondary": "#0F2040",
-    "--text-primary": "#F8F5F0",
-    "--text-muted":   "rgba(248,245,240,0.6)",
-    "--gold":         "#C9A96E",
-    "--border":       "rgba(201,169,110,0.18)",
-    "--surface":      "rgba(255,255,255,0.03)",
-  },
-  light: {
-    "--bg-primary":   "#F4F1EC",
-    "--bg-secondary": "#EAE5DB",
-    "--text-primary": "#0A1628",
-    "--text-muted":   "rgba(10,22,40,0.6)",
-    "--gold":         "#A87C40",
-    "--border":       "rgba(10,22,40,0.12)",
-    "--surface":      "rgba(0,0,0,0.03)",
-  },
-};
-
-function applyTheme(theme) {
-  const root = document.documentElement;
-  root.setAttribute("data-theme", theme);
-  const vars = THEME_VARS[theme];
-  Object.entries(vars).forEach(([k, v]) => root.style.setProperty(k, v));
-  // Also set body background directly so no flash
-  document.body.style.background = vars["--bg-primary"];
-}
-
-export default function TopNavbar({ onThemeChange, onLangChange }) {
+export default function TopNavbar({ onLangChange }) {
   const navigate = useNavigate();
 
-  const [theme, setTheme]           = useState(() => {
-    const saved = localStorage.getItem("site-theme") || "dark";
-    applyTheme(saved);
-    return saved;
-  });
   const [lang, setLang]             = useState("en");
   const [searchOpen, setSearchOpen] = useState(false);   // mobile overlay
   const [searchVal, setSearchVal]   = useState("");
@@ -111,14 +76,6 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
     if (searchOpen && mobSearchRef.current) mobSearchRef.current.focus();
   }, [searchOpen]);
 
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    applyTheme(next);
-    localStorage.setItem("site-theme", next);
-    onThemeChange?.(next);
-  };
-
   const selectLang = (l) => {
     setLang(l);
     setLangOpen(false);
@@ -158,9 +115,6 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
           height:40px; display:flex; align-items:center;
           position:relative; z-index:100;
           font-family:'DM Sans',sans-serif;
-        }
-        [data-theme="light"] .tnav {
-          background:linear-gradient(90deg,#1a3a5e 0%,#0F2040 100%);
         }
         .tnav-inner {
           max-width:1280px; margin:0 auto; padding:0 24px;
@@ -238,14 +192,6 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
           transition:border-color .2s,color .2s,background .2s,transform .2s;
         }
         .tnav-mob-btn:hover { border-color:#C9A96E; color:#C9A96E; background:rgba(201,169,110,.1); transform:scale(1.12); }
-
-        /* Theme toggle */
-        .tt-wrap { position:relative; width:42px; height:22px; cursor:pointer; flex-shrink:0; }
-        .tt-track { width:100%; height:100%; border-radius:11px; background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.22); position:relative; transition:background .3s,border-color .3s; }
-        .tt-wrap.light .tt-track { background:rgba(201,169,110,.28); border-color:rgba(201,169,110,.5); }
-        .tt-thumb { position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:linear-gradient(135deg,#C9A96E,#A87C40); transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s; display:flex; align-items:center; justify-content:center; font-size:.58rem; box-shadow:0 1px 5px rgba(0,0,0,.35); line-height:1; }
-        .tt-wrap.light .tt-thumb { transform:translateX(20px); }
-        .tt-thumb:hover { box-shadow:0 0 10px rgba(201,169,110,.5); }
 
         /* Language */
         .lang-wrap { position:relative; }
@@ -340,15 +286,6 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
 
             {/* Mobile search btn */}
             <button className="tnav-mob-btn" onClick={() => setSearchOpen(true)}><FaSearch/></button>
-
-            <div className="tnav-div"/>
-
-            {/* Theme toggle */}
-            <div className={`tt-wrap ${theme === "light" ? "light" : ""}`} onClick={toggleTheme} title={theme === "dark" ? "Light mode" : "Dark mode"}>
-              <div className="tt-track">
-                <div className="tt-thumb">{theme === "dark" ? "🌙" : "☀️"}</div>
-              </div>
-            </div>
 
             <div className="tnav-div"/>
 
