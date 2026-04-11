@@ -7,6 +7,10 @@ const navLinks = [
   { to: "/",       hash: "#treatments", label: "Services" },
 ];
 
+const pageLinks = [
+  { to: "/activity", label: "Portfolio" },
+];
+
 export default function MainNav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -281,6 +285,14 @@ export default function MainNav() {
                 </li>
               </>
             ))}
+            {pageLinks.map((pl) => (
+              <>
+                <li key={`dot-pl-${pl.to}`} className="nav-dot" />
+                <li key={pl.to}>
+                  <Link to={pl.to} className="nav-link">{pl.label}</Link>
+                </li>
+              </>
+            ))}
             <li>
              <a href="/#appointment">
                <Link  onClick={(e) => handleNavClick(e, "#appointment")} className="nav-cta">
@@ -318,6 +330,9 @@ export default function MainNav() {
               >
                 {link.label}
               </a>
+            ))}
+            {pageLinks.map(pl => (
+              <Link key={pl.to} to={pl.to} className="mobile-link">{pl.label}</Link>
             ))}
             <div className="mobile-cta">
               <Link to="/contact" className="nav-cta" style={{ width: "100%", justifyContent: "center" }}>

@@ -6,6 +6,7 @@ import Login from "../Pages/Authentication/LogIn";
 import { createBrowserRouter } from "react-router";
 import Home from "../Pages/HomePage/Home";
 import TreatmentDetails from "../Pages/TreatmentPage/TreatmentDetails";
+import Activity from "../Pages/ActivityPage/Activity";
 
 
 
@@ -29,9 +30,13 @@ const Routes = createBrowserRouter([
                     element: <Login></Login>,
                 },
                 {
-                    path: "/treatments/:slug",    
+                    path: "/treatments/:slug",
                     element: <TreatmentDetails />,
-                      }
+                },
+                {
+                    path: "/activity",
+                    element: <Activity />,
+                },
             ]
     }
 ]);
