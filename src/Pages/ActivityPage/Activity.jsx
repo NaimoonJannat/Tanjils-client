@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 /* ── Demo Data ────────────────────────────────────────────────── */
 
@@ -254,6 +256,8 @@ export default function Activity() {
   const [revealed, setRevealed] = useState(false);
   const [expandedBlogs, setExpandedBlogs] = useState({});
   const heroRef = useRef(null);
+  const { lang } = useLanguage();
+  const tr = translations[lang];
 
   const toggleBlog = (id) =>
     setExpandedBlogs((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -1099,33 +1103,28 @@ export default function Activity() {
 
           <div className={`act-hero-eyebrow ${revealed ? "in" : ""}`}>
             <div className="act-hero-eyebrow-dot" />
-            Surgeon's Portfolio
+            {tr.actHeroTitle}
           </div>
 
           <h1 className={`act-hero-title ${revealed ? "in" : ""}`}>
-            Academic, Clinical &<br /><span>Professional Journey</span>
+            {tr.actHeroTitle}
           </h1>
 
           <p className={`act-hero-sub ${revealed ? "in" : ""}`}>
-            An in-depth overview of Dr. ASM Tanjilur Rahman's educational
-            credentials, surgical milestones, social contributions, and research publications.
+            {tr.actHeroSubtitle}
           </p>
 
           {/* Stats */}
           <div className={`act-stats ${revealed ? "in" : ""}`}>
-            {[
-              { num: "15+", label: "Years Experience" },
-              null,
-              { num: "7000+", label: "Surgeries Performed" },
-              null,
-              { num: "6", label: "Research Papers" },
-              null,
-              { num: "500+", label: "Social Beneficiaries" },
-            ].map((s, i) =>
+            {tr.actHeroStats.flatMap((s, i) =>
+              i < tr.actHeroStats.length - 1
+                ? [s, null]
+                : [s]
+            ).map((s, i) =>
               s === null ? (
-                <div key={i} className="act-stat-div" />
+                <div key={`div-${i}`} className="act-stat-div" />
               ) : (
-                <div key={i} className="act-stat-item">
+                <div key={s.label} className="act-stat-item">
                   <div className="act-stat-num">{s.num}</div>
                   <div className="act-stat-label">{s.label}</div>
                 </div>
@@ -1137,18 +1136,18 @@ export default function Activity() {
           <div className={`act-tabs-wrap ${revealed ? "in" : ""}`}>
             <div className="act-tabs">
               {[
-                { name: "Academic", icon: "🎓" },
-                { name: "Surgery", icon: "🔬" },
-                { name: "Social", icon: "🤝" },
-                { name: "Research", icon: "📄" },
-              ].map((t) => (
+                { name: "Academic", icon: "🎓", label: tr.actTabAcademic },
+                { name: "Surgery",  icon: "🔬", label: tr.actTabSurgeries },
+                { name: "Social",   icon: "🤝", label: tr.actTabSocial },
+                { name: "Research", icon: "📄", label: tr.actTabVideos },
+              ].map((tab) => (
                 <button
-                  key={t.name}
-                  className={`act-tab-btn ${activeTab === t.name ? "active" : ""}`}
-                  onClick={() => handleTabChange(t.name)}
+                  key={tab.name}
+                  className={`act-tab-btn ${activeTab === tab.name ? "active" : ""}`}
+                  onClick={() => handleTabChange(tab.name)}
                 >
-                  <span className="act-tab-icon">{t.icon}</span>
-                  {t.name}
+                  <span className="act-tab-icon">{tab.icon}</span>
+                  {tab.label}
                 </button>
               ))}
             </div>
@@ -1163,12 +1162,10 @@ export default function Activity() {
             <div key={`academic-${tabKey}`} className="act-fade">
               {/* Degrees */}
               <div className="act-section-head">
-                <div className="act-section-tag">✦ Education</div>
-                <h2 className="act-section-h2">Degrees & <em>Qualifications</em></h2>
+                <div className="act-section-tag">{tr.actAcadDegreesTag}</div>
+                <h2 className="act-section-h2">{tr.actAcadDegreesTitle}</h2>
                 <div className="act-section-divider" />
-                <p className="act-section-p">
-                  A foundation of rigorous academic training and internationally recognised fellowship programmes.
-                </p>
+                <p className="act-section-p">{tr.actAcadDegreesDesc}</p>
               </div>
 
               <div className="acad-degrees">
@@ -1190,8 +1187,8 @@ export default function Activity() {
 
               {/* Specializations */}
               <div className="act-section-head">
-                <div className="act-section-tag">◈ Expertise</div>
-                <h2 className="act-section-h2">Clinical <em>Specializations</em></h2>
+                <div className="act-section-tag">{tr.actAcadSpecTag}</div>
+                <h2 className="act-section-h2">{tr.actAcadSpecTitle}</h2>
                 <div className="act-section-divider" />
               </div>
 
@@ -1212,8 +1209,8 @@ export default function Activity() {
 
               {/* Academic Positions */}
               <div className="act-section-head">
-                <div className="act-section-tag">◉ Career</div>
-                <h2 className="act-section-h2">Academic <em>Positions</em></h2>
+                <div className="act-section-tag">{tr.actAcadPosTag}</div>
+                <h2 className="act-section-h2">{tr.actAcadPosTitle}</h2>
                 <div className="act-section-divider" />
               </div>
 
@@ -1228,7 +1225,7 @@ export default function Activity() {
                     </div>
                     <div className="acad-tl-role">
                       {p.role}
-                      {p.current && <span className="acad-current-badge">Current</span>}
+                      {p.current && <span className="acad-current-badge">{tr.actAcadCurrentBadge}</span>}
                     </div>
                     <div className="acad-tl-place">{p.place}</div>
                   </div>
@@ -1241,12 +1238,10 @@ export default function Activity() {
           {activeTab === "Surgery" && (
             <div key={`surgery-${tabKey}`} className="act-fade">
               <div className="act-section-head">
-                <div className="act-section-tag">🔬 Operating Theatre</div>
-                <h2 className="act-section-h2">Surgery <em>Highlights</em></h2>
+                <div className="act-section-tag">{tr.actSurgTag}</div>
+                <h2 className="act-section-h2">{tr.actSurgeriesTitle}</h2>
                 <div className="act-section-divider" />
-                <p className="act-section-p">
-                  Selected case studies showcasing the breadth, complexity and outcomes of surgical procedures performed.
-                </p>
+                <p className="act-section-p">{tr.actSurgeriesSubtitle}</p>
               </div>
 
               <div className="surg-grid">
@@ -1276,12 +1271,10 @@ export default function Activity() {
           {activeTab === "Social" && (
             <div key={`social-${tabKey}`} className="act-fade">
               <div className="act-section-head">
-                <div className="act-section-tag">🤝 Community</div>
-                <h2 className="act-section-h2">Social <em>Works & Outreach</em></h2>
+                <div className="act-section-tag">{tr.actSocialTag}</div>
+                <h2 className="act-section-h2">{tr.actSocialTitle}</h2>
                 <div className="act-section-divider" />
-                <p className="act-section-p">
-                  A commitment to giving back — through free camps, awareness programmes, charitable surgeries and community welfare.
-                </p>
+                <p className="act-section-p">{tr.actSocialDesc}</p>
               </div>
 
               <div className="blog-list">
@@ -1318,7 +1311,7 @@ export default function Activity() {
                           className={`blog-read-more${isExpanded ? " expanded" : ""}`}
                           onClick={() => toggleBlog(s.id)}
                         >
-                          {isExpanded ? "Read Less" : "Read More"}
+                          {isExpanded ? tr.actReadLess : tr.actReadMore}
                           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                             <path d="M2 4.5L6 8.5L10 4.5" stroke="#C9A96E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
@@ -1335,12 +1328,10 @@ export default function Activity() {
           {activeTab === "Research" && (
             <div key={`research-${tabKey}`} className="act-fade">
               <div className="act-section-head">
-                <div className="act-section-tag">📄 Publications</div>
-                <h2 className="act-section-h2">Research & <em>Publications</em></h2>
+                <div className="act-section-tag">{tr.actResearchTag}</div>
+                <h2 className="act-section-h2">{tr.actResearchTitle}</h2>
                 <div className="act-section-divider" />
-                <p className="act-section-p">
-                  Peer-reviewed research, clinical studies, and conference contributions advancing surgical knowledge.
-                </p>
+                <p className="act-section-p">{tr.actResearchDesc}</p>
               </div>
 
               <div className="research-list">

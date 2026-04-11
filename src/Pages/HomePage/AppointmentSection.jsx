@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 const chambers = [
   {
@@ -227,6 +229,8 @@ export default function AppointmentSection() {
   const [activeTab, setActiveTab] = useState(0);
   const [mapLoaded, setMapLoaded] = useState([false, false]);
   const sectionRef = useRef(null);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -383,9 +387,9 @@ export default function AppointmentSection() {
 
         <div className="appt-inner">
           <div className="appt-header" data-reveal="up" data-delay="0">
-            <div className="appt-tag"><div className="appt-tag-dot"/><span className="appt-tag-text">Visit Us</span></div>
-            <h2 className="appt-h2">Schedule Your<br/><span>Appointment Today</span></h2>
-            <p className="appt-subtitle">Book a consultation at any of our chamber locations across Faridpur and Jhenaidah.</p>
+            <div className="appt-tag"><div className="appt-tag-dot"/><span className="appt-tag-text">{t.apptSectionTag}</span></div>
+            <h2 className="appt-h2">{t.apptSectionTitle}</h2>
+            <p className="appt-subtitle">{t.apptSectionSubtitle}</p>
           </div>
 
           <div className="appt-grid">
@@ -399,7 +403,7 @@ export default function AppointmentSection() {
                 <div className="chamber-body">
                   {chambers.map((c, i) => i !== activeTab ? null : (
                     <div key={c.city}>
-                      <div className="chamber-city">{c.city} Chamber</div>
+                      <div className="chamber-city">{c.city} {t.apptChamberSuffix}</div>
                       <a href={`tel:${c.hotline.replace(/-/g,"")}`} className="chamber-hotline">📞 {c.hotline}</a>
 
                       {/* ── Map embed ── */}
@@ -407,7 +411,7 @@ export default function AppointmentSection() {
                         <div className="map-topbar">
                           <div className="map-live-badge">
                             <div className="map-live-dot"/>
-                            Live Location
+                            {t.apptLiveLocation}
                           </div>
                           <a
                             href={`https://maps.google.com/?q=${c.mapQuery}`}
@@ -415,7 +419,7 @@ export default function AppointmentSection() {
                             rel="noreferrer"
                             className="map-open-link"
                           >
-                            Open Maps ↗
+                            {t.apptOpenMaps}
                           </a>
                         </div>
                         <div className={`map-skeleton ${mapLoaded[i] ? "done" : ""}`}/>
@@ -441,7 +445,7 @@ export default function AppointmentSection() {
                           </div>
                         ))}
                       </div>
-                      <div className="schedule-title">Visiting Hours</div>
+                      <div className="schedule-title">{t.apptVisitingHours}</div>
                       {c.schedule.map(s=>(
                         <div className="schedule-row" key={s.days}>
                           <span className="schedule-days">{s.days}</span>
@@ -454,10 +458,10 @@ export default function AppointmentSection() {
               </div>
 
               <div className="contact-card" data-reveal="left" data-delay="280">
-                <div className="contact-card-title">Direct Contact with Surgeon</div>
+                <div className="contact-card-title">{t.apptDirectContact}</div>
                 <a href="mailto:btanjil17@gmail.com" className="contact-item">
                   <div className="contact-icon-wrap">✉</div>
-                  <div><div className="contact-label">Email</div><div className="contact-value">btanjil17@gmail.com</div></div>
+                  <div><div className="contact-label">{t.apptEmail}</div><div className="contact-value">btanjil17@gmail.com</div></div>
                 </a>
                 {/* <a href="mailto:laser.lapunit@gmail.com" className="contact-item">
                   <div className="contact-icon-wrap">✉</div>
@@ -469,14 +473,14 @@ export default function AppointmentSection() {
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
                 </svg>
-                Make an Appointment
+                {t.apptMakeAppointment}
               </a>
             </div>
 
             <div className="appt-phone-col" data-reveal="right" data-delay="200">
-              <div className="phone-caption">How it works</div>
+              <div className="phone-caption">{t.apptHowItWorks}</div>
               <AnimatedPhone/>
-              <div className="phone-caption">One call away</div>
+              <div className="phone-caption">{t.apptOneCallAway}</div>
             </div>
           </div>
         </div>

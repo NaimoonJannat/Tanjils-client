@@ -1,17 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router";
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
-const specialties = [
-  { icon: "⚕", title: "Advanced Laparoscopic", desc: "Gall bladder, appendix & hernia surgery" },
-  { icon: "✦", title: "Laser Surgery", desc: "Piles, anal fissure & fistula" },
-  { icon: "◈", title: "Cancer Surgery", desc: "Breast, abdominal, colon & rectal" },
-  { icon: "◉", title: "General Surgery", desc: "Comprehensive surgical care" },
-];
+const specialtyIcons = ["⚕", "✦", "◈", "◉"];
 
 const AboutMe = () => {
   const sectionRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   const handleAppointmentRedirect = (e) => {
     e.preventDefault();
@@ -298,10 +297,10 @@ const AboutMe = () => {
                 <div style={{position:"absolute",inset:-12,border:"1px solid rgba(201,169,110,.2)",borderRadius:18,pointerEvents:"none"}}/>
                 <img src="/dp.png" alt="Dr ASM Tanjilur Rahman" className="about-img"/>
                 <div className="img-shimmer"/>
-                <div className="cred-float-tag" style={{top:32}}>FCPS · FMAS · Fellowship</div>
+                <div className="cred-float-tag" style={{top:32}}>{t.aboutCredTag}</div>
                 <div className="about-badge">
                   <div className="about-badge-num">15+</div>
-                  <div className="about-badge-label">Years Experience</div>
+                  <div className="about-badge-label">{t.aboutBadgeLabel}</div>
                 </div>
               </div>
             </div>
@@ -312,7 +311,7 @@ const AboutMe = () => {
             <div data-reveal="up" data-delay="150">
               <div className="about-tag">
                 <div className="about-tag-dot"/>
-                <span className="about-tag-text">About the Surgeon</span>
+                <span className="about-tag-text">{t.aboutTag}</span>
               </div>
             </div>
 
@@ -329,16 +328,13 @@ const AboutMe = () => {
             </div>
 
             <p className="about-desc" data-reveal="up" data-delay="380">
-              Dr. ASM Tanjilur Rahman is a highly skilled Laser, Advanced Laparoscopic and Cancer Surgeon
-              with specialized fellowship training in Laparoscopic Colorectal and Hernia Surgery from
-              GEM Hospital, India. He serves as Assistant Professor of Surgery at Faridpur Medical College,
-              delivering evidence-based, patient-centered care focused on faster recovery and optimal outcomes.
+              {t.aboutDesc}
             </p>
 
             <div className="about-cards">
-              {specialties.map((s,i)=>(
+              {t.aboutSpecialties.map((s,i)=>(
                 <div className="about-card" key={s.title} data-reveal="up" data-delay={440+i*80}>
-                  <div className="about-card-icon">{s.icon}</div>
+                  <div className="about-card-icon">{specialtyIcons[i]}</div>
                   <div className="about-card-title">{s.title}</div>
                   <div className="about-card-desc">{s.desc}</div>
                 </div>
@@ -352,9 +348,9 @@ const AboutMe = () => {
                   <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
                   <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                Book Consultation
+                {t.aboutBookConsultation}
               </Link>
-              <Link to="/about" className="about-btn-outline">Learn More →</Link>
+              <Link to="/about" className="about-btn-outline">{t.aboutLearnMore}</Link>
             </div>
           </div>
         </div>

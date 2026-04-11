@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { FaFacebookF, FaYoutube, FaEnvelope, FaSearch, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useLanguage } from "../Context/LanguageContext";
+import translations from "../i18n/translations";
 
 /**
  * TopNavbar
@@ -19,10 +21,10 @@ import axios from "axios";
  *   shows a dropdown of results, clicking navigates to /treatments/:slug.
  */
 
-export default function TopNavbar({ onLangChange }) {
+export default function TopNavbar() {
   const navigate = useNavigate();
-
-  const [lang, setLang]             = useState("en");
+  const { lang, setLang } = useLanguage();
+  const t = translations[lang];
   const [searchOpen, setSearchOpen] = useState(false);   // mobile overlay
   const [searchVal, setSearchVal]   = useState("");
   const [langOpen, setLangOpen]     = useState(false);
@@ -79,7 +81,6 @@ export default function TopNavbar({ onLangChange }) {
   const selectLang = (l) => {
     setLang(l);
     setLangOpen(false);
-    onLangChange?.(l);
   };
 
   const handleResultClick = (slug) => {
@@ -245,7 +246,7 @@ export default function TopNavbar({ onLangChange }) {
                 ref={searchRef}
                 className="tnav-search-input"
                 type="text"
-                placeholder="Search treatments..."
+                placeholder={t.searchPlaceholder}
                 value={searchVal}
                 onChange={e => setSearchVal(e.target.value)}
                 onKeyDown={handleSearchKey}
@@ -260,7 +261,7 @@ export default function TopNavbar({ onLangChange }) {
             {showResults && (
               <div className="tnav-results" ref={resultsRef}>
                 {searchResults.length === 0 ? (
-                  <div className="tnav-no-result">No treatments found for "{searchVal}"</div>
+                  <div className="tnav-no-result">{t.searchNoResult(searchVal)}</div>
                 ) : (
                   searchResults.map(t => (
                     <div key={t._id || t.slug} className="tnav-result-item" onClick={() => handleResultClick(t.slug)}>
@@ -299,8 +300,8 @@ export default function TopNavbar({ onLangChange }) {
                 </svg>
               </button>
               <div className={`lang-drop ${langOpen ? "open" : ""}`}>
-                <div className={`lang-opt ${lang==="en"?"active":""}`} onClick={() => selectLang("en")}><span className="lang-flag">🇬🇧</span><span>English</span>{lang==="en"&&<span className="lang-chk">✓</span>}</div>
-                <div className={`lang-opt ${lang==="bn"?"active":""}`} onClick={() => selectLang("bn")}><span className="lang-flag">🇧🇩</span><span>বাংলা</span>{lang==="bn"&&<span className="lang-chk">✓</span>}</div>
+                <div className={`lang-opt ${lang==="en"?"active":""}`} onClick={() => selectLang("en")}><span className="lang-flag">🇬🇧</span><span>{t.langEnglish}</span>{lang==="en"&&<span className="lang-chk">✓</span>}</div>
+                <div className={`lang-opt ${lang==="bn"?"active":""}`} onClick={() => selectLang("bn")}><span className="lang-flag">🇧🇩</span><span>{t.langBengali}</span>{lang==="bn"&&<span className="lang-chk">✓</span>}</div>
               </div>
             </div>
 
@@ -314,7 +315,7 @@ export default function TopNavbar({ onLangChange }) {
             ref={mobSearchRef}
             className="tnav-mob-input"
             type="text"
-            placeholder="Search treatments..."
+            placeholder={t.searchPlaceholder}
             value={searchVal}
             onChange={e => setSearchVal(e.target.value)}
             onKeyDown={handleSearchKey}
@@ -325,7 +326,7 @@ export default function TopNavbar({ onLangChange }) {
           {showResults && searchOpen && (
             <div className="tnav-results" ref={resultsRef} style={{ position:"fixed",top:80,left:12,right:12,zIndex:500 }}>
               {searchResults.length === 0 ? (
-                <div className="tnav-no-result">No results for "{searchVal}"</div>
+                <div className="tnav-no-result">{t.searchNoResultMob(searchVal)}</div>
               ) : (
                 searchResults.map(t => (
                   <div key={t._id || t.slug} className="tnav-result-item" onClick={() => handleResultClick(t.slug)}>

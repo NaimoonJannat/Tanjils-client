@@ -1,56 +1,57 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router";
-
-const slides = [
-  {
-    id: 1,
-    type: "profile",
-    image: "doctor.jpg",
-    profileImage: "dp.png",
-    title: "Dr. ASM Tanjilur Rahman",
-    subtitle: "FCPS (Surgery) | FMAS (India) | Laparoscopic & Laser Surgeon",
-    description:
-      "Assistant Professor of Surgery at Faridpur Medical College with fellowship training in laparoscopic colorectal & hernia surgery. Expert in laser, advanced laparoscopic, and cancer surgeries, providing patient-centered, minimally invasive care.",
-    badge: "15+ Years Experience",
-  },
-  {
-    id: 2,
-    type: "image",
-    image: "slide1.jpeg",
-    tag: "Minimally Invasive",
-    title: "Advanced Laparoscopic Surgery",
-    description:
-      "Specialized in gall bladder, appendix, and hernia surgeries using modern minimally invasive techniques for faster recovery and less pain.",
-    stat1: { value: "7000+", label: "Surgeries" },
-    stat2: { value: "98%", label: "Success Rate" },
-  },
-  {
-    id: 3,
-    type: "image",
-    image: "slide2.jpg",
-    tag: "Laser Technology",
-    title: "Laser Treatment Expertise",
-    description:
-      "Expert care for piles, anal fissure, and anal fistula with state-of-the-art laser technology, ensuring precise treatment and improved patient comfort.",
-    stat1: { value: "Zero", label: "Cuts / Stitches" },
-    stat2: { value: "1 Day", label: "Recovery" },
-  },
-  {
-    id: 4,
-    type: "image",
-    image: "slide3.jpg",
-    tag: "Oncology",
-    title: "Comprehensive Cancer Surgery",
-    description:
-      "Providing advanced surgical care for breast, abdominal, colon, and rectal cancers with focus on safety, precision, and optimal long-term outcomes.",
-    stat1: { value: "Breast", label: "& GI Cancers" },
-    stat2: { value: "Multi", label: "Disciplinary" },
-  },
-];
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 const INTERVAL = 7000;
 
 export default function HeroBanner() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
+  const slides = [
+    {
+      id: 1,
+      type: "profile",
+      image: "doctor.jpg",
+      profileImage: "dp.png",
+      title: t.heroSlide1Title,
+      subtitle: t.heroSlide1Subtitle,
+      description: t.heroSlide1Desc,
+      badge: t.heroSlide1Badge,
+    },
+    {
+      id: 2,
+      type: "image",
+      image: "slide1.jpeg",
+      tag: t.heroSlide2Tag,
+      title: t.heroSlide2Title,
+      description: t.heroSlide2Desc,
+      stat1: { value: t.heroSlide2Stat1Value, label: t.heroSlide2Stat1Label },
+      stat2: { value: t.heroSlide2Stat2Value, label: t.heroSlide2Stat2Label },
+    },
+    {
+      id: 3,
+      type: "image",
+      image: "slide2.jpg",
+      tag: t.heroSlide3Tag,
+      title: t.heroSlide3Title,
+      description: t.heroSlide3Desc,
+      stat1: { value: t.heroSlide3Stat1Value, label: t.heroSlide3Stat1Label },
+      stat2: { value: t.heroSlide3Stat2Value, label: t.heroSlide3Stat2Label },
+    },
+    {
+      id: 4,
+      type: "image",
+      image: "slide3.jpg",
+      tag: t.heroSlide4Tag,
+      title: t.heroSlide4Title,
+      description: t.heroSlide4Desc,
+      stat1: { value: t.heroSlide4Stat1Value, label: t.heroSlide4Stat1Label },
+      stat2: { value: t.heroSlide4Stat2Value, label: t.heroSlide4Stat2Label },
+    },
+  ];
+
   const [current, setCurrent] = useState(0);
   const [animKey, setAnimKey] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -370,7 +371,7 @@ export default function HeroBanner() {
                 zIndex: 5,
               }}>
                 <div style={{ width: 1, height: 40, background: "rgba(201,169,110,0.3)" }} />
-                <span className="vert-text">Trusted Surgeon</span>
+                <span className="vert-text">{t.heroTrustedSurgeon}</span>
                 <div style={{ width: 1, height: 40, background: "rgba(201,169,110,0.3)" }} />
               </div>
 
@@ -482,9 +483,9 @@ export default function HeroBanner() {
                           <div className="anim-btn btn-row" style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
                             <button className="btn-primary" onClick={handleAppointmentRedirect}>
                               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                              Book Appointment
+                              {t.heroBookAppointment}
                             </button>
-                            <button className="btn-secondary" onClick={handleLearnMoreRedirect}>Learn More →</button>
+                            <button className="btn-secondary" onClick={handleLearnMoreRedirect}>{t.heroLearnMore}</button>
                           </div>
                         </div>
                       </div>

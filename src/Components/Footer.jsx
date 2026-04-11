@@ -1,6 +1,11 @@
 import { FaFacebookF, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaYoutube } from "react-icons/fa";
+import { useLanguage } from "../Context/LanguageContext";
+import translations from "../i18n/translations";
 
 const Footer = () => {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
   return (
     <>
       <style>{`
@@ -203,12 +208,10 @@ const Footer = () => {
                   <div className="footer-logo-name">
                     <span>Dr. </span>ASM Tanjilur Rahman
                   </div>
-                  <div className="footer-logo-sub">Surgeon & Specialist</div>
+                  <div className="footer-logo-sub">{t.footerLogoSub}</div>
                 </div>
               </div>
-              <p className="footer-brand-desc">
-                Assistant Professor of Surgery at Faridpur Medical College. Expert in laparoscopic, laser, and cancer surgeries — committed to patient-centered, minimally invasive care.
-              </p>
+              <p className="footer-brand-desc">{t.footerDesc}</p>
               <div className="footer-social-row">
                 <a href="https://www.facebook.com/TanjilsLaserandLaparoscopy" target="_blank" rel="noreferrer" className="footer-social" aria-label="Facebook">
                   <FaFacebookF />
@@ -221,30 +224,30 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div>
-              <div className="footer-col-title">Quick Links</div>
+              <div className="footer-col-title">{t.footerQuickLinks}</div>
               <span className="footer-col-line" />
               <ul className="footer-nav-list">
-                <li><a href="/#hero" className="footer-nav-link">Home</a></li>
-                <li><a href="/#about" className="footer-nav-link">About</a></li>
-                <li><a href="/#treatments" className="footer-nav-link">Services</a></li>
-                <li><a href="/#appointment" className="footer-nav-link">Appointment</a></li>
-                <li><a href="/privacy-policy" className="footer-nav-link">Privacy Policy</a></li>
-                <li><a href="/cookies" className="footer-nav-link">Cookies</a></li>
+                <li><a href="/#hero" className="footer-nav-link">{t.footerLinkHome}</a></li>
+                <li><a href="/#about" className="footer-nav-link">{t.footerLinkAbout}</a></li>
+                <li><a href="/#treatments" className="footer-nav-link">{t.footerLinkServices}</a></li>
+                <li><a href="/#appointment" className="footer-nav-link">{t.footerLinkAppointment}</a></li>
+                <li><a href="/privacy-policy" className="footer-nav-link">{t.footerLinkPrivacy}</a></li>
+                <li><a href="/cookies" className="footer-nav-link">{t.footerLinkCookies}</a></li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <div className="footer-col-title">Contact Us</div>
+              <div className="footer-col-title">{t.footerContact}</div>
               <span className="footer-col-line" />
               <div className="footer-contact-list">
                 <a href="tel:01300263332" className="footer-contact-item">
                   <div className="footer-contact-icon-wrap"><FaPhoneAlt /></div>
-                  <span>01300263332 (Faridpur)</span>
+                  <span>{t.footerPhone1}</span>
                 </a>
                 <a href="tel:01535165256" className="footer-contact-item">
                   <div className="footer-contact-icon-wrap"><FaPhoneAlt /></div>
-                  <span>01535165256 (Jhenaidah)</span>
+                  <span>{t.footerPhone2}</span>
                 </a>
                 <a href="mailto:btanjil17@gmail.com" className="footer-contact-item">
                   <div className="footer-contact-icon-wrap"><FaEnvelope /></div>
@@ -252,7 +255,7 @@ const Footer = () => {
                 </a>
                 <div className="footer-contact-item">
                   <div className="footer-contact-icon-wrap"><FaMapMarkerAlt /></div>
-                  <span>Faridpur Medical College,<br />Faridpur, Bangladesh</span>
+                  <span>{t.footerAddress}</span>
                 </div>
               </div>
             </div>
@@ -261,9 +264,7 @@ const Footer = () => {
           {/* Bottom bar */}
           <div className="footer-bottom">
             <div className="footer-bottom-left">
-              <p className="footer-copy">
-                © 2026 <span>Dr. ASM Tanjilur Rahman</span>. All Rights Reserved.
-              </p>
+              <p className="footer-copy">{t.footerCopy}</p>
               <p className="footer-dev-credit">
                 Designed & developed by{" "}
                 <a href="https://portfolio-naimoonjannat.netlify.app/" target="_blank" rel="noreferrer">
@@ -271,9 +272,7 @@ const Footer = () => {
                 </a>
               </p>
             </div>
-            <div className="footer-tagline">
-              Trusted Surgical Care
-            </div>
+            <div className="footer-tagline">{t.footerTagline}</div>
           </div>
         </div>
       </footer>

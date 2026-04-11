@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-
-const navLinks = [
-  { to: "/",       hash: "#hero",     label: "Home" },
-  { to: "/",       hash: "#about",    label: "About" },
-  { to: "/",       hash: "#treatments", label: "Services" },
-];
-
-const pageLinks = [
-  { to: "/activity", label: "Portfolio" },
-];
+import { useLanguage } from "../Context/LanguageContext";
+import translations from "../i18n/translations";
 
 export default function MainNav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
+  const navLinks = [
+    { to: "/", hash: "#hero",       label: t.navHome },
+    { to: "/", hash: "#about",      label: t.navAbout },
+    { to: "/", hash: "#treatments", label: t.navServices },
+  ];
+  const pageLinks = [
+    { to: "/activity", label: t.navPortfolio },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
@@ -265,7 +268,7 @@ export default function MainNav() {
               <div className="nav-logo-name">
                 <span>Dr. </span>ASM Tanjilur Rahman
               </div>
-              <div className="nav-logo-sub">Surgeon & Specialist</div>
+              <div className="nav-logo-sub">{t.navLogoSub}</div>
             </div>
           </a>
 
@@ -302,7 +305,7 @@ export default function MainNav() {
                   <line x1="8" y1="2" x2="8" y2="6"/>
                   <line x1="3" y1="10" x2="21" y2="10"/>
                 </svg>
-                Book Appointment
+                {t.navBookAppointment}
               </Link>
              </a>
             </li>
@@ -336,7 +339,7 @@ export default function MainNav() {
             ))}
             <div className="mobile-cta">
               <Link to="/contact" className="nav-cta" style={{ width: "100%", justifyContent: "center" }}>
-                Book Appointment
+                {t.navBookAppointment}
               </Link>
             </div>
           </div>

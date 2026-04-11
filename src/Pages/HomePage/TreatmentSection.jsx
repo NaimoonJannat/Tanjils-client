@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TreatmentCard from "./TreatmentCard";
-
-const stats = [
-  { num: 7000, suffix: "+", label: "Surgeries Performed" },
-  { num: 98,   suffix: "%", label: "Success Rate" },
-  { num: 15,   suffix: "+", label: "Years Experience" },
-  { num: 3,    suffix: "",  label: "Specializations" },
-];
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 function useCountUp(target, active, duration = 1800) {
   const [value, setValue] = useState(0);
@@ -43,9 +38,19 @@ const TreatmentSection = () => {
   const [statsActive, setStatsActive] = useState(false);
   const sectionRef = useRef(null);
   const statsRef   = useRef(null);
-  const gridRef    = useRef(null); // ← added
+  const gridRef    = useRef(null);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
-  const categories = ["All", "Laparoscopic", "Laser", "Cancer", "General"];
+  const stats = t.treatStats;
+  // key = internal value used for filtering; label = displayed text
+  const categories = [
+    { key: "All",          label: t.treatFilterAll },
+    { key: "Laparoscopic", label: "Laparoscopic" },
+    { key: "Laser",        label: "Laser" },
+    { key: "Cancer",       label: "Cancer" },
+    { key: "General",      label: "General" },
+  ];
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/treatments")
@@ -84,7 +89,7 @@ const TreatmentSection = () => {
 
   const filtered = activeFilter === "All"
     ? treatments
-    : treatments.filter(t => t.category === activeFilter);
+    : treatments.filter(tr => tr.category === activeFilter);
 
   // ← added: reveal cards whenever filtered list changes
   useEffect(() => {
@@ -201,14 +206,14 @@ const TreatmentSection = () => {
 
         <div className="treatment-inner">
           <div className="treatment-header" data-reveal="up" data-delay="0">
-            <div className="treatment-tag"><div className="treatment-tag-dot"/><span className="treatment-tag-text">Centre of Excellence</span></div>
-            <h2 className="treatment-h2">Expert Surgical <span>Treatments</span></h2>
-            <p className="treatment-subtitle">Comprehensive surgical care across laparoscopic, laser, cancer, and general surgery.</p>
+            <div className="treatment-tag"><div className="treatment-tag-dot"/><span className="treatment-tag-text">{t.treatTag}</span></div>
+            <h2 className="treatment-h2">{t.treatTitle} <span>{t.treatTitleSpan}</span></h2>
+            <p className="treatment-subtitle">{t.treatSubtitle}</p>
           </div>
 
           <div className="filter-row" data-reveal="up" data-delay="150">
             {categories.map(cat=>(
-              <button key={cat} className={`filter-btn ${activeFilter===cat?"active":""}`} onClick={()=>setActiveFilter(cat)}>{cat}</button>
+              <button key={cat.key} className={`filter-btn ${activeFilter===cat.key?"active":""}`} onClick={()=>setActiveFilter(cat.key)}>{cat.label}</button>
             ))}
           </div>
 

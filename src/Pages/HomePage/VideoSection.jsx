@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 const YT_CHANNEL_URL = "https://www.youtube.com/@tanjilslaserlaparoscopy4123"; 
 
@@ -79,6 +81,8 @@ function YTLogoSVG() {
  
 /* ── Modal ── */
 function VideoModal({ video, onClose }) {
+  const { lang } = useLanguage();
+  const t = translations[lang];
   useEffect(() => {
     const handler = (e) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", handler);
@@ -118,9 +122,9 @@ function VideoModal({ video, onClose }) {
               <div className="modal-title">{video.title}</div>
               <div className="modal-actions">
                 <a className="modal-btn-yt" href={ytUrl(video.id)} target="_blank" rel="noopener noreferrer">
-                  <YTLogoSVG /> Open on YouTube
+                  <YTLogoSVG /> {t.vidOpenYT}
                 </a>
-                <button className="modal-btn-close" onClick={onClose}>Close</button>
+                <button className="modal-btn-close" onClick={onClose}>{t.vidModalClose}</button>
               </div>
             </div>
           </div>
@@ -133,6 +137,8 @@ function VideoModal({ video, onClose }) {
 
 /* ── Video Card ── */
 function VideoCard({ video, onClick, delay }) {
+  const { lang } = useLanguage();
+  const t = translations[lang];
   return (
     <div
       className="vid-card"
@@ -161,7 +167,7 @@ function VideoCard({ video, onClick, delay }) {
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
           >
-            YouTube ↗
+            {t.vidYouTubeLink}
           </a>
         </div>
       </div>
@@ -175,6 +181,8 @@ export default function VideoSection() {
   const [modalVideo, setModalVideo] = useState(null);
   const [featuredPlaying, setFeaturedPlaying] = useState(false);
   const sectionRef = useRef(null);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   const featured = videos.find((v) => v.featured) || videos[0];
 
@@ -310,9 +318,9 @@ export default function VideoSection() {
         <div className="vid-inner">
           {/* Header */}
           <div className="vid-header" data-reveal data-delay="0">
-            <div className="vid-tag"><div className="vid-tag-dot" /><span className="vid-tag-text">YouTube Channel</span></div>
-            <h2 className="vid-h2">Watch &amp; <span>Become Aware</span></h2>
-            <p className="vid-sub">Explore surgical insights, patient education videos, and procedure walkthroughs from Dr. ASM Tanjilur Rahman's official YouTube channel.</p>
+            <div className="vid-tag"><div className="vid-tag-dot" /><span className="vid-tag-text">{t.vidTag}</span></div>
+            <h2 className="vid-h2"><span>{t.vidTitle}</span></h2>
+            <p className="vid-sub">{t.vidSubtitle}</p>
           </div>
 
           {/* Featured */}
@@ -333,10 +341,10 @@ export default function VideoSection() {
                   </div>
                   <div className="vid-featured-actions" onClick={(e) => e.stopPropagation()}>
                     <button className="btn-play-gold" onClick={() => setFeaturedPlaying(true)}>
-                      <PlayIconSVG /> Watch Now
+                      <PlayIconSVG /> {t.vidWatchNow}
                     </button>
                     <a className="btn-ghost" href={ytUrl(featured.id)} target="_blank" rel="noopener noreferrer">
-                      <YTLogoSVG /> Open on YouTube
+                      <YTLogoSVG /> {t.vidOpenYT}
                     </a>
                   </div>
                 </div>
@@ -370,15 +378,15 @@ export default function VideoSection() {
             </div>
             <div className="cta-info">
               <div className="cta-title">Dr. ASM Tanjilur Rahman</div>
-              <div className="cta-sub">Subscribe to get the latest surgical education videos, patient stories, and procedure insights.</div>
+              <div className="cta-sub">{t.vidCtaSub}</div>
               <div className="cta-stats">
-                <div><div className="cta-stat-val">50+</div><div className="cta-stat-lbl">Videos</div></div>
-                <div><div className="cta-stat-val">7K+</div><div className="cta-stat-lbl">Surgeries</div></div>
-                <div><div className="cta-stat-val">15+</div><div className="cta-stat-lbl">Yrs Exp</div></div>
+                {t.vidCtaStatLabels.map((lbl, i) => (
+                  <div key={i}><div className="cta-stat-val">{["50+","7K+","15+"][i]}</div><div className="cta-stat-lbl">{lbl}</div></div>
+                ))}
               </div>
             </div>
             <a className="btn-subscribe" href={YT_CHANNEL_URL} target="_blank" rel="noopener noreferrer">
-              <YTLogoSVG /> Subscribe on YouTube
+              <YTLogoSVG /> {t.vidSubscribe}
             </a>
           </div>
         </div>
