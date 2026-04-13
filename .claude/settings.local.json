@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"\\\\..*{\" \"g:\\\\WD \\(I\\)\\\\Tanjils\\\\Tanjils-client\\\\src\\\\Pages\\\\ActivityPage\\\\Activity.jsx\")",
+      "Bash(node -e \"const fs=require\\('fs'\\);const f='g:/WD \\(I\\)/Tanjils/Tanjils-client/src/index.css';let c=fs.readFileSync\\(f,'utf8'\\);const cut=c.indexOf\\('\\\\n/* \\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\u2550\\\\n   LIGHT THEME'\\);if\\(cut===-1\\){console.log\\('marker not found'\\);process.exit\\(1\\);}fs.writeFileSync\\(f,c.slice\\(0,cut\\)+'\\\\n'\\);console.log\\('done, cut at',cut\\);\")",
+      "Bash(name=\"description\">Remove light theme block from end of index.css)",
+      "Bash(head -205 \"g:/WD \\(I\\)/Tanjils/Tanjils-client/src/index.css\")",
+      "Bash(cp /tmp/index_clean.css \"g:/WD \\(I\\)/Tanjils/Tanjils-client/src/index.css\")",
+      "Bash(node -e \"const fa6 = require\\('react-icons/fa6'\\); ['FaSyringe','FaStethoscope','FaKitMedical','FaUserDoctor','FaScissors'].forEach\\(n => console.log\\(n, !!fa6[n]\\)\\)\")"
+    ]
+  }
+}

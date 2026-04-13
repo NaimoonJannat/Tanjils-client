@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TreatmentCard from "./TreatmentCard";
-
-const stats = [
-  { num: 5000, suffix: "+", label: "Surgeries Performed" },
-  { num: 98,   suffix: "%", label: "Success Rate" },
-  { num: 15,   suffix: "+", label: "Years Experience" },
-  { num: 3,    suffix: "",  label: "Specializations" },
-];
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 function useCountUp(target, active, duration = 1800) {
   const [value, setValue] = useState(0);
@@ -17,7 +12,6 @@ function useCountUp(target, active, duration = 1800) {
     const step = (ts) => {
       if (!start) start = ts;
       const progress = Math.min((ts - start) / duration, 1);
-      // ease-out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
       setValue(Math.floor(eased * target));
       if (progress < 1) requestAnimationFrame(step);
@@ -44,8 +38,19 @@ const TreatmentSection = () => {
   const [statsActive, setStatsActive] = useState(false);
   const sectionRef = useRef(null);
   const statsRef   = useRef(null);
+  const gridRef    = useRef(null);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
-  const categories = ["All", "Laparoscopic", "Laser", "Cancer", "General"];
+  const stats = t.treatStats;
+  // key = internal value used for filtering; label = displayed text
+  const categories = [
+    { key: "All",          label: t.treatFilterAll },
+    { key: "Laparoscopic", label: t.treatCategoryLabels.Laparoscopic },
+    { key: "Laser",        label: t.treatCategoryLabels.Laser },
+    { key: "Cancer",       label: t.treatCategoryLabels.Cancer },
+    { key: "General",      label: t.treatCategoryLabels.General },
+  ];
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/treatments")
@@ -54,7 +59,7 @@ const TreatmentSection = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // Scroll-reveal
+  // Scroll-reveal (for initial section entry only)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -84,7 +89,18 @@ const TreatmentSection = () => {
 
   const filtered = activeFilter === "All"
     ? treatments
-    : treatments.filter(t => t.category === activeFilter);
+    : treatments.filter(tr => tr.category === activeFilter);
+
+  // ← added: reveal cards whenever filtered list changes
+  useEffect(() => {
+    if (!gridRef.current) return;
+    const timer = setTimeout(() => {
+      gridRef.current.querySelectorAll("[data-reveal]").forEach(el => {
+        el.classList.add("revealed");
+      });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [filtered]);
 
   return (
     <>
@@ -142,7 +158,6 @@ const TreatmentSection = () => {
         @keyframes tShimmer { to { background-position:200% center; } }
         .treatment-subtitle { font-size:.93rem; color:rgba(248,245,240,.5); max-width:500px; margin:0 auto; line-height:1.7; }
 
-        /* Filters */
         .filter-row { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-bottom:48px; }
         .filter-btn {
           padding:7px 20px; font-size:.78rem; font-weight:500; letter-spacing:.06em;
@@ -160,17 +175,14 @@ const TreatmentSection = () => {
           box-shadow:0 4px 16px rgba(201,169,110,.3);
         }
 
-        /* Grid */
         .treatment-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
         @media(max-width:1024px) { .treatment-grid { grid-template-columns:repeat(3,1fr); } }
         @media(max-width:768px)  { .treatment-grid { grid-template-columns:repeat(2,1fr); } }
         @media(max-width:480px)  { .treatment-grid { grid-template-columns:1fr; } }
 
-        /* Skeleton */
         .skeleton-card { height:260px; border-radius:8px; background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 75%); background-size:200% 100%; animation:skSh 1.5s infinite; }
         @keyframes skSh { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
 
-        /* Stats */
         .treatment-stats { display:flex; justify-content:center; gap:0; margin-top:64px; border:1px solid rgba(201,169,110,.15); border-radius:8px; overflow:hidden; }
         @media(max-width:600px) { .treatment-stats { flex-direction:column; } }
         .treatment-stat { flex:1; padding:24px 16px; text-align:center; border-right:1px solid rgba(201,169,110,.1); background:rgba(255,255,255,.02); transition:background .25s,transform .25s; }
@@ -180,7 +192,7 @@ const TreatmentSection = () => {
         .treatment-stat-label { font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(248,245,240,.4); }
       `}</style>
 
-      <section className="treatment-section" ref={sectionRef}>
+      <section id="treatments" className="treatment-section" ref={sectionRef}>
         <div className="treat-blob" style={{width:400,height:400,top:-100,right:-100,background:"radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%)"}}/>
         <div className="treat-blob" style={{width:300,height:300,bottom:-80,left:-60,background:"radial-gradient(circle,rgba(201,169,110,.04) 0%,transparent 70%)",animationDelay:"5s"}}/>
         {[...Array(8)].map((_,i)=>(
@@ -194,14 +206,14 @@ const TreatmentSection = () => {
 
         <div className="treatment-inner">
           <div className="treatment-header" data-reveal="up" data-delay="0">
-            <div className="treatment-tag"><div className="treatment-tag-dot"/><span className="treatment-tag-text">Centre of Excellence</span></div>
-            <h2 className="treatment-h2">Expert Surgical <span>Treatments</span></h2>
-            <p className="treatment-subtitle">Comprehensive surgical care across laparoscopic, laser, cancer, and general surgery.</p>
+            <div className="treatment-tag"><div className="treatment-tag-dot"/><span className="treatment-tag-text">{t.treatTag}</span></div>
+            <h2 className="treatment-h2">{t.treatTitle} <span>{t.treatTitleSpan}</span></h2>
+            <p className="treatment-subtitle">{t.treatSubtitle}</p>
           </div>
 
           <div className="filter-row" data-reveal="up" data-delay="150">
             {categories.map(cat=>(
-              <button key={cat} className={`filter-btn ${activeFilter===cat?"active":""}`} onClick={()=>setActiveFilter(cat)}>{cat}</button>
+              <button key={cat.key} className={`filter-btn ${activeFilter===cat.key?"active":""}`} onClick={()=>setActiveFilter(cat.key)}>{cat.label}</button>
             ))}
           </div>
 
@@ -210,7 +222,7 @@ const TreatmentSection = () => {
               {Array(8).fill(0).map((_,i)=><div className="skeleton-card" key={i}/>)}
             </div>
           ) : (
-            <div className="treatment-grid">
+            <div className="treatment-grid" ref={gridRef}> {/* ← added ref */}
               {filtered.map((treatment, i)=>(
                 <div key={treatment._id} data-reveal="scale" data-delay={i * 70} style={{transition:`opacity .6s ${i*0.07}s cubic-bezier(.22,1,.36,1),transform .6s ${i*0.07}s cubic-bezier(.22,1,.36,1)`}}>
                   <TreatmentCard treatment={treatment}/>

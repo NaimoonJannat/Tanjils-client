@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router";
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 const categoryColors = {
   Laparoscopic: { bg:"rgba(96,165,250,.15)",  text:"#93C5FD", border:"rgba(96,165,250,.25)" },
@@ -11,7 +13,10 @@ const categoryColors = {
 const TreatmentCard = ({ treatment }) => {
   const navigate = useNavigate();
   const cardRef  = useRef(null);
+  const { lang } = useLanguage();
+  const t        = translations[lang];
   const colorSet = categoryColors[treatment.category] || categoryColors.General;
+  const categoryLabel = t.treatCategoryLabels[treatment.category] || treatment.category;
 
   const handleMouseMove = (e) => {
     const card = cardRef.current;
@@ -162,7 +167,7 @@ const TreatmentCard = ({ treatment }) => {
 
         <div className="treat-content">
           <div className="treat-category" style={{ background:colorSet.bg, color:colorSet.text, border:`1px solid ${colorSet.border}` }}>
-            {treatment.category}
+            {categoryLabel}
           </div>
           <div className="treat-title">{treatment.title}</div>
           {treatment.shortDesc && <div className="treat-desc">{treatment.shortDesc}</div>}

@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { FaFacebookF, FaYoutube, FaEnvelope, FaSearch, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { useLanguage } from "../Context/LanguageContext";
+import translations from "../i18n/translations";
 
 /**
  * TopNavbar
@@ -19,45 +21,10 @@ import axios from "axios";
  *   shows a dropdown of results, clicking navigates to /treatments/:slug.
  */
 
-const THEME_VARS = {
-  dark: {
-    "--bg-primary":   "#0A1628",
-    "--bg-secondary": "#0F2040",
-    "--text-primary": "#F8F5F0",
-    "--text-muted":   "rgba(248,245,240,0.6)",
-    "--gold":         "#C9A96E",
-    "--border":       "rgba(201,169,110,0.18)",
-    "--surface":      "rgba(255,255,255,0.03)",
-  },
-  light: {
-    "--bg-primary":   "#F4F1EC",
-    "--bg-secondary": "#EAE5DB",
-    "--text-primary": "#0A1628",
-    "--text-muted":   "rgba(10,22,40,0.6)",
-    "--gold":         "#A87C40",
-    "--border":       "rgba(10,22,40,0.12)",
-    "--surface":      "rgba(0,0,0,0.03)",
-  },
-};
-
-function applyTheme(theme) {
-  const root = document.documentElement;
-  root.setAttribute("data-theme", theme);
-  const vars = THEME_VARS[theme];
-  Object.entries(vars).forEach(([k, v]) => root.style.setProperty(k, v));
-  // Also set body background directly so no flash
-  document.body.style.background = vars["--bg-primary"];
-}
-
-export default function TopNavbar({ onThemeChange, onLangChange }) {
+export default function TopNavbar() {
   const navigate = useNavigate();
-
-  const [theme, setTheme]           = useState(() => {
-    const saved = localStorage.getItem("site-theme") || "dark";
-    applyTheme(saved);
-    return saved;
-  });
-  const [lang, setLang]             = useState("en");
+  const { lang, setLang } = useLanguage();
+  const t = translations[lang];
   const [searchOpen, setSearchOpen] = useState(false);   // mobile overlay
   const [searchVal, setSearchVal]   = useState("");
   const [langOpen, setLangOpen]     = useState(false);
@@ -111,18 +78,9 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
     if (searchOpen && mobSearchRef.current) mobSearchRef.current.focus();
   }, [searchOpen]);
 
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    applyTheme(next);
-    localStorage.setItem("site-theme", next);
-    onThemeChange?.(next);
-  };
-
   const selectLang = (l) => {
     setLang(l);
     setLangOpen(false);
-    onLangChange?.(l);
   };
 
   const handleResultClick = (slug) => {
@@ -158,9 +116,6 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
           height:40px; display:flex; align-items:center;
           position:relative; z-index:100;
           font-family:'DM Sans',sans-serif;
-        }
-        [data-theme="light"] .tnav {
-          background:linear-gradient(90deg,#1a3a5e 0%,#0F2040 100%);
         }
         .tnav-inner {
           max-width:1280px; margin:0 auto; padding:0 24px;
@@ -239,14 +194,6 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
         }
         .tnav-mob-btn:hover { border-color:#C9A96E; color:#C9A96E; background:rgba(201,169,110,.1); transform:scale(1.12); }
 
-        /* Theme toggle */
-        .tt-wrap { position:relative; width:42px; height:22px; cursor:pointer; flex-shrink:0; }
-        .tt-track { width:100%; height:100%; border-radius:11px; background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.22); position:relative; transition:background .3s,border-color .3s; }
-        .tt-wrap.light .tt-track { background:rgba(201,169,110,.28); border-color:rgba(201,169,110,.5); }
-        .tt-thumb { position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:linear-gradient(135deg,#C9A96E,#A87C40); transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s; display:flex; align-items:center; justify-content:center; font-size:.58rem; box-shadow:0 1px 5px rgba(0,0,0,.35); line-height:1; }
-        .tt-wrap.light .tt-thumb { transform:translateX(20px); }
-        .tt-thumb:hover { box-shadow:0 0 10px rgba(201,169,110,.5); }
-
         /* Language */
         .lang-wrap { position:relative; }
         .lang-btn { display:flex; align-items:center; gap:5px; background:rgba(201,169,110,.07); border:1px solid rgba(201,169,110,.2); border-radius:4px; padding:3px 8px; color:rgba(201,169,110,.85); font-size:.7rem; font-weight:500; letter-spacing:.04em; cursor:pointer; font-family:'DM Sans',sans-serif; transition:border-color .2s,background .2s; white-space:nowrap; }
@@ -284,8 +231,8 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
 
           {/* Socials */}
           <div className="tnav-left">
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="tnav-social fb"><FaFacebookF/></a>
-            <a href="https://youtube.com"  target="_blank" rel="noreferrer" className="tnav-social yt"><FaYoutube/></a>
+            <a href="https://www.facebook.com/TanjilsLaserandLaparoscopy" target="_blank" rel="noreferrer" className="tnav-social fb"><FaFacebookF/></a>
+            <a href="https://www.youtube.com/@tanjilslaserlaparoscopy4123"  target="_blank" rel="noreferrer" className="tnav-social yt"><FaYoutube/></a>
             <a href="mailto:btanjil17@gmail.com"                            className="tnav-social em"><FaEnvelope/></a>
           </div>
 
@@ -299,7 +246,7 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
                 ref={searchRef}
                 className="tnav-search-input"
                 type="text"
-                placeholder="Search treatments..."
+                placeholder={t.searchPlaceholder}
                 value={searchVal}
                 onChange={e => setSearchVal(e.target.value)}
                 onKeyDown={handleSearchKey}
@@ -314,7 +261,7 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
             {showResults && (
               <div className="tnav-results" ref={resultsRef}>
                 {searchResults.length === 0 ? (
-                  <div className="tnav-no-result">No treatments found for "{searchVal}"</div>
+                  <div className="tnav-no-result">{t.searchNoResult(searchVal)}</div>
                 ) : (
                   searchResults.map(t => (
                     <div key={t._id || t.slug} className="tnav-result-item" onClick={() => handleResultClick(t.slug)}>
@@ -343,15 +290,6 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
 
             <div className="tnav-div"/>
 
-            {/* Theme toggle */}
-            <div className={`tt-wrap ${theme === "light" ? "light" : ""}`} onClick={toggleTheme} title={theme === "dark" ? "Light mode" : "Dark mode"}>
-              <div className="tt-track">
-                <div className="tt-thumb">{theme === "dark" ? "🌙" : "☀️"}</div>
-              </div>
-            </div>
-
-            <div className="tnav-div"/>
-
             {/* Language */}
             <div className="lang-wrap" ref={langRef}>
               <button className="lang-btn" onClick={() => setLangOpen(v => !v)}>
@@ -362,8 +300,8 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
                 </svg>
               </button>
               <div className={`lang-drop ${langOpen ? "open" : ""}`}>
-                <div className={`lang-opt ${lang==="en"?"active":""}`} onClick={() => selectLang("en")}><span className="lang-flag">🇬🇧</span><span>English</span>{lang==="en"&&<span className="lang-chk">✓</span>}</div>
-                <div className={`lang-opt ${lang==="bn"?"active":""}`} onClick={() => selectLang("bn")}><span className="lang-flag">🇧🇩</span><span>বাংলা</span>{lang==="bn"&&<span className="lang-chk">✓</span>}</div>
+                <div className={`lang-opt ${lang==="en"?"active":""}`} onClick={() => selectLang("en")}><span className="lang-flag">🇬🇧</span><span>{t.langEnglish}</span>{lang==="en"&&<span className="lang-chk">✓</span>}</div>
+                <div className={`lang-opt ${lang==="bn"?"active":""}`} onClick={() => selectLang("bn")}><span className="lang-flag">🇧🇩</span><span>{t.langBengali}</span>{lang==="bn"&&<span className="lang-chk">✓</span>}</div>
               </div>
             </div>
 
@@ -377,7 +315,7 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
             ref={mobSearchRef}
             className="tnav-mob-input"
             type="text"
-            placeholder="Search treatments..."
+            placeholder={t.searchPlaceholder}
             value={searchVal}
             onChange={e => setSearchVal(e.target.value)}
             onKeyDown={handleSearchKey}
@@ -388,7 +326,7 @@ export default function TopNavbar({ onThemeChange, onLangChange }) {
           {showResults && searchOpen && (
             <div className="tnav-results" ref={resultsRef} style={{ position:"fixed",top:80,left:12,right:12,zIndex:500 }}>
               {searchResults.length === 0 ? (
-                <div className="tnav-no-result">No results for "{searchVal}"</div>
+                <div className="tnav-no-result">{t.searchNoResultMob(searchVal)}</div>
               ) : (
                 searchResults.map(t => (
                   <div key={t._id || t.slug} className="tnav-result-item" onClick={() => handleResultClick(t.slug)}>

@@ -17,7 +17,7 @@ const Main = () => {
         body, html {
           margin: 0;
           padding: 0;
-          background: #0A1628;   /* match HeroBanner — eliminates the gap */
+          background: #0A1628;
         }
 
         .layout-root {

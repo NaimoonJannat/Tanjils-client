@@ -1,339 +1,197 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
-const chambers = [
-  {
-    city: "Faridpur",
-    hotline: "01300-263332",
-    locations: [
-      { name: "Faridpur Apollo Specialized Hospital", address: "Alipur, Faridpur" },
-      { name: "Islami Bank Community Hospital Ltd.", address: "Faridpur" },
-    ],
-    schedule: [{ days: "Saturday – Wednesday", time: "4:00 PM – 8:00 PM" }],
-  },
-  {
-    city: "Jhenaidah",
-    hotline: "01535-165256",
-    locations: [
-      { name: "Islami Bank Community Hospital Ltd.", address: "Chuadanga Bus Stand, Jhenaidah" },
-    ],
-    schedule: [
-      { days: "Thursday", time: "4:00 PM – 8:00 PM" },
-      { days: "Friday",   time: "9:00 AM – 12:30 PM" },
-    ],
-  },
-];
 
-/* ── Animated Phone Component ── */
 function AnimatedPhone() {
-  const [screen, setScreen] = useState("home"); // home | booking | success
-  const [tapVisible, setTapVisible] = useState(true);
+  const [screen, setScreen] = useState("website");
+  const [callTimer, setCallTimer] = useState(0);
+  const [btnPressed, setBtnPressed] = useState(false);
+  const [islandActive, setIslandActive] = useState(false);
 
   useEffect(() => {
-    // Auto demo: home → booking → success → home → repeat
-    const cycle = [
-      { delay: 0,    fn: () => { setScreen("home"); setTapVisible(true); } },
-      { delay: 2200, fn: () => { setTapVisible(false); } },
-      { delay: 2700, fn: () => { setScreen("booking"); setTapVisible(false); } },
-      { delay: 5200, fn: () => { setScreen("success"); } },
-      { delay: 7500, fn: () => { setScreen("home"); setTapVisible(true); } },
-    ];
-    const timers = cycle.map(({ delay, fn }) => setTimeout(fn, delay));
-    const loop = setInterval(() => {
-      cycle.forEach(({ delay, fn }) => setTimeout(fn, delay));
-    }, 8000);
+    let timers = [];
+    const runCycle = () => {
+      setScreen("website"); setBtnPressed(false); setIslandActive(false); setCallTimer(0);
+      timers.push(setTimeout(() => setBtnPressed(true), 2500));
+      timers.push(setTimeout(() => { setScreen("calling"); setBtnPressed(false); setIslandActive(true); }, 3400));
+      timers.push(setTimeout(() => setScreen("connected"), 6800));
+      timers.push(setTimeout(() => { setScreen("confirmed"); setIslandActive(false); }, 10200));
+      timers.push(setTimeout(() => { setScreen("website"); setBtnPressed(false); setIslandActive(false); setCallTimer(0); }, 14000));
+    };
+    runCycle();
+    const loop = setInterval(runCycle, 14500);
     return () => { timers.forEach(clearTimeout); clearInterval(loop); };
   }, []);
+
+  useEffect(() => {
+    if (screen !== "connected") { setCallTimer(0); return; }
+    const interval = setInterval(() => setCallTimer(t => t + 1), 1000);
+    return () => clearInterval(interval);
+  }, [screen]);
+
+  const fmt = (s) => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
 
   return (
     <>
       <style>{`
-        /* ── Phone shell ── */
-        .phone-shell {
-          position: relative;
-          width: 220px;
-          flex-shrink: 0;
-          filter: drop-shadow(0 32px 60px rgba(0,0,0,.55));
-          animation: phoneFloat 5s ease-in-out infinite;
-        }
-        @keyframes phoneFloat {
-          0%,100% { transform: translateY(0) rotate(-1deg); }
-          50%      { transform: translateY(-14px) rotate(1deg); }
-        }
-        .phone-body {
-          background: linear-gradient(160deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-          border-radius: 36px;
-          padding: 14px 10px;
-          border: 2px solid rgba(255,255,255,.12);
-          position: relative;
-          overflow: hidden;
-        }
-        /* Side buttons */
-        .phone-side-btn {
-          position: absolute;
-          background: rgba(255,255,255,.15);
-          border-radius: 2px;
-        }
-        /* Screen */
-        .phone-screen {
-          background: #0A1628;
-          border-radius: 24px;
-          overflow: hidden;
-          position: relative;
-          height: 380px;
-        }
-        /* Notch */
-        .phone-notch {
-          position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-          width: 70px; height: 22px;
-          background: #1a1a2e;
-          border-radius: 12px;
-          z-index: 10;
-          display: flex; align-items: center; justify-content: center; gap: 5px;
-        }
-        .notch-camera {
-          width: 8px; height: 8px; border-radius: 50%;
-          background: #111; border: 1px solid rgba(255,255,255,.1);
-        }
-        .notch-speaker {
-          width: 28px; height: 4px; border-radius: 2px;
-          background: #111;
-        }
-
-        /* Status bar */
-        .phone-status {
-          position: absolute; top: 0; left: 0; right: 0;
-          height: 42px; padding: 8px 14px 0;
-          display: flex; justify-content: space-between; align-items: center;
-          z-index: 5;
-        }
-        .status-time { font-size: .6rem; font-weight: 600; color: rgba(255,255,255,.7); font-family: 'DM Sans',sans-serif; }
-        .status-icons { display: flex; gap: 4px; align-items: center; }
-        .status-icon { width: 12px; height: 8px; border: 1px solid rgba(255,255,255,.5); border-radius: 1px; position: relative; }
-        .status-icon::after { content:''; position:absolute; top:1px; left:1px; bottom:1px; width:70%; background:rgba(255,255,255,.6); border-radius:1px; }
-
-        /* Screen content transitions */
-        .screen-content {
-          position: absolute; inset: 0; padding: 50px 14px 14px;
-          transition: opacity .4s ease, transform .4s ease;
-        }
-        .screen-content.hidden { opacity: 0; transform: scale(.96); pointer-events: none; }
-        .screen-content.visible { opacity: 1; transform: scale(1); }
-
-        /* ── HOME screen ── */
-        .phone-hero-img {
-          width: 100%; height: 110px; object-fit: cover; object-position: top;
-          border-radius: 12px; margin-bottom: 10px;
-          border: 1px solid rgba(201,169,110,.25);
-        }
-        .phone-doc-name {
-          font-family: 'Cormorant Garamond',serif;
-          font-size: .85rem; font-weight: 700; color: #F8F5F0;
-          line-height: 1.2; margin-bottom: 2px;
-        }
-        .phone-doc-sub { font-size: .55rem; color: rgba(201,169,110,.8); letter-spacing: .06em; margin-bottom: 10px; font-family:'DM Sans',sans-serif; }
-        .phone-nav {
-          display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;
-        }
-        .phone-nav-item {
-          font-size: .52rem; padding: 3px 8px; border-radius: 10px;
-          background: rgba(201,169,110,.1); border: 1px solid rgba(201,169,110,.2);
-          color: rgba(248,245,240,.7); font-family:'DM Sans',sans-serif;
-        }
-        .phone-book-btn {
-          width: 100%; padding: 9px;
-          background: linear-gradient(135deg,#C9A96E,#A87C40);
-          color: #0A1628; font-size: .72rem; font-weight: 700;
-          border-radius: 6px; text-align: center;
-          font-family:'DM Sans',sans-serif; letter-spacing:.05em;
-          position: relative; overflow: hidden;
-          animation: phoneBtnPulse 2s ease-in-out infinite;
-        }
-        @keyframes phoneBtnPulse {
-          0%,100% { box-shadow: 0 0 0 0 rgba(201,169,110,.5); }
-          50%      { box-shadow: 0 0 0 8px rgba(201,169,110,0); }
-        }
-        .phone-book-btn::after {
-          content:''; position:absolute; inset:0;
-          background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
-          background-size:200% 100%;
-          animation:btnShine 2s linear infinite;
-        }
-        @keyframes btnShine { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-
-        /* ── BOOKING screen ── */
-        .phone-form-title { font-family:'Cormorant Garamond',serif; font-size:.85rem; font-weight:700; color:#F8F5F0; margin-bottom:12px; }
-        .phone-field {
-          background:rgba(255,255,255,.05); border:1px solid rgba(201,169,110,.2);
-          border-radius:6px; padding:7px 10px; margin-bottom:7px;
-        }
-        .phone-field-label { font-size:.5rem; letter-spacing:.08em; text-transform:uppercase; color:rgba(201,169,110,.6); font-family:'DM Sans',sans-serif; margin-bottom:2px; }
-        .phone-field-value { font-size:.68rem; color:rgba(248,245,240,.8); font-family:'DM Sans',sans-serif; }
-        /* Typing cursor on last field */
-        .phone-field-value.typing::after { content:'|'; animation:blink .7s infinite; color:#C9A96E; }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        .phone-submit {
-          width:100%; padding:8px;
-          background:linear-gradient(135deg,#C9A96E,#A87C40);
-          color:#0A1628; font-size:.7rem; font-weight:700;
-          border-radius:6px; text-align:center;
-          font-family:'DM Sans',sans-serif; margin-top:4px;
-          animation:phoneBtnPulse 2s ease-in-out infinite;
-        }
-
-        /* ── SUCCESS screen ── */
-        .success-screen {
-          display:flex; flex-direction:column; align-items:center; justify-content:center;
-          height:100%; padding-top:10px;
-        }
-        .success-check {
-          width:56px; height:56px; border-radius:50%;
-          background:rgba(201,169,110,.15); border:2px solid #C9A96E;
-          display:flex; align-items:center; justify-content:center;
-          margin-bottom:14px;
-          animation:successPop .5s cubic-bezier(.34,1.56,.64,1) both;
-        }
-        @keyframes successPop { from{transform:scale(0)} to{transform:scale(1)} }
-        .success-title { font-family:'Cormorant Garamond',serif; font-size:.95rem; font-weight:700; color:#C9A96E; margin-bottom:4px; text-align:center; }
-        .success-sub { font-size:.62rem; color:rgba(248,245,240,.55); text-align:center; font-family:'DM Sans',sans-serif; line-height:1.5; }
-
-        /* ── TAP HAND ── */
-        .tap-hand-wrap {
-          position: absolute;
-          bottom: 68px; left: 50%; margin-left: -16px;
-          z-index: 20;
-          pointer-events: none;
-          transition: opacity .3s;
-        }
-        .tap-hand-wrap.hidden { opacity: 0; transform: scale(.7); transition: opacity .3s, transform .3s; }
-        .tap-hand {
-          font-size: 28px;
-          animation: handTap 1.8s ease-in-out infinite;
-          display: block;
-          filter: drop-shadow(0 4px 8px rgba(0,0,0,.4));
-        }
-        @keyframes handTap {
-          0%,100% { transform: translateY(0) rotate(-10deg); }
-          40%      { transform: translateY(8px) rotate(-5deg) scale(.9); }
-          60%      { transform: translateY(4px) rotate(-7deg) scale(.95); }
-        }
-        .tap-ripple {
-          position: absolute; top: -4px; left: -4px;
-          width: 40px; height: 40px; border-radius: 50%;
-          border: 2px solid rgba(201,169,110,.5);
-          animation: tapRipple 1.8s ease-out infinite;
-          pointer-events: none;
-        }
-        @keyframes tapRipple {
-          0%   { transform:scale(.3); opacity:1; }
-          100% { transform:scale(1.8); opacity:0; }
-        }
-
-        /* Home button */
-        .phone-home-btn {
-          width: 36px; height: 5px; border-radius: 3px;
-          background: rgba(255,255,255,.2); margin: 8px auto 0;
-        }
-
-        /* Glow ring behind phone */
-        .phone-glow {
-          position:absolute; border-radius:50%; pointer-events:none;
-          animation:glowPulse 4s ease-in-out infinite;
-        }
-        @keyframes glowPulse {
-          0%,100% { transform:scale(1); opacity:.4; }
-          50%      { transform:scale(1.2); opacity:.7; }
-        }
+        .ph-shell { position:relative; width:216px; flex-shrink:0; filter:drop-shadow(0 28px 55px rgba(0,0,0,.6)); animation:phFloat 5s ease-in-out infinite; }
+        @keyframes phFloat { 0%,100%{transform:translateY(0) rotate(-1.5deg)} 50%{transform:translateY(-12px) rotate(1deg)} }
+        .ph-body { background:linear-gradient(160deg,#181828 0%,#1a1f3a 50%,#111827 100%); border-radius:38px; padding:14px 10px 18px; border:1.5px solid rgba(255,255,255,.1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px rgba(0,0,0,.5); }
+        .ph-screen { background:#0A1628; border-radius:26px; overflow:hidden; position:relative; height:400px; }
+        .ph-island { position:absolute; top:10px; left:50%; transform:translateX(-50%); width:88px; height:26px; background:#000; border-radius:13px; z-index:20; display:flex; align-items:center; justify-content:center; gap:6px; transition:width .45s cubic-bezier(.34,1.56,.64,1),background .3s; }
+        .ph-island.active-island { width:138px; background:#0d2e0d; }
+        .island-cam { width:9px; height:9px; border-radius:50%; background:#1a1a1a; border:1px solid rgba(255,255,255,.08); flex-shrink:0; }
+        .island-dot { width:8px; height:8px; border-radius:50%; background:#4ade80; animation:islandDot .8s ease-in-out infinite; flex-shrink:0; }
+        @keyframes islandDot { 0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(74,222,128,.5)} 50%{transform:scale(1.2);box-shadow:0 0 0 4px rgba(74,222,128,0)} }
+        .island-txt { font-size:.48rem; color:#4ade80; font-family:'DM Sans',sans-serif; font-weight:600; letter-spacing:.04em; white-space:nowrap; }
+        .ph-status { position:absolute; top:0; left:0; right:0; height:44px; padding:10px 16px 0; display:flex; justify-content:space-between; align-items:center; z-index:5; }
+        .ph-time { font-size:.62rem; font-weight:600; color:rgba(255,255,255,.75); font-family:'DM Sans',sans-serif; }
+        .ph-sc { position:absolute; inset:0; transition:opacity .5s ease,transform .5s ease; }
+        .ph-sc.hidden { opacity:0; transform:scale(.96); pointer-events:none; }
+        .ph-sc.visible { opacity:1; transform:scale(1); }
+        .ws-screen { padding:48px 0 0; display:flex; flex-direction:column; height:100%; background:linear-gradient(160deg,#0A1628 0%,#0d2040 100%); }
+        .ws-nav { display:flex; align-items:center; justify-content:space-between; padding:0 12px 10px; border-bottom:1px solid rgba(201,169,110,.12); }
+        .ws-logo { font-family:'Cormorant Garamond',serif; font-size:.65rem; font-weight:700; color:#F8F5F0; }
+        .ws-logo span { color:#C9A96E; }
+        .ws-nav-links { display:flex; gap:8px; }
+        .ws-nav-link { font-size:.42rem; color:rgba(248,245,240,.4); font-family:'DM Sans',sans-serif; }
+        .ws-hero { padding:12px 12px 0; flex:1; display:flex; flex-direction:column; }
+        .ws-hero-tag { display:inline-flex; align-items:center; gap:4px; background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.25); border-radius:10px; padding:2px 8px; margin-bottom:8px; width:fit-content; }
+        .ws-hero-tag span { font-size:.42rem; color:#C9A96E; letter-spacing:.08em; font-family:'DM Sans',sans-serif; text-transform:uppercase; }
+        .ws-hero-title { font-family:'Cormorant Garamond',serif; font-size:.9rem; font-weight:700; color:#F8F5F0; line-height:1.2; margin-bottom:4px; }
+        .ws-hero-title span { color:#C9A96E; }
+        .ws-hero-sub { font-size:.46rem; color:rgba(248,245,240,.45); line-height:1.5; font-family:'DM Sans',sans-serif; margin-bottom:10px; max-width:160px; }
+        .ws-appt-btn { display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg,#C9A96E,#A87C40); color:#0A1628; font-size:.55rem; font-weight:700; padding:7px 12px; border-radius:3px; font-family:'DM Sans',sans-serif; letter-spacing:.05em; width:fit-content; position:relative; overflow:hidden; transition:transform .15s,box-shadow .15s,filter .15s; }
+        .ws-appt-btn.pressed { transform:scale(.92); filter:brightness(1.25); box-shadow:0 0 0 5px rgba(201,169,110,.35); }
+        .ws-appt-btn::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent); background-size:200% 100%; animation:wsBtnShine 2.5s linear infinite; }
+        @keyframes wsBtnShine { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
+        .ws-cursor { position:absolute; font-size:18px; pointer-events:none; transition:all .65s cubic-bezier(.34,1.2,.64,1); filter:drop-shadow(0 2px 6px rgba(0,0,0,.5)); z-index:30; }
+        .ws-info-strip { margin-top:10px; padding:8px 10px; background:rgba(255,255,255,.03); border-top:1px solid rgba(201,169,110,.1); display:flex; justify-content:space-between; align-items:center; }
+        .ws-info-item { text-align:center; }
+        .ws-info-val { font-family:'Cormorant Garamond',serif; font-size:.7rem; font-weight:700; color:#C9A96E; }
+        .ws-info-lbl { font-size:.38rem; color:rgba(248,245,240,.35); letter-spacing:.08em; text-transform:uppercase; font-family:'DM Sans',sans-serif; }
+        .calling-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:20px; background:linear-gradient(180deg,#0d1f0d 0%,#081420 100%); }
+        .calling-status { font-size:.58rem; color:rgba(248,245,240,.4); letter-spacing:.12em; text-transform:uppercase; font-family:'DM Sans',sans-serif; margin-bottom:22px; animation:callingPulse 1.5s ease-in-out infinite; }
+        @keyframes callingPulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+        .call-avatar-wrap { position:relative; width:88px; height:88px; margin-bottom:12px; }
+        .call-ripple { position:absolute; border-radius:50%; border:1.5px solid rgba(201,169,110,.35); animation:callRipple 2s ease-out infinite; }
+        .call-ripple:nth-child(1){inset:-10px;animation-delay:0s} .call-ripple:nth-child(2){inset:-22px;animation-delay:.55s} .call-ripple:nth-child(3){inset:-34px;animation-delay:1.1s}
+        @keyframes callRipple { 0%{opacity:.8;transform:scale(.9)} 100%{opacity:0;transform:scale(1.08)} }
+        .call-avatar { width:88px; height:88px; border-radius:50%; object-fit:cover; object-position:top; border:2.5px solid rgba(201,169,110,.5); box-shadow:0 0 30px rgba(201,169,110,.2); }
+        .call-name { font-family:'Cormorant Garamond',serif; font-size:.95rem; font-weight:700; color:#F8F5F0; margin-bottom:3px; }
+        .call-creds { font-size:.52rem; color:rgba(201,169,110,.7); letter-spacing:.05em; font-family:'DM Sans',sans-serif; margin-bottom:14px; }
+        .call-number-badge { background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.25); border-radius:12px; padding:5px 14px; margin-bottom:28px; font-size:.62rem; color:#C9A96E; font-family:'DM Sans',sans-serif; font-weight:600; }
+        .call-actions { display:flex; gap:18px; align-items:center; }
+        .call-btn { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:.8rem; }
+        .call-btn.end { width:54px; height:54px; background:#dc2626; box-shadow:0 4px 18px rgba(220,38,38,.4); font-size:1rem; }
+        .connected-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:20px; background:linear-gradient(180deg,#0a1f0a 0%,#081420 100%); }
+        .conn-timer { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:700; color:#4ade80; margin-bottom:4px; }
+        .conn-label { font-size:.55rem; color:rgba(248,245,240,.4); letter-spacing:.1em; text-transform:uppercase; font-family:'DM Sans',sans-serif; margin-bottom:18px; }
+        .conn-avatar { width:80px; height:80px; border-radius:50%; object-fit:cover; object-position:top; border:2.5px solid #4ade80; box-shadow:0 0 0 6px rgba(74,222,128,.1),0 0 28px rgba(74,222,128,.25); margin-bottom:10px; }
+        .conn-name { font-family:'Cormorant Garamond',serif; font-size:.88rem; font-weight:700; color:#F8F5F0; margin-bottom:3px; }
+        .conn-creds { font-size:.52rem; color:rgba(201,169,110,.7); letter-spacing:.05em; font-family:'DM Sans',sans-serif; margin-bottom:14px; }
+        .sound-wave { display:flex; align-items:center; gap:3px; height:22px; margin-bottom:16px; }
+        .wave-bar { width:3px; border-radius:2px; background:#4ade80; animation:waveBounce .8s ease-in-out infinite; }
+        @keyframes waveBounce { 0%,100%{height:5px;opacity:.5} 50%{height:20px;opacity:1} }
+        .conn-tip { padding:7px 12px; background:rgba(74,222,128,.07); border:1px solid rgba(74,222,128,.2); border-radius:7px; font-size:.54rem; color:#4ade80; font-family:'DM Sans',sans-serif; text-align:center; line-height:1.5; margin-bottom:14px; }
+        .confirmed-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; padding:18px; background:linear-gradient(160deg,#0A1628 0%,#0d2040 100%); }
+        .conf-check { width:58px; height:58px; border-radius:50%; background:rgba(201,169,110,.12); border:2px solid #C9A96E; display:flex; align-items:center; justify-content:center; margin-bottom:12px; animation:confPop .6s cubic-bezier(.34,1.56,.64,1) both; }
+        @keyframes confPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+        .conf-title { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-weight:700; color:#C9A96E; margin-bottom:4px; text-align:center; }
+        .conf-sub { font-size:.58rem; color:rgba(248,245,240,.5); text-align:center; font-family:'DM Sans',sans-serif; line-height:1.6; margin-bottom:14px; }
+        .conf-card { background:rgba(255,255,255,.04); border:1px solid rgba(201,169,110,.2); border-radius:10px; padding:10px 14px; width:100%; }
+        .conf-row { display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid rgba(201,169,110,.07); }
+        .conf-row:last-child { border-bottom:none; }
+        .conf-icon { font-size:.72rem; flex-shrink:0; }
+        .conf-key { font-size:.48rem; color:rgba(201,169,110,.55); text-transform:uppercase; letter-spacing:.08em; font-family:'DM Sans',sans-serif; }
+        .conf-val { font-size:.64rem; color:rgba(248,245,240,.8); font-family:'DM Sans',sans-serif; font-weight:500; }
+        .ph-home-bar { width:38px; height:4px; border-radius:2px; background:rgba(255,255,255,.18); margin:10px auto 0; }
+        .ph-side { position:absolute; background:rgba(255,255,255,.12); border-radius:2px; }
+        .ph-glow { position:absolute; border-radius:50%; pointer-events:none; animation:phGlow 4s ease-in-out infinite; }
+        @keyframes phGlow { 0%,100%{transform:scale(1);opacity:.35} 50%{transform:scale(1.2);opacity:.65} }
       `}</style>
 
       <div style={{ position:"relative", display:"flex", justifyContent:"center", alignItems:"center" }}>
-        {/* Glow rings */}
-        <div className="phone-glow" style={{ width:300,height:300, background:"radial-gradient(circle,rgba(201,169,110,.12) 0%,transparent 70%)" }}/>
-        <div className="phone-glow" style={{ width:420,height:420, background:"radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%)", animationDelay:"2s" }}/>
-
-        <div className="phone-shell">
-          {/* Side volume buttons */}
-          <div className="phone-side-btn" style={{ left:-4, top:80, width:3, height:30 }}/>
-          <div className="phone-side-btn" style={{ left:-4, top:120, width:3, height:30 }}/>
-          {/* Power button */}
-          <div className="phone-side-btn" style={{ right:-4, top:100, width:3, height:45 }}/>
-
-          <div className="phone-body">
-            <div className="phone-screen">
-              {/* Notch */}
-              <div className="phone-notch">
-                <div className="notch-camera"/>
-                <div className="notch-speaker"/>
+        <div className="ph-glow" style={{ width:280,height:280, background:"radial-gradient(circle,rgba(201,169,110,.13) 0%,transparent 70%)" }}/>
+        <div className="ph-glow" style={{ width:400,height:400, background:"radial-gradient(circle,rgba(201,169,110,.06) 0%,transparent 70%)", animationDelay:"2s" }}/>
+        <div className="ph-shell">
+          <div className="ph-side" style={{ left:-3, top:88, width:3, height:26 }}/>
+          <div className="ph-side" style={{ left:-3, top:122, width:3, height:26 }}/>
+          <div className="ph-side" style={{ right:-3, top:106, width:3, height:40 }}/>
+          <div className="ph-body">
+            <div className="ph-screen">
+              <div className={`ph-island ${islandActive ? "active-island" : ""}`}>
+                {islandActive ? (<><div className="island-dot"/><div className="island-txt">{screen==="connected" ? fmt(callTimer) : "Calling..."}</div></>) : (<div className="island-cam"/>)}
               </div>
-
-              {/* Status bar */}
-              <div className="phone-status">
-                <span className="status-time">9:41</span>
-                <div className="status-icons">
-                  <div className="status-icon"/>
-                  <svg width="10" height="8" viewBox="0 0 10 8" fill="rgba(255,255,255,.6)">
-                    <path d="M5 1.5C6.5 1.5 7.8 2.1 8.8 3L10 1.7C8.7.6 7 0 5 0S1.3.6 0 1.7L1.2 3C2.2 2.1 3.5 1.5 5 1.5z"/>
-                    <path d="M5 4C6 4 6.9 4.4 7.6 5.1L8.8 3.8C7.8 2.9 6.5 2.4 5 2.4S2.2 2.9 1.2 3.8L2.4 5.1C3.1 4.4 4 4 5 4z"/>
-                    <circle cx="5" cy="7" r="1"/>
-                  </svg>
+              <div className="ph-status">
+                <span className="ph-time">9:41</span>
+                <div style={{display:"flex",gap:3,alignItems:"center"}}>
+                  <svg width="14" height="10" viewBox="0 0 14 10" fill="rgba(255,255,255,.65)"><rect x="0" y="6" width="2" height="4" rx="1"/><rect x="3" y="4" width="2" height="6" rx="1"/><rect x="6" y="2" width="2" height="8" rx="1"/><rect x="9" y="0" width="2" height="10" rx="1"/></svg>
+                  <svg width="22" height="10" viewBox="0 0 22 10" fill="none" style={{marginLeft:3}}><rect x="0" y="1" width="18" height="8" rx="2" stroke="rgba(255,255,255,.5)" strokeWidth="1.2"/><rect x="1.5" y="2.5" width="11" height="5" rx="1" fill="rgba(255,255,255,.7)"/><path d="M19.5 3.5v3a1.5 1.5 0 000-3z" fill="rgba(255,255,255,.4)"/></svg>
                 </div>
               </div>
-
-              {/* HOME screen */}
-              <div className={`screen-content ${screen==="home" ? "visible" : "hidden"}`}>
-                <img src="/dp.png" alt="Dr" className="phone-hero-img"/>
-                <div className="phone-doc-name">Dr. ASM Tanjilur Rahman</div>
-                <div className="phone-doc-sub">FCPS · FMAS · Laparoscopic Surgeon</div>
-                <div className="phone-nav">
-                  {["Home","About","Services","Appointments"].map(n=>(
-                    <div className="phone-nav-item" key={n}>{n}</div>
-                  ))}
-                </div>
-                <div className="phone-book-btn">📅 Book Appointment</div>
-              </div>
-
-              {/* BOOKING screen */}
-              <div className={`screen-content ${screen==="booking" ? "visible" : "hidden"}`}>
-                <div className="phone-form-title">Book a Consultation</div>
-                <div className="phone-field">
-                  <div className="phone-field-label">Full Name</div>
-                  <div className="phone-field-value">Mohammad Rahman</div>
-                </div>
-                <div className="phone-field">
-                  <div className="phone-field-label">Phone Number</div>
-                  <div className="phone-field-value">01700-000000</div>
-                </div>
-                <div className="phone-field">
-                  <div className="phone-field-label">Preferred Date</div>
-                  <div className="phone-field-value">Mon, 3 Feb 2025</div>
-                </div>
-                <div className="phone-field">
-                  <div className="phone-field-label">Chamber</div>
-                  <div className="phone-field-value typing">Faridpur Apollo</div>
-                </div>
-                <div className="phone-submit">Confirm Appointment ✓</div>
-              </div>
-
-              {/* SUCCESS screen */}
-              <div className={`screen-content ${screen==="success" ? "visible" : "hidden"}`}>
-                <div className="success-screen">
-                  <div className="success-check">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" strokeWidth="2.5">
-                      <polyline points="20 6 9 17 4 12"/>
-                    </svg>
+              <div className={`ph-sc ${screen==="website" ? "visible" : "hidden"}`} style={{overflow:"hidden"}}>
+                <div className="ws-screen">
+                  <div className="ws-nav">
+                    <div className="ws-logo"><span>Dr. </span>ASM Tanjilur</div>
+                    <div className="ws-nav-links">{["Home","About","Services"].map(l=><div key={l} className="ws-nav-link">{l}</div>)}</div>
                   </div>
-                  <div className="success-title">Appointment Confirmed!</div>
-                  <div className="success-sub">Dr. Rahman will see you<br/>Monday, 3 Feb · 5:00 PM<br/>Faridpur Apollo Hospital</div>
+                  <div className="ws-hero">
+                    <div className="ws-hero-tag"><span>Trusted Surgeon</span></div>
+                    <div className="ws-hero-title">Advanced<br/><span>Laparoscopic</span><br/>& Laser Surgery</div>
+                    <div className="ws-hero-sub">FCPS · FMAS · Fellowship — Faridpur Medical College</div>
+                    <div style={{position:"relative",display:"inline-block"}}>
+                      <div className={`ws-appt-btn ${btnPressed ? "pressed" : ""}`}>
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        Book Appointment
+                      </div>
+                      <div className="ws-cursor" style={{ bottom:btnPressed?"2px":"-35px", right:btnPressed?"6px":"-25px", opacity:screen==="website"?1:0, transform:btnPressed?"scale(.82)":"scale(1)" }}>👆</div>
+                    </div>
+                  </div>
+                  <div className="ws-info-strip">
+                    {[["7000+","Surgeries"],["15+","Yrs Exp"],["98%","Success"]].map(([v,l])=>(
+                      <div key={l} className="ws-info-item"><div className="ws-info-val">{v}</div><div className="ws-info-lbl">{l}</div></div>
+                    ))}
+                  </div>
                 </div>
               </div>
-
+              <div className={`ph-sc ${screen==="calling" ? "visible" : "hidden"}`}>
+                <div className="calling-screen">
+                  <div className="calling-status">Calling…</div>
+                  <div className="call-avatar-wrap"><div className="call-ripple"/><div className="call-ripple"/><div className="call-ripple"/><img src="/dp.png" alt="Dr" className="call-avatar"/></div>
+                  <div className="call-name">Dr. ASM Tanjilur Rahman</div>
+                  <div className="call-creds">FCPS · FMAS · Laparoscopic Surgeon</div>
+                  <div className="call-number-badge">📞 01300-263332</div>
+                  <div className="call-actions"><div className="call-btn">🔇</div><div className="call-btn end">📵</div><div className="call-btn">🔊</div></div>
+                </div>
+              </div>
+              <div className={`ph-sc ${screen==="connected" ? "visible" : "hidden"}`}>
+                <div className="connected-screen">
+                  <div className="conn-timer">{fmt(callTimer)}</div>
+                  <div className="conn-label">Call Connected</div>
+                  <img src="/dp.png" alt="Dr" className="conn-avatar"/>
+                  <div className="conn-name">Dr. ASM Tanjilur Rahman</div>
+                  <div className="conn-creds">Faridpur Apollo Hospital</div>
+                  <div className="sound-wave">{[0,.1,.2,.3,.4,.3,.2,.1,0].map((d,i)=><div key={i} className="wave-bar" style={{animationDelay:`${d}s`}}/>)}</div>
+                  <div className="conn-tip">📅 Mention your preferred date & time<br/>to schedule your visit</div>
+                  <div className="call-actions"><div className="call-btn">🔇</div><div className="call-btn end">📵</div><div className="call-btn">🔊</div></div>
+                </div>
+              </div>
+              <div className={`ph-sc ${screen==="confirmed" ? "visible" : "hidden"}`}>
+                <div className="confirmed-screen">
+                  <div className="conf-check"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A96E" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div className="conf-title">Appointment Booked!</div>
+                  <div className="conf-sub">Your appointment has been confirmed<br/>with Dr. ASM Tanjilur Rahman</div>
+                  <div className="conf-card">
+                    {[["👨‍⚕️","Doctor","Dr. ASM Tanjilur Rahman"],["🏥","Chamber","Faridpur Apollo Hospital"],["📅","Schedule","Sat–Wed · 4:00–8:00 PM"],["📞","Hotline","01300-263332"]].map(([icon,key,val])=>(
+                      <div key={key} className="conf-row"><div className="conf-icon">{icon}</div><div><div className="conf-key">{key}</div><div className="conf-val">{val}</div></div></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="phone-home-btn"/>
-          </div>
-
-          {/* Tap hand */}
-          <div className={`tap-hand-wrap ${!tapVisible ? "hidden" : ""}`}>
-            <div className="tap-ripple"/>
-            <span className="tap-hand">👆</span>
+            <div className="ph-home-bar"/>
           </div>
         </div>
       </div>
@@ -341,10 +199,25 @@ function AnimatedPhone() {
   );
 }
 
-/* ── Main Section ── */
 export default function AppointmentSection() {
   const [activeTab, setActiveTab] = useState(0);
+  const [mapLoaded, setMapLoaded] = useState([false, false]);
   const sectionRef = useRef(null);
+  const { lang } = useLanguage();
+  const t = translations[lang];
+  const chambersBase = [
+    {
+      hotline: "01300-263332",
+      mapQuery: "Faridpur+Apollo+Specialized+Hospital+Alipur+Faridpur+Bangladesh",
+      mapEmbedUrl: "https://maps.google.com/maps?q=Faridpur+Apollo+Specialized+Hospital,+Alipur,+Faridpur,+Bangladesh&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    },
+    {
+      hotline: "01535-165256",
+      mapQuery: "Islami+Bank+Community+Hospital+Jhenaidah+Bangladesh",
+      mapEmbedUrl: "https://maps.google.com/maps?q=Islami+Bank+Community+Hospital,+Jhenaidah,+Bangladesh&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    },
+  ];
+  const chambers = t.apptChambers.map((c, i) => ({ ...c, ...chambersBase[i] }));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -363,91 +236,99 @@ export default function AppointmentSection() {
     return () => observer.disconnect();
   }, []);
 
+  const handleMapLoad = (idx) => {
+    setMapLoaded(prev => { const n=[...prev]; n[idx]=true; return n; });
+  };
+
   return (
     <>
       <style>{`
-        /* Reveal */
         [data-reveal="up"]    { opacity:0; transform:translateY(40px); transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1); }
         [data-reveal="left"]  { opacity:0; transform:translateX(-50px); transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1); }
         [data-reveal="right"] { opacity:0; transform:translateX(50px);  transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1); }
         [data-reveal].revealed { opacity:1!important; transform:none!important; }
 
-        .appt-section {
-          background:linear-gradient(160deg,#0A1628 0%,#0F2040 60%,#0A1628 100%);
-          position:relative; overflow:hidden; padding:100px 24px;
-          font-family:'DM Sans',sans-serif;
-        }
-        .appt-section::before {
-          content:''; position:absolute; inset:0;
-          background-image:radial-gradient(rgba(201,169,110,.055) 1px,transparent 1px);
-          background-size:32px 32px; pointer-events:none;
-          animation:gridDrift2 25s linear infinite;
-        }
-        @keyframes gridDrift2 { to { background-position:32px 32px; } }
-
-        .appt-particle {
-          position:absolute; border-radius:50%; pointer-events:none;
-          animation:apptParticle linear infinite;
-        }
-        @keyframes apptParticle {
-          0%   { transform:translateY(0) scale(1); opacity:0; }
-          10%  { opacity:.7; }
-          90%  { opacity:.2; }
-          100% { transform:translateY(-160px) scale(.2); opacity:0; }
-        }
-
+        .appt-section { background:linear-gradient(160deg,#0A1628 0%,#0F2040 60%,#0A1628 100%); position:relative; overflow:hidden; padding:100px 24px; font-family:'DM Sans',sans-serif; }
+        .appt-section::before { content:''; position:absolute; inset:0; background-image:radial-gradient(rgba(201,169,110,.055) 1px,transparent 1px); background-size:32px 32px; pointer-events:none; animation:gridDrift2 25s linear infinite; }
+        @keyframes gridDrift2 { to{background-position:32px 32px} }
+        .appt-particle { position:absolute; border-radius:50%; pointer-events:none; animation:apptParticle linear infinite; }
+        @keyframes apptParticle { 0%{transform:translateY(0) scale(1);opacity:0} 10%{opacity:.7} 90%{opacity:.2} 100%{transform:translateY(-160px) scale(.2);opacity:0} }
         .appt-inner { max-width:1180px; margin:0 auto; position:relative; }
-
-        /* Header */
         .appt-header { text-align:center; margin-bottom:64px; }
         .appt-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(201,169,110,.1); border:1px solid rgba(201,169,110,.28); border-radius:20px; padding:5px 16px; margin-bottom:20px; }
         .appt-tag-dot { width:5px; height:5px; border-radius:50%; background:#C9A96E; animation:dotPulse2 2s ease-in-out infinite; }
-        @keyframes dotPulse2 {
-          0%,100%{box-shadow:0 0 0 0 rgba(201,169,110,.5)}
-          50%    {box-shadow:0 0 0 6px rgba(201,169,110,0)}
-        }
+        @keyframes dotPulse2 { 0%,100%{box-shadow:0 0 0 0 rgba(201,169,110,.5)} 50%{box-shadow:0 0 0 6px rgba(201,169,110,0)} }
         .appt-tag-text { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:#C9A96E; }
         .appt-h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,3.6rem); font-weight:700; color:#F8F5F0; line-height:1.1; margin-bottom:14px; }
-        .appt-h2 span {
-          background:linear-gradient(90deg,#C9A96E,#E8D5A3,#C9A96E); background-size:200%;
-          -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-          animation:shimmer2 3s linear infinite;
-        }
+        .appt-h2 span { background:linear-gradient(90deg,#C9A96E,#E8D5A3,#C9A96E); background-size:200%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:shimmer2 3s linear infinite; }
         @keyframes shimmer2 { to{background-position:200% center} }
         .appt-subtitle { font-size:.93rem; color:rgba(248,245,240,.5); max-width:500px; margin:0 auto; line-height:1.7; }
-
-        /* Main grid */
-        .appt-grid {
-          display:grid; grid-template-columns:1fr 1fr;
-          gap:40px; align-items:start;
-        }
-        @media(max-width:960px) {
-          .appt-grid { grid-template-columns:1fr; }
-          .appt-phone-col { order:-1; }
-        }
-
-        /* Left info column */
+        .appt-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; }
+        @media(max-width:960px) { .appt-grid { grid-template-columns:1fr; } .appt-phone-col { order:-1; } }
         .appt-left { display:flex; flex-direction:column; gap:20px; }
 
-        /* Chamber card */
-        .chamber-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,169,110,.15); border-radius:10px; overflow:hidden; transition:border-color .3s,box-shadow .3s; }
-        .chamber-card:hover { border-color:rgba(201,169,110,.35); box-shadow:0 8px 40px rgba(0,0,0,.3); }
-        .chamber-tabs { display:flex; border-bottom:1px solid rgba(201,169,110,.12); }
-        .chamber-tab {
-          flex:1; padding:14px; font-size:.82rem; font-weight:500;
-          letter-spacing:.06em; text-transform:uppercase;
-          color:rgba(248,245,240,.4); background:transparent; border:none;
-          cursor:pointer; transition:color .2s,background .2s;
-          position:relative; font-family:'DM Sans',sans-serif;
-        }
-        .chamber-tab::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:2px; background:#C9A96E; transform:scaleX(0); transition:transform .25s; }
-        .chamber-tab.active { color:#C9A96E; background:rgba(201,169,110,.05); }
+        /* Chamber */
+        .chamber-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,169,110,.15); border-radius:12px; overflow:hidden; transition:border-color .3s,box-shadow .3s; }
+        .chamber-card:hover { border-color:rgba(201,169,110,.3); box-shadow:0 8px 40px rgba(0,0,0,.3); }
+        .chamber-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(201,169,110,.12);
+  background: rgba(201,169,110,.04);
+  padding: 8px 10px;
+  gap: 8px;
+}
+      .chamber-tab {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(248,245,240,.45);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(201,169,110,.15);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color .2s, background .2s, border-color .2s, box-shadow .2s;
+  position: relative;
+  font-family: 'DM Sans', sans-serif;
+}
+
+        .chamber-tab::after { display: none; }
+        .chamber-tab:hover {
+  color: rgba(201,169,110,.8);
+  background: rgba(201,169,110,.08);
+  border-color: rgba(201,169,110,.3);
+}
+
+       .chamber-tab.active {
+  color: #0A1628;
+  background: linear-gradient(135deg, #C9A96E, #A87C40);
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(201,169,110,.35);
+}
         .chamber-tab.active::after { transform:scaleX(1); }
-        .chamber-body { padding:24px; }
-        .chamber-city { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:700; color:#F8F5F0; margin-bottom:6px; }
-        .chamber-hotline { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#C9A96E,#A87C40); color:#0A1628; font-size:.8rem; font-weight:600; padding:5px 14px; border-radius:20px; margin-bottom:18px; text-decoration:none; transition:filter .2s; }
+        .chamber-body { padding:22px; }
+        .chamber-city { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:700; color:#F8F5F0; margin-bottom:6px; }
+        .chamber-hotline { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#C9A96E,#A87C40); color:#0A1628; font-size:.8rem; font-weight:600; padding:5px 14px; border-radius:20px; margin-bottom:16px; text-decoration:none; transition:filter .2s; }
         .chamber-hotline:hover { filter:brightness(1.1); }
-        .chamber-locations { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+
+        /* Map */
+        .map-wrap { position:relative; border-radius:10px; overflow:hidden; height:168px; margin-bottom:16px; border:1px solid rgba(201,169,110,.2); background:#08111f; box-shadow:inset 0 0 0 1px rgba(201,169,110,.08); }
+        .map-wrap iframe { width:100%; height:100%; border:none; display:block; filter:hue-rotate(190deg) invert(88%) saturate(0.55) brightness(0.82) contrast(1.05); transition:opacity .6s ease; }
+        .map-wrap iframe.map-visible { opacity:1; }
+        .map-wrap iframe.map-hidden { opacity:0; }
+        .map-topbar { position:absolute; top:0; left:0; right:0; z-index:3; padding:6px 10px; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(90deg,rgba(8,17,31,.95) 0%,rgba(10,22,40,.85) 100%); border-bottom:1px solid rgba(201,169,110,.18); backdrop-filter:blur(4px); }
+        .map-live-badge { display:flex; align-items:center; gap:5px; font-size:.58rem; letter-spacing:.09em; text-transform:uppercase; color:#C9A96E; font-family:'DM Sans',sans-serif; }
+        .map-live-dot { width:6px; height:6px; border-radius:50%; background:#4ade80; animation:mapDotPulse 1.8s ease-in-out infinite; flex-shrink:0; }
+        @keyframes mapDotPulse { 0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)} 50%{box-shadow:0 0 0 4px rgba(74,222,128,0)} }
+        .map-open-link { font-size:.56rem; color:rgba(201,169,110,.6); text-decoration:none; display:flex; align-items:center; gap:3px; letter-spacing:.03em; transition:color .2s; font-family:'DM Sans',sans-serif; }
+        .map-open-link:hover { color:#C9A96E; }
+        .map-skeleton { position:absolute; inset:0; z-index:2; background:linear-gradient(110deg,#08111f 30%,rgba(201,169,110,.05) 50%,#08111f 70%); background-size:200% 100%; animation:skelShimmer 1.8s linear infinite; }
+        @keyframes skelShimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+        .map-skeleton.done { display:none; }
+
+        .chamber-locations { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
         .chamber-location { display:flex; align-items:flex-start; gap:10px; background:rgba(255,255,255,.04); border:1px solid rgba(201,169,110,.1); border-radius:6px; padding:10px 12px; transition:border-color .25s; }
         .chamber-location:hover { border-color:rgba(201,169,110,.3); }
         .chamber-loc-name { font-size:.83rem; font-weight:500; color:rgba(248,245,240,.85); margin-bottom:2px; }
@@ -457,8 +338,8 @@ export default function AppointmentSection() {
         .schedule-days { font-size:.8rem; color:rgba(248,245,240,.7); }
         .schedule-time { font-size:.8rem; font-weight:600; color:#C9A96E; white-space:nowrap; }
 
-        /* Contact card */
-        .contact-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,169,110,.15); border-radius:10px; padding:22px; }
+        /* Contact */
+        .contact-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,169,110,.15); border-radius:12px; padding:22px; }
         .contact-card-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600; color:#F8F5F0; margin-bottom:14px; }
         .contact-item { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid rgba(201,169,110,.07); text-decoration:none; transition:gap .2s; }
         .contact-item:last-child { border-bottom:none; }
@@ -470,36 +351,18 @@ export default function AppointmentSection() {
         a.contact-item .contact-value { color:#C9A96E; }
 
         /* CTA */
-        .appt-cta-btn {
-          display:inline-flex; align-items:center; gap:10px; width:100%; justify-content:center;
-          background:linear-gradient(135deg,#C9A96E,#A87C40); color:#0A1628;
-          font-family:'DM Sans',sans-serif; font-weight:700; font-size:.88rem;
-          letter-spacing:.05em; padding:14px 32px; border-radius:4px; border:none;
-          cursor:pointer; text-decoration:none; position:relative; overflow:hidden;
-          transition:filter .25s,transform .25s,box-shadow .25s;
-          box-shadow:0 4px 20px rgba(201,169,110,.3);
-        }
+        .appt-cta-btn { display:inline-flex; align-items:center; gap:10px; width:100%; justify-content:center; background:linear-gradient(135deg,#C9A96E,#A87C40); color:#0A1628; font-family:'DM Sans',sans-serif; font-weight:700; font-size:.88rem; letter-spacing:.05em; padding:14px 32px; border-radius:4px; border:none; cursor:pointer; text-decoration:none; position:relative; overflow:hidden; transition:filter .25s,transform .25s,box-shadow .25s; box-shadow:0 4px 20px rgba(201,169,110,.3); }
         .appt-cta-btn::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent); background-size:200% 100%; animation:btnShine2 2s linear infinite; }
         @keyframes btnShine2 { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
         .appt-cta-btn:hover { filter:brightness(1.1); transform:translateY(-2px); box-shadow:0 8px 30px rgba(201,169,110,.45); }
 
-        /* Phone column */
-        .appt-phone-col {
-          display:flex; flex-direction:column; align-items:center;
-          justify-content:center; gap:20px;
-        }
-        .phone-caption {
-          text-align:center;
-          font-size:.75rem; letter-spacing:.1em; text-transform:uppercase;
-          color:rgba(201,169,110,.5);
-          display:flex; align-items:center; gap:10px;
-        }
-        .phone-caption::before,
-        .phone-caption::after { content:''; flex:1; height:1px; background:rgba(201,169,110,.15); }
+        /* Phone col */
+        .appt-phone-col { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; }
+        .phone-caption { text-align:center; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(201,169,110,.4); display:flex; align-items:center; gap:10px; width:100%; max-width:240px; }
+        .phone-caption::before,.phone-caption::after { content:''; flex:1; height:1px; background:rgba(201,169,110,.15); }
       `}</style>
 
-      <section className="appt-section" ref={sectionRef}>
-        {/* Floating particles */}
+      <section id="appointment" className="appt-section" ref={sectionRef}>
         {[...Array(10)].map((_,i)=>(
           <div key={i} className="appt-particle" style={{
             width:`${3+(i%3)*3}px`, height:`${3+(i%3)*3}px`,
@@ -510,30 +373,54 @@ export default function AppointmentSection() {
         ))}
 
         <div className="appt-inner">
-          {/* Header */}
           <div className="appt-header" data-reveal="up" data-delay="0">
-            <div className="appt-tag"><div className="appt-tag-dot"/><span className="appt-tag-text">Visit Us</span></div>
-            <h2 className="appt-h2">Schedule Your<br/><span>Appointment Today</span></h2>
-            <p className="appt-subtitle">Book a consultation at any of our chamber locations across Faridpur and Jhenaidah.</p>
+            <div className="appt-tag"><div className="appt-tag-dot"/><span className="appt-tag-text">{t.apptSectionTag}</span></div>
+            <h2 className="appt-h2">{t.apptSectionTitle}</h2>
+            <p className="appt-subtitle">{t.apptSectionSubtitle}</p>
           </div>
 
           <div className="appt-grid">
-            {/* Left: Info */}
             <div className="appt-left">
-              {/* Chamber tabs */}
               <div className="chamber-card" data-reveal="left" data-delay="150">
                 <div className="chamber-tabs">
                   {chambers.map((c,i)=>(
-                    <button key={c.city} className={`chamber-tab ${activeTab===i?"active":""}`} onClick={()=>setActiveTab(i)}>
-                      {c.city}
-                    </button>
+                    <button key={c.city} className={`chamber-tab ${activeTab===i?"active":""}`} onClick={()=>setActiveTab(i)}>{c.city}</button>
                   ))}
                 </div>
                 <div className="chamber-body">
-                  {chambers.map((c,i)=> i!==activeTab ? null : (
+                  {chambers.map((c, i) => i !== activeTab ? null : (
                     <div key={c.city}>
-                      <div className="chamber-city">{c.city} Chamber</div>
+                      <div className="chamber-city">{c.city} {t.apptChamberSuffix}</div>
                       <a href={`tel:${c.hotline.replace(/-/g,"")}`} className="chamber-hotline">📞 {c.hotline}</a>
+
+                      {/* ── Map embed ── */}
+                      <div className="map-wrap">
+                        <div className="map-topbar">
+                          <div className="map-live-badge">
+                            <div className="map-live-dot"/>
+                            {t.apptLiveLocation}
+                          </div>
+                          <a
+                            href={`https://maps.google.com/?q=${c.mapQuery}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="map-open-link"
+                          >
+                            {t.apptOpenMaps}
+                          </a>
+                        </div>
+                        <div className={`map-skeleton ${mapLoaded[i] ? "done" : ""}`}/>
+                        <iframe
+                          src={c.mapEmbedUrl}
+                          className={mapLoaded[i] ? "map-visible" : "map-hidden"}
+                          onLoad={() => handleMapLoad(i)}
+                          allowFullScreen=""
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          title={`${c.city} Chamber Map`}
+                        />
+                      </div>
+
                       <div className="chamber-locations">
                         {c.locations.map(loc=>(
                           <div className="chamber-location" key={loc.name}>
@@ -545,7 +432,7 @@ export default function AppointmentSection() {
                           </div>
                         ))}
                       </div>
-                      <div className="schedule-title">Visiting Hours</div>
+                      <div className="schedule-title">{t.apptVisitingHours}</div>
                       {c.schedule.map(s=>(
                         <div className="schedule-row" key={s.days}>
                           <span className="schedule-days">{s.days}</span>
@@ -557,40 +444,30 @@ export default function AppointmentSection() {
                 </div>
               </div>
 
-              {/* Contact card */}
               <div className="contact-card" data-reveal="left" data-delay="280">
-                <div className="contact-card-title">Direct Contact</div>
-                <a href="tel:01300263332" className="contact-item">
-                  <div className="contact-icon-wrap">📞</div>
-                  <div><div className="contact-label">Faridpur Hotline</div><div className="contact-value">01300-263332</div></div>
-                </a>
-                <a href="tel:01535165256" className="contact-item">
-                  <div className="contact-icon-wrap">📞</div>
-                  <div><div className="contact-label">Jhenaidah Hotline</div><div className="contact-value">01535-165256</div></div>
-                </a>
+                <div className="contact-card-title">{t.apptDirectContact}</div>
                 <a href="mailto:btanjil17@gmail.com" className="contact-item">
                   <div className="contact-icon-wrap">✉</div>
-                  <div><div className="contact-label">Email</div><div className="contact-value">btanjil17@gmail.com</div></div>
+                  <div><div className="contact-label">{t.apptEmail}</div><div className="contact-value">btanjil17@gmail.com</div></div>
                 </a>
-                <a href="mailto:laser.lapunit@gmail.com" className="contact-item">
+                {/* <a href="mailto:laser.lapunit@gmail.com" className="contact-item">
                   <div className="contact-icon-wrap">✉</div>
                   <div><div className="contact-label">Laser & Lap Unit</div><div className="contact-value">laser.lapunit@gmail.com</div></div>
-                </a>
+                </a> */}
               </div>
 
               <a href="tel:01300263332" className="appt-cta-btn" data-reveal="up" data-delay="380">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.64A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
                 </svg>
-                Make an Appointment
+                {t.apptMakeAppointment}
               </a>
             </div>
 
-            {/* Right: Animated Phone */}
             <div className="appt-phone-col" data-reveal="right" data-delay="200">
-              <div className="phone-caption">Live Demo</div>
+              <div className="phone-caption">{t.apptHowItWorks}</div>
               <AnimatedPhone/>
-              <div className="phone-caption">Book from anywhere</div>
+              <div className="phone-caption">{t.apptOneCallAway}</div>
             </div>
           </div>
         </div>
