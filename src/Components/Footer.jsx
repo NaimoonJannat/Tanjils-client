@@ -206,7 +206,7 @@ const Footer = () => {
                 <img src="/logo.png" alt="Logo" className="footer-logo-img" />
                 <div className="footer-logo-text">
                   <div className="footer-logo-name">
-                    <span>Dr. </span>ASM Tanjilur Rahman
+                    <span>{t.doctorPrefix} </span>{t.doctorName}
                   </div>
                   <div className="footer-logo-sub">{t.footerLogoSub}</div>
                 </div>

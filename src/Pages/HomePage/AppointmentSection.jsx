@@ -2,32 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLanguage } from "../../Context/LanguageContext";
 import translations from "../../i18n/translations";
 
-const chambers = [
-  {
-    city: "Faridpur",
-    hotline: "01300-263332",
-    locations: [
-      { name: "Faridpur Apollo Specialized Hospital", address: "Alipur, Faridpur" },
-      { name: "Islami Bank Community Hospital Ltd.", address: "Faridpur" },
-    ],
-    schedule: [{ days: "Saturday – Wednesday", time: "4:00 PM – 8:00 PM" }],
-    mapQuery: "Faridpur+Apollo+Specialized+Hospital+Alipur+Faridpur+Bangladesh",
-    mapEmbedUrl: "https://maps.google.com/maps?q=Faridpur+Apollo+Specialized+Hospital,+Alipur,+Faridpur,+Bangladesh&t=&z=15&ie=UTF8&iwloc=&output=embed",
-  },
-  {
-    city: "Jhenaidah",
-    hotline: "01535-165256",
-    locations: [
-      { name: "Islami Bank Community Hospital Ltd.", address: "Chuadanga Bus Stand, Jhenaidah" },
-    ],
-    schedule: [
-      { days: "Thursday", time: "4:00 PM – 8:00 PM" },
-      { days: "Friday",   time: "9:00 AM – 12:30 PM" },
-    ],
-    mapQuery: "Islami+Bank+Community+Hospital+Jhenaidah+Bangladesh",
-    mapEmbedUrl: "https://maps.google.com/maps?q=Islami+Bank+Community+Hospital,+Jhenaidah,+Bangladesh&t=&z=15&ie=UTF8&iwloc=&output=embed",
-  },
-];
 
 function AnimatedPhone() {
   const [screen, setScreen] = useState("website");
@@ -231,6 +205,19 @@ export default function AppointmentSection() {
   const sectionRef = useRef(null);
   const { lang } = useLanguage();
   const t = translations[lang];
+  const chambersBase = [
+    {
+      hotline: "01300-263332",
+      mapQuery: "Faridpur+Apollo+Specialized+Hospital+Alipur+Faridpur+Bangladesh",
+      mapEmbedUrl: "https://maps.google.com/maps?q=Faridpur+Apollo+Specialized+Hospital,+Alipur,+Faridpur,+Bangladesh&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    },
+    {
+      hotline: "01535-165256",
+      mapQuery: "Islami+Bank+Community+Hospital+Jhenaidah+Bangladesh",
+      mapEmbedUrl: "https://maps.google.com/maps?q=Islami+Bank+Community+Hospital,+Jhenaidah,+Bangladesh&t=&z=15&ie=UTF8&iwloc=&output=embed",
+    },
+  ];
+  const chambers = t.apptChambers.map((c, i) => ({ ...c, ...chambersBase[i] }));
 
   useEffect(() => {
     const observer = new IntersectionObserver(

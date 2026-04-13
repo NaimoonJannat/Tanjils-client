@@ -266,7 +266,7 @@ export default function MainNav() {
             <img src="/logo.png" alt="Dr. ASM Tanjilur Rahman" className="nav-logo-img" />
             <div className="nav-logo-text">
               <div className="nav-logo-name">
-                <span>Dr. </span>ASM Tanjilur Rahman
+                <span>{t.doctorPrefix} </span>{t.doctorName}
               </div>
               <div className="nav-logo-sub">{t.navLogoSub}</div>
             </div>

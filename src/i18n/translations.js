@@ -13,6 +13,9 @@ const translations = {
     langBengali: "বাংলা",
 
     /* ── MainNav ── */
+    doctorPrefix: "Dr.",
+    doctorName: "ASM Tanjilur Rahman",
+
     navHome: "Home",
     navAbout: "About",
     navServices: "Services",
@@ -90,6 +93,26 @@ const translations = {
       confirmedTitle: "Appointment Confirmed!",
       confirmedMsg: "You will receive a confirmation call shortly.",
     },
+    apptChambers: [
+      {
+        city: "Faridpur",
+        locations: [
+          { name: "Faridpur Apollo Specialized Hospital", address: "Alipur, Faridpur" },
+          { name: "Islami Bank Community Hospital Ltd.", address: "Faridpur" },
+        ],
+        schedule: [{ days: "Saturday – Wednesday", time: "4:00 PM – 8:00 PM" }],
+      },
+      {
+        city: "Jhenaidah",
+        locations: [
+          { name: "Islami Bank Community Hospital Ltd.", address: "Chuadanga Bus Stand, Jhenaidah" },
+        ],
+        schedule: [
+          { days: "Thursday", time: "4:00 PM – 8:00 PM" },
+          { days: "Friday",   time: "9:00 AM – 12:30 PM" },
+        ],
+      },
+    ],
 
     /* ── Treatment Section ── */
     treatTag: "Centre of Excellence",
@@ -139,6 +162,7 @@ const translations = {
     actTabAcademic: "Academic",
     actTabSurgeries: "Surgeries",
     actTabSocial: "Social",
+    actTabResearch: "Research",
     actTabVideos: "Videos",
     actAcademicDegrees: "Academic Degrees",
     actAcademicSpec: "Specializations",
@@ -185,6 +209,9 @@ const translations = {
     langBengali: "বাংলা",
 
     /* ── MainNav ── */
+    doctorPrefix: "ডা.",
+    doctorName: "এ.এস.এম. তানজিলুর রহমান",
+
     navHome: "হোম",
     navAbout: "পরিচিতি",
     navServices: "সেবাসমূহ",
@@ -262,6 +289,26 @@ const translations = {
       confirmedTitle: "অ্যাপয়েন্টমেন্ট নিশ্চিত!",
       confirmedMsg: "শীঘ্রই আপনাকে নিশ্চিতকরণ কল করা হবে।",
     },
+    apptChambers: [
+      {
+        city: "ফরিদপুর",
+        locations: [
+          { name: "ফরিদপুর অ্যাপোলো বিশেষায়িত হাসপাতাল", address: "আলিপুর, ফরিদপুর" },
+          { name: "ইসলামী ব্যাংক কমিউনিটি হাসপাতাল লি.", address: "ফরিদপুর" },
+        ],
+        schedule: [{ days: "শনিবার – বুধবার", time: "বিকাল ৪:০০ – রাত ৮:০০" }],
+      },
+      {
+        city: "ঝিনাইদহ",
+        locations: [
+          { name: "ইসলামী ব্যাংক কমিউনিটি হাসপাতাল লি.", address: "চুয়াডাঙ্গা বাস স্ট্যান্ড, ঝিনাইদহ" },
+        ],
+        schedule: [
+          { days: "বৃহস্পতিবার", time: "বিকাল ৪:০০ – রাত ৮:০০" },
+          { days: "শুক্রবার",    time: "সকাল ৯:০০ – দুপুর ১২:৩০" },
+        ],
+      },
+    ],
 
     /* ── Treatment Section ── */
     treatTag: "শ্রেষ্ঠত্বের কেন্দ্র",
@@ -311,6 +358,7 @@ const translations = {
     actTabAcademic: "একাডেমিক",
     actTabSurgeries: "অস্ত্রোপচার",
     actTabSocial: "সামাজিক",
+    actTabResearch: "গবেষণা",
     actTabVideos: "ভিডিও",
     actAcademicDegrees: "একাডেমিক ডিগ্রি",
     actAcademicSpec: "বিশেষজ্ঞতা",

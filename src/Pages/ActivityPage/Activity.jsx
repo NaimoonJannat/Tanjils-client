@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "../../Context/LanguageContext";
 import translations from "../../i18n/translations";
+import { FaGraduationCap, FaUserDoctor, FaHandshake, FaFlask } from "react-icons/fa6";
 
 /* ── Demo Data ────────────────────────────────────────────────── */
 
@@ -179,73 +180,66 @@ const researchData = [
     id: 1,
     type: "Original Research",
     typeColor: "#93C5FD",
-    title: "Outcomes of Laparoscopic vs Open Cholecystectomy in Acute Cholecystitis: A Retrospective Cohort Study",
-    journal: "Bangladesh Journal of Surgery",
-    year: "2024",
-    vol: "Vol. 29, Issue 1",
-    doi: "10.XXXX/bjs.2024.01.004",
-    abstract: "A retrospective analysis of 340 patients comparing outcomes between laparoscopic and open cholecystectomy for acute cholecystitis. Laparoscopic approach demonstrated significantly reduced hospital stay, lower complication rates, and faster return to normal activity.",
+    title: "Desarda Versus Lichtenstein Repair for Primary Inguinal Hernia in Men: Results of A Randomized Control Trial",
+    journal: "Faridpur Medical College Journal",
+    year: "2019",
+    vol: "Vol. 14, No. 1",
+    doi: "—",
+    url: "https://www.researchgate.net/publication/340214888_Desarda_Versus_Lichtenstein_Repair_for_Primary_Inguinal_Hernia_in_Men_Results_of_A_Randomized_Control_Trial",
+    abstract: "A randomized controlled trial of 160 male patients comparing Desarda (non-mesh) versus Lichtenstein (mesh) repair for primary inguinal hernia. Operative time, immediate postoperative pain, cost, and foreign body sensation all favoured the Desarda arm. No recurrence was recorded in either group at two-year follow-up.",
     highlight: "Published",
   },
   {
     id: 2,
-    type: "Clinical Study",
-    typeColor: "#6EE7B7",
-    title: "Laser Haemorrhoidoplasty for Grade III & IV Haemorrhoids: Short-term Outcomes and Patient Satisfaction",
-    journal: "Annals of Colorectal Surgery",
-    year: "2023",
-    vol: "Vol. 8, Issue 3",
-    doi: "10.XXXX/acs.2023.08.012",
-    abstract: "Prospective evaluation of 180 patients undergoing laser haemorrhoidoplasty. The study demonstrated superior pain scores, shorter operative time, and high patient satisfaction compared to conventional excisional haemorrhoidectomy.",
+    type: "Review Article",
+    typeColor: "#FCA5A5",
+    title: "Update on Management of Non-Palpable Breast Lesion",
+    journal: "Faridpur Medical College Journal",
+    year: "2020",
+    vol: "Vol. 15",
+    doi: "—",
+    url: "https://www.researchgate.net/publication/342936584_Update_on_Management_of_Non-Palpable_Breast_Lesion",
+    abstract: "A systematic review of localisation techniques for non-palpable breast lesions applicable in a Bangladeshi context. Covers wire-guided localisation, radioguided occult lesion localisation (ROLL), and intraoperative ultrasound, arguing for expanded breast-conserving surgery through improved pre-operative detection.",
     highlight: "Published",
   },
   {
     id: 3,
-    type: "Case Report",
-    typeColor: "#C9A96E",
-    title: "Laparoscopic Management of Giant Incisional Hernia with Component Separation: A Challenging Case",
-    journal: "Journal of Surgical Case Reports",
-    year: "2023",
-    vol: "Vol. 2023, Issue 7",
-    doi: "10.XXXX/jscr.2023.07.089",
-    abstract: "Report of a challenging giant incisional hernia managed successfully via laparoscopic approach with bilateral component separation. The case highlights the feasibility and safety of minimally invasive techniques in complex hernia scenarios.",
+    type: "Review Article",
+    typeColor: "#6EE7B7",
+    title: "Laser in Proctology: A New Hope in Treating the Distressing Anal Diseases",
+    journal: "Faridpur Medical College Journal",
+    year: "2019",
+    vol: "Vol. 14, No. 2",
+    doi: "—",
+    url: "https://www.researchgate.net/publication/342936747_Laser_in_Proctology_A_New_Hope_in_Treating_the_Distressing_Anal_Diseases",
+    abstract: "A clinical review advocating the adoption of laser-based proctological procedures — including laser haemorrhoidoplasty, laser fistulotomy, and laser treatment of anal fissure and pilonidal sinus — as minimally invasive alternatives to conventional surgery, with particular reference to feasibility in the Bangladeshi healthcare setting.",
     highlight: "Published",
   },
   {
     id: 4,
-    type: "Review Article",
-    typeColor: "#FCA5A5",
-    title: "Evolution of Colorectal Surgery in Bangladesh: Challenges, Progress and Future Directions",
-    journal: "Bangladesh Medical Research Council Bulletin",
-    year: "2022",
-    vol: "Vol. 48, Issue 2",
-    doi: "10.XXXX/bmrcb.2022.48.023",
-    abstract: "A comprehensive review of colorectal surgical practice in Bangladesh over the past two decades, analysing training infrastructure, patient outcomes, and recommendations for advancing sub-specialty care nationally.",
+    type: "Case Report",
+    typeColor: "#C9A96E",
+    title: "Management of Inferior Vena Cava Injury in a Non-Specialised Tertiary Hospital: A Case Report",
+    journal: "Faridpur Medical College Journal",
+    year: "2014",
+    vol: "Vol. 9, No. 1",
+    doi: "—",
+    url: "https://www.researchgate.net/publication/282468760_Management_of_inferior_vena_cava_injury_in_a_non_specialized_tertiary_hospital-a_case_report",
+    abstract: "Report of a patient with infrarenal inferior vena cava injury managed by patch cavaplasty using a great saphenous vein graft at a non-specialised tertiary centre. The case demonstrates that complex vascular repair is feasible without a dedicated vascular surgical team, and highlights the operative steps and post-operative course.",
     highlight: "Published",
   },
   {
     id: 5,
-    type: "Ongoing Research",
+    type: "Original Research",
     typeColor: "#A78BFA",
-    title: "Comparative Study of Sutureless vs Sutured Mesh Fixation in Laparoscopic Inguinal Hernia Repair",
-    journal: "Under Peer Review",
-    year: "2024",
-    vol: "—",
+    title: "Efficacy and Long-term Outcome of Laser Hemorrhoidoplasty (LHP) for Symptomatic Grade II to IV Hemorrhoids",
+    journal: "Faridpur Medical College Journal / ResearchGate",
+    year: "2025",
+    vol: "Full-text available",
     doi: "—",
-    abstract: "An ongoing randomised controlled trial comparing sutureless tack fixation against sutured mesh fixation in TAPP hernia repair. Primary endpoints include chronic groin pain, recurrence rate, and operative time.",
-    highlight: "Ongoing",
-  },
-  {
-    id: 6,
-    type: "Conference Paper",
-    typeColor: "#FDE68A",
-    title: "Single-Port Laparoscopic Appendectomy: Technique and Early Outcomes",
-    journal: "16th SAARC Surgical Congress, Colombo",
-    year: "2023",
-    vol: "Oral Presentation",
-    doi: "—",
-    abstract: "Presentation of technique and 60-patient experience with single-port laparoscopic appendectomy at a tertiary centre in Bangladesh, demonstrating comparable safety and superior cosmetic results.",
-    highlight: "Presented",
+    url: "https://www.researchgate.net/publication/390863699_Efficacy_and_Long-term_Outcome_of_Laser_hemorrhoidoplasty_LHP_for_Symptomatic_Grade_II_to_IV_Hemorrhoids",
+    abstract: "A retrospective study of patients who underwent LHP using a 1470 nm diode laser (LASOTRONIX) for Grade II–IV haemorrhoids, with follow-up at 6 months, 1 year, and 2 years. LHP showed low complication rates and rapid return to daily activity, with recurrence rates significantly higher in Grade IV disease (50%) compared to Grade II–III (17.6%).",
+    highlight: "Published",
   },
 ];
 
@@ -1136,10 +1130,10 @@ export default function Activity() {
           <div className={`act-tabs-wrap ${revealed ? "in" : ""}`}>
             <div className="act-tabs">
               {[
-                { name: "Academic", icon: "🎓", label: tr.actTabAcademic },
-                { name: "Surgery",  icon: "🔬", label: tr.actTabSurgeries },
-                { name: "Social",   icon: "🤝", label: tr.actTabSocial },
-                { name: "Research", icon: "📄", label: tr.actTabVideos },
+                { name: "Academic", icon: <FaGraduationCap />, label: tr.actTabAcademic },
+                { name: "Surgery",  icon: <FaUserDoctor />,   label: tr.actTabSurgeries },
+                { name: "Social",   icon: <FaHandshake />,    label: tr.actTabSocial },
+                { name: "Research", icon: <FaFlask />,        label: tr.actTabResearch },
               ].map((tab) => (
                 <button
                   key={tab.name}
@@ -1342,7 +1336,13 @@ export default function Activity() {
                       <span className={`research-highlight ${r.highlight.toLowerCase()}`}>{r.highlight}</span>
                       <span className="research-year">{r.year}</span>
                     </div>
-                    <div className="research-title">{r.title}</div>
+                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="research-title"
+  style={{ textDecoration: "none", cursor: "pointer", transition: "color .2s" }}
+  onMouseEnter={e => e.currentTarget.style.color = "#C9A96E"}
+  onMouseLeave={e => e.currentTarget.style.color = "#F8F5F0"}
+>
+  {r.title}
+</a>
                     <div className="research-meta">
                       <span>{r.journal}</span>
                       {r.vol !== "—" && (
