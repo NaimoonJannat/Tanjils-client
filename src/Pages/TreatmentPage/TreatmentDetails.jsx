@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router";
 import axios from "axios";
+import { useLanguage } from "../../Context/LanguageContext";
+import translations from "../../i18n/translations";
 
 const categoryColors = {
   Laparoscopic: { bg: "rgba(96,165,250,.15)",  text: "#93C5FD", border: "rgba(96,165,250,.3)" },
@@ -128,7 +130,9 @@ function Reveal({ children, direction = "up", delay = 0, style = {} }) {
 export default function TreatmentDetails() {
   const { slug }                  = useParams();
   const navigate                  = useNavigate();
-  const location                  = useLocation(); 
+  const location                  = useLocation();
+  const { lang }                  = useLanguage();
+  const t                         = translations[lang];
   const [treatment, setTreatment] = useState(null);
   const [related, setRelated]     = useState([]);
   const [loading, setLoading]     = useState(true);
@@ -184,8 +188,8 @@ export default function TreatmentDetails() {
     <div style={{ minHeight:"100vh",background:"#0A1628",display:"flex",alignItems:"center",justifyContent:"center",paddingTop:100 }}>
       <div style={{ textAlign:"center",color:"#F8F5F0",fontFamily:"'DM Sans',sans-serif" }}>
         <div style={{ fontFamily:"'Cormorant Garamond',serif",fontSize:"4rem",color:"#C9A96E",lineHeight:1 }}>404</div>
-        <div style={{ fontSize:"1.1rem",marginBottom:24,color:"rgba(248,245,240,.6)" }}>Treatment not found</div>
-        <button onClick={()=>navigate("/")} style={{ background:"linear-gradient(135deg,#C9A96E,#A87C40)",color:"#0A1628",border:"none",padding:"11px 28px",borderRadius:4,fontWeight:600,cursor:"pointer",fontFamily:"'DM Sans',sans-serif" }}>← Back to Home</button>
+        <div style={{ fontSize:"1.1rem",marginBottom:24,color:"rgba(248,245,240,.6)" }}>{t.tdNotFound}</div>
+        <button onClick={()=>navigate("/")} style={{ background:"linear-gradient(135deg,#C9A96E,#A87C40)",color:"#0A1628",border:"none",padding:"11px 28px",borderRadius:4,fontWeight:600,cursor:"pointer",fontFamily:"'DM Sans',sans-serif" }}>{t.tdBackHome}</button>
       </div>
     </div>
   );
@@ -355,9 +359,9 @@ export default function TreatmentDetails() {
 
           <div className="td-hero-body">
             <div className="td-crumb">
-              <Link to="/">Home</Link>
+              <Link to="/">{t.navHome}</Link>
               <span style={{ color:"rgba(201,169,110,.35)" }}>›</span>
-              <Link to="/">Treatments</Link>
+              <Link to="/">{t.tdCrumbTreatments}</Link>
               <span style={{ color:"rgba(201,169,110,.35)" }}>›</span>
               <span style={{ color:"rgba(201,169,110,.75)" }}>{treatment.title}</span>
             </div>
@@ -367,7 +371,7 @@ export default function TreatmentDetails() {
               style={{ display:"inline-flex",alignItems:"center",gap:7,fontSize:".68rem",letterSpacing:".1em",textTransform:"uppercase",fontWeight:600,padding:"4px 13px",borderRadius:20,marginBottom:12,fontFamily:"'DM Sans',sans-serif",background:colorSet.bg,color:colorSet.text,border:`1px solid ${colorSet.border}` }}
             >
               <span style={{ width:5,height:5,borderRadius:"50%",background:colorSet.text,flexShrink:0 }}/>
-              {treatment.category}
+              {t.treatCategoryLabels[treatment.category] || treatment.category}
             </div>
 
             <h1 className="td-hero-h1">{treatment.title}</h1>
@@ -385,23 +389,23 @@ export default function TreatmentDetails() {
           <div className="td-strip-inner">
             {treatment.duration && (
               <div className="td-stat">
-                <div className="td-stat-lbl">Duration</div>
+                <div className="td-stat-lbl">{t.tdStatDuration}</div>
                 <div className="td-stat-val">{treatment.duration}</div>
               </div>
             )}
             {treatment.recovery && (
               <div className="td-stat">
-                <div className="td-stat-lbl">Recovery</div>
+                <div className="td-stat-lbl">{t.tdStatRecovery}</div>
                 <div className="td-stat-val">{treatment.recovery}</div>
               </div>
             )}
             <div className="td-stat">
-              <div className="td-stat-lbl">Specialisation</div>
-              <div className="td-stat-val">{treatment.category}</div>
+              <div className="td-stat-lbl">{t.tdStatSpec}</div>
+              <div className="td-stat-val">{t.treatCategoryLabels[treatment.category] || treatment.category}</div>
             </div>
             <div className="td-stat">
-              <div className="td-stat-lbl">Surgeon</div>
-              <div className="td-stat-val" style={{ fontSize:".88rem" }}>Dr. ASM Tanjilur Rahman</div>
+              <div className="td-stat-lbl">{t.tdStatSurgeon}</div>
+              <div className="td-stat-val" style={{ fontSize:".88rem" }}>{t.doctorPrefix} {t.doctorName}</div>
             </div>
           </div>
         </div>
@@ -415,15 +419,15 @@ export default function TreatmentDetails() {
             {/* Mobile appointment card */}
             <div className="td-mob-appt">
               <div className="td-appt-card">
-                <div className="td-appt-title">Book an Appointment</div>
-                <div className="td-appt-sub">Call directly to schedule your consultation.</div>
+                <div className="td-appt-title">{t.tdApptTitle}</div>
+                <div className="td-appt-sub">{t.tdApptSubMob}</div>
                 <a href="tel:01300263332" className="td-phone">
                   <div className="td-phone-icon">📞</div>
-                  <div><div className="td-phone-lbl">Faridpur</div><div className="td-phone-num">01300-263332</div></div>
+                  <div><div className="td-phone-lbl">{t.tdFaridpurLabel}</div><div className="td-phone-num">01300-263332</div></div>
                 </a>
                 <a href="tel:01535165256" className="td-phone">
                   <div className="td-phone-icon">📞</div>
-                  <div><div className="td-phone-lbl">Jhenaidah</div><div className="td-phone-num">01535-165256</div></div>
+                  <div><div className="td-phone-lbl">{t.tdJhenaidahLabel}</div><div className="td-phone-num">01535-165256</div></div>
                 </a>
                 <Link
                   to="/"
@@ -436,7 +440,7 @@ export default function TreatmentDetails() {
                     <line x1="8" y1="2" x2="8" y2="6"/>
                     <line x1="3" y1="10" x2="21" y2="10"/>
                   </svg>
-                  View Appointment Info
+                  {t.tdApptCta}
                 </Link>
               </div>
             </div>
@@ -444,7 +448,7 @@ export default function TreatmentDetails() {
             {/* Description */}
             {treatment.description && (
               <Reveal direction="up" delay={0}>
-                <div className="td-sec-label"><span className="td-sec-text">About This Procedure</span><div className="td-sec-line"/></div>
+                <div className="td-sec-label"><span className="td-sec-text">{t.tdAboutProc}</span><div className="td-sec-line"/></div>
                 <p className="td-desc">{treatment.description}</p>
               </Reveal>
             )}
@@ -452,7 +456,7 @@ export default function TreatmentDetails() {
             {/* Highlights */}
             {treatment.highlights?.length > 0 && (
               <Reveal direction="up" delay={80}>
-                <div className="td-sec-label"><span className="td-sec-text">Key Highlights</span><div className="td-sec-line"/></div>
+                <div className="td-sec-label"><span className="td-sec-text">{t.tdKeyHighlights}</span><div className="td-sec-line"/></div>
                 <div className="td-hl-grid">
                   {treatment.highlights.map((h, i) => (
                     <div className="td-hl-card" key={i}>
@@ -466,23 +470,23 @@ export default function TreatmentDetails() {
 
             {/* Details table */}
             <Reveal direction="up" delay={140}>
-              <div className="td-sec-label"><span className="td-sec-text">Procedure Details</span><div className="td-sec-line"/></div>
+              <div className="td-sec-label"><span className="td-sec-text">{t.tdProcDetails}</span><div className="td-sec-line"/></div>
               <div className="td-table">
                 {treatment.category && (
                   <div className="td-row">
-                    <div className="td-key">Category</div>
+                    <div className="td-key">{t.tdKeyCategory}</div>
                     <div className="td-val">
                       <span style={{ background:colorSet.bg,color:colorSet.text,border:`1px solid ${colorSet.border}`,padding:"2px 10px",borderRadius:20,fontSize:".73rem",fontWeight:600 }}>
-                        {treatment.category}
+                        {t.treatCategoryLabels[treatment.category] || treatment.category}
                       </span>
                     </div>
                   </div>
                 )}
-                {treatment.duration && <div className="td-row"><div className="td-key">Duration</div><div className="td-val">{treatment.duration}</div></div>}
-                {treatment.recovery && <div className="td-row"><div className="td-key">Recovery</div><div className="td-val">{treatment.recovery}</div></div>}
-                <div className="td-row"><div className="td-key">Surgeon</div><div className="td-val">Dr. ASM Tanjilur Rahman, FCPS, FMAS</div></div>
-                <div className="td-row"><div className="td-key">Hospital</div><div className="td-val">Faridpur Apollo Specialized Hospital & Islami Bank Community Hospital</div></div>
-                <div className="td-row"><div className="td-key">Approach</div><div className="td-val">Minimally Invasive · Patient-Centred Care</div></div>
+                {treatment.duration && <div className="td-row"><div className="td-key">{t.tdKeyDuration}</div><div className="td-val">{treatment.duration}</div></div>}
+                {treatment.recovery && <div className="td-row"><div className="td-key">{t.tdKeyRecovery}</div><div className="td-val">{treatment.recovery}</div></div>}
+                <div className="td-row"><div className="td-key">{t.tdKeySurgeon}</div><div className="td-val">{t.tdSurgeonVal}</div></div>
+                <div className="td-row"><div className="td-key">{t.tdKeyHospital}</div><div className="td-val">{t.tdHospitalVal}</div></div>
+                <div className="td-row"><div className="td-key">{t.tdKeyApproach}</div><div className="td-val">{t.tdApproachVal}</div></div>
               </div>
             </Reveal>
 
@@ -497,27 +501,27 @@ export default function TreatmentDetails() {
                 <div className="td-doc-head">
                   <img src="/dp.png" alt="Dr ASM Tanjilur Rahman" className="td-doc-avatar"/>
                   <div>
-                    <div className="td-doc-name">Dr. ASM Tanjilur Rahman</div>
-                    <div className="td-doc-creds">FCPS · FMAS · Fellowship GEM, India</div>
+                    <div className="td-doc-name">{t.doctorPrefix} {t.doctorName}</div>
+                    <div className="td-doc-creds">{t.tdDocCreds}</div>
                   </div>
                 </div>
                 <div className="td-doc-body">
-                  <p className="td-doc-desc">Specialist in Laser, Advanced Laparoscopic and Cancer Surgery. Asst. Professor, Faridpur Medical College.</p>
-                  <Link to="/about" className="td-doc-link">View Full Profile →</Link>
+                  <p className="td-doc-desc">{t.tdDocDesc}</p>
+                  <Link to="/about" className="td-doc-link">{t.tdDocLink}</Link>
                 </div>
               </div>
 
               {/* Appointment card (hidden on mobile — shown inline above) */}
               <div className="td-appt-card">
-                <div className="td-appt-title">Book an Appointment</div>
-                <div className="td-appt-sub">Call directly to schedule your consultation. Fast response & priority scheduling.</div>
+                <div className="td-appt-title">{t.tdApptTitle}</div>
+                <div className="td-appt-sub">{t.tdApptSub}</div>
                 <a href="tel:01300263332" className="td-phone">
                   <div className="td-phone-icon">📞</div>
-                  <div><div className="td-phone-lbl">Faridpur Hotline</div><div className="td-phone-num">01300-263332</div></div>
+                  <div><div className="td-phone-lbl">{t.tdFaridpurHotline}</div><div className="td-phone-num">01300-263332</div></div>
                 </a>
                 <a href="tel:01535165256" className="td-phone">
                   <div className="td-phone-icon">📞</div>
-                  <div><div className="td-phone-lbl">Jhenaidah Hotline</div><div className="td-phone-num">01535-165256</div></div>
+                  <div><div className="td-phone-lbl">{t.tdJhenaidahHotline}</div><div className="td-phone-num">01535-165256</div></div>
                 </a>
                 <Link
                   to="/"
@@ -525,18 +529,18 @@ export default function TreatmentDetails() {
                   className="td-cta"
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  View Appointment Info
+                  {t.tdApptCta}
                 </Link>
               </div>
 
               {/* Schedule */}
               <div className="td-sched-card">
-                <div className="td-sched-title">Visiting Hours</div>
-                <div className="td-sched-city">Faridpur</div>
-                <div className="td-sched-row"><span className="td-sched-days">Sat – Wed</span><span className="td-sched-time">4:00 – 8:00 PM</span></div>
-                <div className="td-sched-city">Jhenaidah</div>
-                <div className="td-sched-row"><span className="td-sched-days">Thursday</span><span className="td-sched-time">4:00 – 8:00 PM</span></div>
-                <div className="td-sched-row"><span className="td-sched-days">Friday</span><span className="td-sched-time">9:00 AM – 12:30 PM</span></div>
+                <div className="td-sched-title">{t.apptVisitingHours}</div>
+                <div className="td-sched-city">{t.tdFaridpurLabel}</div>
+                <div className="td-sched-row"><span className="td-sched-days">{t.tdSchedRow1Days}</span><span className="td-sched-time">{t.tdSchedRow1Time}</span></div>
+                <div className="td-sched-city">{t.tdJhenaidahLabel}</div>
+                <div className="td-sched-row"><span className="td-sched-days">{t.tdSchedRow2Days}</span><span className="td-sched-time">{t.tdSchedRow2Time}</span></div>
+                <div className="td-sched-row"><span className="td-sched-days">{t.tdSchedRow3Days}</span><span className="td-sched-time">{t.tdSchedRow3Time}</span></div>
               </div>
 
             </div>
@@ -550,9 +554,9 @@ export default function TreatmentDetails() {
             <div className="td-divider"/>
             <div className="td-related-hdr">
               <Reveal direction="up" delay={0}>
-                <div className="td-related-title">Related <span>Treatments</span></div>
+                <div className="td-related-title">{t.tdRelatedTitle} <span>{t.tdRelatedSpan}</span></div>
               </Reveal>
-              <Link to="/" className="td-related-more">View all treatments →</Link>
+              <Link to="/" className="td-related-more">{t.tdRelatedMore}</Link>
             </div>
             <div className="td-related-grid">
               {related.map((t, i) => (

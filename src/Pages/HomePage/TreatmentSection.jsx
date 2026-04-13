@@ -46,10 +46,10 @@ const TreatmentSection = () => {
   // key = internal value used for filtering; label = displayed text
   const categories = [
     { key: "All",          label: t.treatFilterAll },
-    { key: "Laparoscopic", label: "Laparoscopic" },
-    { key: "Laser",        label: "Laser" },
-    { key: "Cancer",       label: "Cancer" },
-    { key: "General",      label: "General" },
+    { key: "Laparoscopic", label: t.treatCategoryLabels.Laparoscopic },
+    { key: "Laser",        label: t.treatCategoryLabels.Laser },
+    { key: "Cancer",       label: t.treatCategoryLabels.Cancer },
+    { key: "General",      label: t.treatCategoryLabels.General },
   ];
 
   useEffect(() => {

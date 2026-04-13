@@ -299,7 +299,7 @@ const AboutMe = () => {
                 <div className="img-shimmer"/>
                 <div className="cred-float-tag" style={{top:32}}>{t.aboutCredTag}</div>
                 <div className="about-badge">
-                  <div className="about-badge-num">15+</div>
+                  <div className="about-badge-num">{t.aboutBadgeNum}</div>
                   <div className="about-badge-label">{t.aboutBadgeLabel}</div>
                 </div>
               </div>
