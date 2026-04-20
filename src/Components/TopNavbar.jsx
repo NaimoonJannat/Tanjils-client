@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { FaFacebookF, FaYoutube, FaEnvelope, FaSearch, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import { useLanguage } from "../Context/LanguageContext";
 import translations from "../i18n/translations";
+import treatmentsData from "../data/treatments";
 
 /**
  * TopNavbar
@@ -28,7 +28,6 @@ export default function TopNavbar() {
   const [searchOpen, setSearchOpen] = useState(false);   // mobile overlay
   const [searchVal, setSearchVal]   = useState("");
   const [langOpen, setLangOpen]     = useState(false);
-  const [allTreatments, setAllTreatments] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults]     = useState(false);
 
@@ -37,25 +36,20 @@ export default function TopNavbar() {
   const langRef       = useRef(null);
   const resultsRef    = useRef(null);
 
-  // Fetch treatments for search once
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/treatments")
-      .then(res => setAllTreatments(Array.isArray(res.data) ? res.data : []))
-      .catch(() => {});
-  }, []);
-
   // Filter results as user types
   useEffect(() => {
     const q = searchVal.trim().toLowerCase();
     if (!q) { setSearchResults([]); setShowResults(false); return; }
-    const results = allTreatments.filter(t =>
-      t.title.toLowerCase().includes(q) ||
-      t.category?.toLowerCase().includes(q) ||
-      t.shortDesc?.toLowerCase().includes(q)
+    const results = treatmentsData.filter(tr =>
+      tr.title.en.toLowerCase().includes(q) ||
+      tr.title.bn.toLowerCase().includes(q) ||
+      tr.category?.toLowerCase().includes(q) ||
+      tr.shortDesc.en.toLowerCase().includes(q) ||
+      tr.shortDesc.bn.toLowerCase().includes(q)
     ).slice(0, 6);
     setSearchResults(results);
     setShowResults(true);
-  }, [searchVal, allTreatments]);
+  }, [searchVal]);
 
   // Close results on outside click
   useEffect(() => {
@@ -263,16 +257,16 @@ export default function TopNavbar() {
                 {searchResults.length === 0 ? (
                   <div className="tnav-no-result">{t.searchNoResult(searchVal)}</div>
                 ) : (
-                  searchResults.map(t => (
-                    <div key={t._id || t.slug} className="tnav-result-item" onClick={() => handleResultClick(t.slug)}>
-                      {t.image
-                        ? <img src={t.image} alt={t.title} className="tnav-result-img"/>
+                  searchResults.map(tr => (
+                    <div key={tr._id || tr.slug} className="tnav-result-item" onClick={() => handleResultClick(tr.slug)}>
+                      {tr.image
+                        ? <img src={tr.image} alt={tr.title[lang]} className="tnav-result-img"/>
                         : <div className="tnav-result-img-placeholder">🏥</div>
                       }
                       <div>
-                        <div className="tnav-result-title">{t.title}</div>
-                        <div className="tnav-result-cat" style={{ color: categoryColors[t.category] || "#C9A96E" }}>
-                          {t.category}
+                        <div className="tnav-result-title">{tr.title[lang]}</div>
+                        <div className="tnav-result-cat" style={{ color: categoryColors[tr.category] || "#C9A96E" }}>
+                          {tr.category}
                         </div>
                       </div>
                     </div>

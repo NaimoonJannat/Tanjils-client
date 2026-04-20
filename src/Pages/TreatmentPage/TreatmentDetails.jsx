@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router";
-import axios from "axios";
 import { useLanguage } from "../../Context/LanguageContext";
 import translations from "../../i18n/translations";
+import treatmentsData from "../../data/treatments";
 
 const categoryColors = {
   Laparoscopic: { bg: "rgba(96,165,250,.15)",  text: "#93C5FD", border: "rgba(96,165,250,.3)" },
@@ -60,6 +60,8 @@ function Skeleton() {
 /* ── Related card ── */
 function RelatedCard({ treatment }) {
   const navigate = useNavigate();
+  const { lang } = useLanguage();
+  const relTitle = treatment.title[lang] ?? treatment.title.en;
   return (
     <div
       onClick={() => navigate(`/treatments/${treatment.slug}`)}
@@ -88,14 +90,14 @@ function RelatedCard({ treatment }) {
       }}
     >
       {treatment.image && (
-        <img src={treatment.image} alt={treatment.title} loading="lazy"
+        <img src={treatment.image} alt={relTitle} loading="lazy"
           style={{ width:"100%",height:"100%",objectFit:"cover",transition:"transform .5s" }}/>
       )}
       <div style={{ position:"absolute",inset:0,background:"linear-gradient(to top,rgba(10,22,40,.95) 0%,rgba(10,22,40,.4) 100%)" }}/>
       <div className="rc-line" style={{ position:"absolute",top:0,left:0,right:0,height:2,background:"linear-gradient(90deg,transparent,#C9A96E,transparent)",transform:"scaleX(0)",transformOrigin:"left",transition:"transform .4s" }}/>
       <div style={{ position:"absolute",inset:0,padding:14,display:"flex",flexDirection:"column",justifyContent:"flex-end" }}>
         <div style={{ fontSize:".6rem",letterSpacing:".1em",textTransform:"uppercase",color:"#C9A96E",marginBottom:4,fontFamily:"'DM Sans',sans-serif" }}>{treatment.category}</div>
-        <div style={{ fontFamily:"'Cormorant Garamond',serif",fontSize:".95rem",fontWeight:600,color:"#F8F5F0",lineHeight:1.3 }}>{treatment.title}</div>
+        <div style={{ fontFamily:"'Cormorant Garamond',serif",fontSize:".95rem",fontWeight:600,color:"#F8F5F0",lineHeight:1.3 }}>{relTitle}</div>
       </div>
     </div>
   );
@@ -163,17 +165,14 @@ export default function TreatmentDetails() {
     setImgLoaded(false);
     window.scrollTo({ top:0, behavior:"instant" });
 
-    Promise.all([
-      axios.get(`http://localhost:5000/api/treatments/${slug}`),
-      axios.get("http://localhost:5000/api/treatments"),
-    ])
-      .then(([det, all]) => {
-        setTreatment(det.data);
-        const allArr = Array.isArray(all.data) ? all.data : [];
-        setRelated(allArr.filter(t => t.slug !== slug && t.category === det.data.category).slice(0, 3));
-      })
-      .catch(() => setTreatment(null))
-      .finally(() => setLoading(false));
+    const found = treatmentsData.find(tr => tr.slug === slug) || null;
+    setTreatment(found);
+    if (found) {
+      setRelated(treatmentsData.filter(tr => tr.slug !== slug && tr.category === found.category).slice(0, 3));
+    } else {
+      setRelated([]);
+    }
+    setLoading(false);
   }, [slug]);
 
   // Parallax on hero image — passive listener, no layout jank
@@ -194,7 +193,13 @@ export default function TreatmentDetails() {
     </div>
   );
 
-  const colorSet = categoryColors[treatment.category] || categoryColors.General;
+  const colorSet   = categoryColors[treatment.category] || categoryColors.General;
+  const title      = treatment.title[lang]       ?? treatment.title.en;
+  const shortDesc  = treatment.shortDesc[lang]   ?? treatment.shortDesc.en;
+  const description = treatment.description[lang] ?? treatment.description.en;
+  const highlights = treatment.highlights[lang]  ?? treatment.highlights.en;
+  const duration   = treatment.duration[lang]    ?? treatment.duration.en;
+  const recovery   = treatment.recovery[lang]    ?? treatment.recovery.en;
 
   return (
     <>
@@ -345,7 +350,7 @@ export default function TreatmentDetails() {
           {treatment.image && (
             <img
               src={treatment.image}
-              alt={treatment.title}
+              alt={title}
               className={`td-hero-img ${imgLoaded ? "loaded" : ""}`}
               style={{ transform:`translateY(${parallaxY}px)` }}
               onLoad={() => setImgLoaded(true)}
@@ -363,7 +368,7 @@ export default function TreatmentDetails() {
               <span style={{ color:"rgba(201,169,110,.35)" }}>›</span>
               <Link to="/">{t.tdCrumbTreatments}</Link>
               <span style={{ color:"rgba(201,169,110,.35)" }}>›</span>
-              <span style={{ color:"rgba(201,169,110,.75)" }}>{treatment.title}</span>
+              <span style={{ color:"rgba(201,169,110,.75)" }}>{title}</span>
             </div>
 
             <div
@@ -374,11 +379,11 @@ export default function TreatmentDetails() {
               {t.treatCategoryLabels[treatment.category] || treatment.category}
             </div>
 
-            <h1 className="td-hero-h1">{treatment.title}</h1>
+            <h1 className="td-hero-h1">{title}</h1>
 
-            {treatment.shortDesc && (
+            {shortDesc && (
               <p className="td-hero-short" style={{ fontSize:"clamp(.83rem,1.4vw,.97rem)",color:"rgba(248,245,240,.62)",maxWidth:540,lineHeight:1.72 }}>
-                {treatment.shortDesc}
+                {shortDesc}
               </p>
             )}
           </div>
@@ -387,16 +392,16 @@ export default function TreatmentDetails() {
         {/* ── STATS STRIP ── */}
         <div className="td-strip">
           <div className="td-strip-inner">
-            {treatment.duration && (
+            {duration && (
               <div className="td-stat">
                 <div className="td-stat-lbl">{t.tdStatDuration}</div>
-                <div className="td-stat-val">{treatment.duration}</div>
+                <div className="td-stat-val">{duration}</div>
               </div>
             )}
-            {treatment.recovery && (
+            {recovery && (
               <div className="td-stat">
                 <div className="td-stat-lbl">{t.tdStatRecovery}</div>
-                <div className="td-stat-val">{treatment.recovery}</div>
+                <div className="td-stat-val">{recovery}</div>
               </div>
             )}
             <div className="td-stat">
@@ -446,19 +451,19 @@ export default function TreatmentDetails() {
             </div>
 
             {/* Description */}
-            {treatment.description && (
+            {description && (
               <Reveal direction="up" delay={0}>
                 <div className="td-sec-label"><span className="td-sec-text">{t.tdAboutProc}</span><div className="td-sec-line"/></div>
-                <p className="td-desc">{treatment.description}</p>
+                <p className="td-desc">{description}</p>
               </Reveal>
             )}
 
             {/* Highlights */}
-            {treatment.highlights?.length > 0 && (
+            {highlights?.length > 0 && (
               <Reveal direction="up" delay={80}>
                 <div className="td-sec-label"><span className="td-sec-text">{t.tdKeyHighlights}</span><div className="td-sec-line"/></div>
                 <div className="td-hl-grid">
-                  {treatment.highlights.map((h, i) => (
+                  {highlights.map((h, i) => (
                     <div className="td-hl-card" key={i}>
                       <div className="td-hl-icon">✦</div>
                       <div className="td-hl-text">{h}</div>
@@ -482,8 +487,8 @@ export default function TreatmentDetails() {
                     </div>
                   </div>
                 )}
-                {treatment.duration && <div className="td-row"><div className="td-key">{t.tdKeyDuration}</div><div className="td-val">{treatment.duration}</div></div>}
-                {treatment.recovery && <div className="td-row"><div className="td-key">{t.tdKeyRecovery}</div><div className="td-val">{treatment.recovery}</div></div>}
+                {duration && <div className="td-row"><div className="td-key">{t.tdKeyDuration}</div><div className="td-val">{duration}</div></div>}
+                {recovery && <div className="td-row"><div className="td-key">{t.tdKeyRecovery}</div><div className="td-val">{recovery}</div></div>}
                 <div className="td-row"><div className="td-key">{t.tdKeySurgeon}</div><div className="td-val">{t.tdSurgeonVal}</div></div>
                 <div className="td-row"><div className="td-key">{t.tdKeyHospital}</div><div className="td-val">{t.tdHospitalVal}</div></div>
                 <div className="td-row"><div className="td-key">{t.tdKeyApproach}</div><div className="td-val">{t.tdApproachVal}</div></div>
