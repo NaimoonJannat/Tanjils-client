@@ -41,9 +41,11 @@ export default function TopNavbar() {
     const q = searchVal.trim().toLowerCase();
     if (!q) { setSearchResults([]); setShowResults(false); return; }
     const results = treatmentsData.filter(tr =>
-      tr.title.toLowerCase().includes(q) ||
+      tr.title.en.toLowerCase().includes(q) ||
+      tr.title.bn.toLowerCase().includes(q) ||
       tr.category?.toLowerCase().includes(q) ||
-      tr.shortDesc?.toLowerCase().includes(q)
+      tr.shortDesc.en.toLowerCase().includes(q) ||
+      tr.shortDesc.bn.toLowerCase().includes(q)
     ).slice(0, 6);
     setSearchResults(results);
     setShowResults(true);
@@ -255,16 +257,16 @@ export default function TopNavbar() {
                 {searchResults.length === 0 ? (
                   <div className="tnav-no-result">{t.searchNoResult(searchVal)}</div>
                 ) : (
-                  searchResults.map(t => (
-                    <div key={t._id || t.slug} className="tnav-result-item" onClick={() => handleResultClick(t.slug)}>
-                      {t.image
-                        ? <img src={t.image} alt={t.title} className="tnav-result-img"/>
+                  searchResults.map(tr => (
+                    <div key={tr._id || tr.slug} className="tnav-result-item" onClick={() => handleResultClick(tr.slug)}>
+                      {tr.image
+                        ? <img src={tr.image} alt={tr.title[lang]} className="tnav-result-img"/>
                         : <div className="tnav-result-img-placeholder">🏥</div>
                       }
                       <div>
-                        <div className="tnav-result-title">{t.title}</div>
-                        <div className="tnav-result-cat" style={{ color: categoryColors[t.category] || "#C9A96E" }}>
-                          {t.category}
+                        <div className="tnav-result-title">{tr.title[lang]}</div>
+                        <div className="tnav-result-cat" style={{ color: categoryColors[tr.category] || "#C9A96E" }}>
+                          {tr.category}
                         </div>
                       </div>
                     </div>

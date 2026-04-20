@@ -17,6 +17,8 @@ const TreatmentCard = ({ treatment }) => {
   const t        = translations[lang];
   const colorSet = categoryColors[treatment.category] || categoryColors.General;
   const categoryLabel = t.treatCategoryLabels[treatment.category] || treatment.category;
+  const title     = treatment.title[lang]     ?? treatment.title.en;
+  const shortDesc = treatment.shortDesc[lang] ?? treatment.shortDesc.en;
 
   const handleMouseMove = (e) => {
     const card = cardRef.current;
@@ -152,7 +154,7 @@ const TreatmentCard = ({ treatment }) => {
         onMouseMove={handleMouseMove}
       >
         {treatment.image && (
-          <img src={treatment.image} alt={treatment.title} className="treat-img" loading="lazy" decoding="async"/>
+          <img src={treatment.image} alt={title} className="treat-img" loading="lazy" decoding="async"/>
         )}
         <div className="treat-overlay"/>
         <div className="treat-top-line"/>
@@ -169,8 +171,8 @@ const TreatmentCard = ({ treatment }) => {
           <div className="treat-category" style={{ background:colorSet.bg, color:colorSet.text, border:`1px solid ${colorSet.border}` }}>
             {categoryLabel}
           </div>
-          <div className="treat-title">{treatment.title}</div>
-          {treatment.shortDesc && <div className="treat-desc">{treatment.shortDesc}</div>}
+          <div className="treat-title">{title}</div>
+          {shortDesc && <div className="treat-desc">{shortDesc}</div>}
         </div>
 
         <div className="treat-arrow">→</div>
