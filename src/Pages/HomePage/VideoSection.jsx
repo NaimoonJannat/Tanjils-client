@@ -1,61 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
 import { useLanguage } from "../../Context/LanguageContext";
 import translations from "../../i18n/translations";
+import videos from "../../data/VideoInfo";
 
-const YT_CHANNEL_URL = "https://www.youtube.com/@tanjilslaserlaparoscopy4123"; 
-
-const videos = [
-  {
-    id: "dp3FTjobM6g", 
-    title: "পাইলস রোগ কি ও কেন",
-    views: "7.3K",
-    duration: "04:47",
-    date: "5 years ago",
-    featured: true,
-  },
-  {
-    id: "Qm09emjZS-4",
-    title: "ল্যাপারোস্কোপির মাধ্যমে পিত্তথরির পাথর অপারেশন",
-    // views: "9.1K",
-    duration: "07:00",
-    date: "1 month ago",
-    featured: false,
-  },
-  {
-    id: "6pvthXmPxRI",
-    title: "মলদ্বারে ফিস্টুলা কী করবেন বুঝতে পারছেন না",
-    // views: "9.1K",
-    duration: "06:18",
-    date: "1 month ago",
-    featured: false,
-  },
-  {
-    id: "0nFDr1oIyYA",
-    title: "Laser Haemorrhoidoplasty",
-    // views: "9.1K",
-    duration: "02:33",
-    date: "1 month ago",
-    featured: false,
-  },
-  {
-    id: "TuhFNZOMAKc",
-    title: "স্তন ক্যান্সার সচেতনতা পার্ট -১",
-    // views: "9.1K",
-    duration: "05:23",
-    date: "1 month ago",
-    featured: false,
-  },
-  {
-    id: "RvIFkRYGr_A",
-    title: "পাইলস রোগে অত্যাধুনিক লেজার চিকিৎসা এখন ফরিদপুরে",
-    // views: "9.1K",
-    duration: "01:57",
-    date: "1 month ago",
-    featured: false,
-  },
-  
-];
+const YT_CHANNEL_URL = "https://www.youtube.com/@tanjilslaserlaparoscopy4123";
 
 const thumb = (id) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 const embedUrl = (id) => `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
@@ -79,80 +27,42 @@ function YTLogoSVG() {
   );
 }
  
-/* ── Modal ── */
-function VideoModal({ video, onClose }) {
-  const { lang } = useLanguage();
-  const t = translations[lang];
-  useEffect(() => {
-    const handler = (e) => { if (e.key === "Escape") onClose(); };
-    document.addEventListener("keydown", handler);
-    document.body.style.overflow = "hidden";
-    return () => { document.removeEventListener("keydown", handler); document.body.style.overflow = ""; };
-  }, [onClose]);
-
-  return (
-    <>
-      <style>{`
-        .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:1000; display:flex; align-items:center; justify-content:center; padding:20px; animation:modalFadeIn .25s ease; }
-        @keyframes modalFadeIn { from{opacity:0} to{opacity:1} }
-        .modal-box { width:100%; max-width:840px; background:#0A1628; border:1px solid rgba(201,169,110,.25); border-radius:14px; overflow:hidden; box-shadow:0 32px 100px rgba(0,0,0,.7); animation:modalIn .35s cubic-bezier(.22,1,.36,1); }
-        @keyframes modalIn { from{opacity:0;transform:scale(.92)} to{opacity:1;transform:scale(1)} }
-        .modal-iframe-wrap { position:relative; aspect-ratio:16/9; background:#000; }
-        .modal-iframe-wrap iframe { width:100%; height:100%; border:none; }
-        .modal-close-btn { position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background:rgba(0,0,0,.75); border:1px solid rgba(255,255,255,.2); color:#fff; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:10; transition:background .2s; }
-        .modal-close-btn:hover { background:rgba(201,169,110,.3); border-color:#C9A96E; }
-        .modal-info { padding:18px 22px 22px; }
-        .modal-cat { font-size:.67rem; letter-spacing:.1em; text-transform:uppercase; color:#C9A96E; margin-bottom:6px; font-family:'DM Sans',sans-serif; }
-        .modal-title { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:700; color:#F8F5F0; margin-bottom:12px; }
-        .modal-actions { display:flex; gap:10px; flex-wrap:wrap; }
-        .modal-btn-yt { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,#C9A96E,#A87C40); color:#0A1628; font-family:'DM Sans',sans-serif; font-weight:600; font-size:.82rem; letter-spacing:.04em; padding:10px 22px; border-radius:3px; border:none; cursor:pointer; text-decoration:none; transition:filter .25s; }
-        .modal-btn-yt:hover { filter:brightness(1.1); }
-        .modal-btn-close { display:inline-flex; align-items:center; gap:8px; background:transparent; color:#F8F5F0; font-family:'DM Sans',sans-serif; font-weight:400; font-size:.82rem; padding:10px 20px; border-radius:3px; border:1px solid rgba(255,255,255,.15); cursor:pointer; transition:border-color .25s; }
-        .modal-btn-close:hover { border-color:#C9A96E; }
-      `}</style>
-      {createPortal(
-        <div className="modal-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
-          <div className="modal-box">
-            <div className="modal-iframe-wrap">
-              <iframe src={embedUrl(video.id)} allowFullScreen allow="autoplay; encrypted-media; picture-in-picture; web-share" title={video.title} />
-              <button className="modal-close-btn" onClick={onClose}>✕</button>
-            </div>
-            <div className="modal-info">
-              <div className="modal-cat">{video.category}</div>
-              <div className="modal-title">{video.title}</div>
-              <div className="modal-actions">
-                <a className="modal-btn-yt" href={ytUrl(video.id)} target="_blank" rel="noopener noreferrer">
-                  <YTLogoSVG /> {t.vidOpenYT}
-                </a>
-                <button className="modal-btn-close" onClick={onClose}>{t.vidModalClose}</button>
-              </div>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
-    </>
-  );
-}
-
 /* ── Video Card ── */
-function VideoCard({ video, onClick, delay }) {
+function VideoCard({ video, delay }) {
+  const [playing, setPlaying] = useState(false);
   const { lang } = useLanguage();
   const t = translations[lang];
   return (
     <div
       className="vid-card"
       style={{ animationDelay: `${delay}ms` }}
-      onClick={() => onClick(video)}
       data-reveal="scale"
       data-delay={delay}
     >
-      <div className="vid-thumb-wrap">
-        <img src={thumb(video.id)} alt={video.title} loading="lazy" />
-        <div className="vid-thumb-overlay">
-          <div className="vid-play-icon"><PlayIconSVG size={18} /></div>
-        </div>
-        <div className="vid-duration">{video.duration}</div>
+      <div className="vid-thumb-wrap" onClick={() => !playing && setPlaying(true)}>
+        {playing ? (
+          <>
+            <iframe
+              src={embedUrl(video.id)}
+              allowFullScreen
+              allow="autoplay; encrypted-media; picture-in-picture; web-share"
+              title={video.title}
+              style={{ position:"absolute", inset:0, width:"100%", height:"100%", border:"none" }}
+            />
+            <button
+              className="vid-embed-close"
+              onClick={(e) => { e.stopPropagation(); setPlaying(false); }}
+            >✕</button>
+          </>
+        ) : (
+          <>
+            <img src={thumb(video.id)} alt={video.title} loading="lazy" />
+            <div className="vid-thumb-overlay">
+              <div className="vid-play-icon"><PlayIconSVG size={18} /></div>
+            </div>
+            <div className="vid-duration">{video.duration}</div>
+          </>
+        )}
       </div>
       <div className="vid-card-body">
         <div className="vid-card-title">{video.title}</div>
@@ -178,7 +88,6 @@ function VideoCard({ video, onClick, delay }) {
 /* ── Main Section ── */
 export default function VideoSection() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [modalVideo, setModalVideo] = useState(null);
   const [featuredPlaying, setFeaturedPlaying] = useState(false);
   const sectionRef = useRef(null);
   const { lang } = useLanguage();
@@ -361,7 +270,7 @@ export default function VideoSection() {
           {/* Grid */}
           <div className="vid-grid">
             {filtered.map((v, i) => (
-              <VideoCard key={v.id} video={v} onClick={setModalVideo} delay={i * 70} />
+              <VideoCard key={v.id} video={v} delay={i * 70} />
             ))}
           </div>
 
@@ -391,8 +300,6 @@ export default function VideoSection() {
           </div>
         </div>
 
-        {/* Modal */}
-        {modalVideo && <VideoModal video={modalVideo} onClose={() => setModalVideo(null)} />}
       </section>
     </>
   );
