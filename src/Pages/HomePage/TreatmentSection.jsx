@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios";
 import TreatmentCard from "./TreatmentCard";
 import { useLanguage } from "../../Context/LanguageContext";
 import translations from "../../i18n/translations";
+import treatmentsData from "../../data/treatments";
 
 function useCountUp(target, active, duration = 1800) {
   const [value, setValue] = useState(0);
@@ -53,10 +53,8 @@ const TreatmentSection = () => {
   ];
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/treatments")
-      .then(res => setTreatments(Array.isArray(res.data) ? res.data : []))
-      .catch(() => setTreatments([]))
-      .finally(() => setLoading(false));
+    setTreatments(treatmentsData);
+    setLoading(false);
   }, []);
 
   // Scroll-reveal (for initial section entry only)

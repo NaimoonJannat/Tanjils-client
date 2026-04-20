@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate, Link, useLocation } from "react-router";
-import axios from "axios";
 import { useLanguage } from "../../Context/LanguageContext";
 import translations from "../../i18n/translations";
+import treatmentsData from "../../data/treatments";
 
 const categoryColors = {
   Laparoscopic: { bg: "rgba(96,165,250,.15)",  text: "#93C5FD", border: "rgba(96,165,250,.3)" },
@@ -163,17 +163,14 @@ export default function TreatmentDetails() {
     setImgLoaded(false);
     window.scrollTo({ top:0, behavior:"instant" });
 
-    Promise.all([
-      axios.get(`http://localhost:5000/api/treatments/${slug}`),
-      axios.get("http://localhost:5000/api/treatments"),
-    ])
-      .then(([det, all]) => {
-        setTreatment(det.data);
-        const allArr = Array.isArray(all.data) ? all.data : [];
-        setRelated(allArr.filter(t => t.slug !== slug && t.category === det.data.category).slice(0, 3));
-      })
-      .catch(() => setTreatment(null))
-      .finally(() => setLoading(false));
+    const found = treatmentsData.find(tr => tr.slug === slug) || null;
+    setTreatment(found);
+    if (found) {
+      setRelated(treatmentsData.filter(tr => tr.slug !== slug && tr.category === found.category).slice(0, 3));
+    } else {
+      setRelated([]);
+    }
+    setLoading(false);
   }, [slug]);
 
   // Parallax on hero image — passive listener, no layout jank
