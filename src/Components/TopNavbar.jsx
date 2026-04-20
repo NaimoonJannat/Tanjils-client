@@ -216,8 +216,8 @@ export default function TopNavbar() {
           .tnav-search-wrap    { display:none!important; }
           .tnav-mob-btn        { display:flex!important; }
         }
-        @media(max-width:520px) { .tnav-social.em{display:none} }
-        @media(max-width:400px) { .tnav-social.yt{display:none} .tnav-inner{padding:0 10px;gap:5px} }
+        @media(max-width:520px) { .tnav-social{width:22px;height:22px;font-size:.6rem} }
+        @media(max-width:400px) { .tnav-social{width:20px;height:20px;font-size:.55rem} .tnav-inner{padding:0 8px;gap:4px} }
       `}</style>
 
       <div className="tnav">
