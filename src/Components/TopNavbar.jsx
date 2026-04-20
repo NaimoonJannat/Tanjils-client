@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { FaFacebookF, FaYoutube, FaEnvelope, FaSearch, FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import axios from "axios";
 import { useLanguage } from "../Context/LanguageContext";
 import translations from "../i18n/translations";
+import treatmentsData from "../data/treatments";
 
 /**
  * TopNavbar
@@ -28,7 +28,6 @@ export default function TopNavbar() {
   const [searchOpen, setSearchOpen] = useState(false);   // mobile overlay
   const [searchVal, setSearchVal]   = useState("");
   const [langOpen, setLangOpen]     = useState(false);
-  const [allTreatments, setAllTreatments] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults]     = useState(false);
 
@@ -37,25 +36,18 @@ export default function TopNavbar() {
   const langRef       = useRef(null);
   const resultsRef    = useRef(null);
 
-  // Fetch treatments for search once
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/treatments")
-      .then(res => setAllTreatments(Array.isArray(res.data) ? res.data : []))
-      .catch(() => {});
-  }, []);
-
   // Filter results as user types
   useEffect(() => {
     const q = searchVal.trim().toLowerCase();
     if (!q) { setSearchResults([]); setShowResults(false); return; }
-    const results = allTreatments.filter(t =>
-      t.title.toLowerCase().includes(q) ||
-      t.category?.toLowerCase().includes(q) ||
-      t.shortDesc?.toLowerCase().includes(q)
+    const results = treatmentsData.filter(tr =>
+      tr.title.toLowerCase().includes(q) ||
+      tr.category?.toLowerCase().includes(q) ||
+      tr.shortDesc?.toLowerCase().includes(q)
     ).slice(0, 6);
     setSearchResults(results);
     setShowResults(true);
-  }, [searchVal, allTreatments]);
+  }, [searchVal]);
 
   // Close results on outside click
   useEffect(() => {
