@@ -187,6 +187,20 @@ const translations = {
     vidModalClose: "Close",
     vidYouTubeLink: "YouTube ↗",
 
+    /* ── Facebook Section ── */
+    fbTag: "Facebook Page",
+    fbTitle: "Join Our Facebook Community",
+    fbSubtitle: "Stay connected with Dr. ASM Tanjilur Rahman. Follow for surgical education, live Q&A sessions, patient stories, and health awareness updates.",
+    fbFollow: "Follow on Facebook",
+    fbCtaSub: "Get real-time updates on surgeries, health tips, and direct patient Q&A from our official Facebook page.",
+    fbCtaStatLabels: ["Followers", "Posts", "Years Active"],
+    fbFeatures: [
+      { title: "Live Surgical Q&A", desc: "Regular live sessions answering your questions about surgery and treatments." },
+      { title: "Health Awareness", desc: "Educational posts on early disease detection, diet, and surgical aftercare." },
+      { title: "Patient Stories", desc: "Real recovery journeys shared with consent to inspire and inform others." },
+      { title: "Latest Updates", desc: "New procedures, awards, medical camps, and hospital news as they happen." },
+    ],
+
     /* ── Footer ── */
     footerDesc: "Assistant Professor of Surgery at Faridpur Medical College. Expert in laparoscopic, laser, and cancer surgeries — committed to patient-centered, minimally invasive care.",
     footerQuickLinks: "Quick Links",
@@ -430,6 +444,20 @@ const translations = {
     vidCtaStatLabels: ["ভিডিও", "অস্ত্রোপচার", "বছর অভিজ্ঞতা"],
     vidModalClose: "বন্ধ করুন",
     vidYouTubeLink: "ইউটিউব ↗",
+
+    /* ── Facebook Section ── */
+    fbTag: "ফেসবুক পেজ",
+    fbTitle: "আমাদের ফেসবুক কমিউনিটিতে যোগ দিন",
+    fbSubtitle: "ডা. এ.এস.এম. তানজিলুর রহমানের সাথে সংযুক্ত থাকুন। অস্ত্রোপচার শিক্ষা, লাইভ প্রশ্নোত্তর, রোগীর অভিজ্ঞতা ও স্বাস্থ্য সচেতনতার আপডেটের জন্য ফলো করুন।",
+    fbFollow: "ফেসবুকে ফলো করুন",
+    fbCtaSub: "অস্ত্রোপচার, স্বাস্থ্য টিপস ও সরাসরি রোগী প্রশ্নোত্তরের রিয়েল-টাইম আপডেটের জন্য আমাদের অফিসিয়াল ফেসবুক পেজ ফলো করুন।",
+    fbCtaStatLabels: ["ফলোয়ার", "পোস্ট", "বছর সক্রিয়"],
+    fbFeatures: [
+      { title: "লাইভ প্রশ্নোত্তর সেশন", desc: "অস্ত্রোপচার ও চিকিৎসা সম্পর্কিত আপনার প্রশ্নের নিয়মিত লাইভ উত্তর।" },
+      { title: "স্বাস্থ্য সচেতনতা", desc: "রোগ প্রাথমিক শনাক্তকরণ, খাদ্যাভ্যাস ও অস্ত্রোপচার পরবর্তী যত্ন বিষয়ক শিক্ষামূলক পোস্ট।" },
+      { title: "রোগীর অভিজ্ঞতা", desc: "অন্যদের অনুপ্রাণিত করতে সম্মতি সহ ভাগ করা বাস্তব সুস্থতার গল্প।" },
+      { title: "সর্বশেষ আপডেট", desc: "নতুন পদ্ধতি, পুরস্কার, মেডিকেল ক্যাম্প ও হাসপাতালের খবর তাৎক্ষণিকভাবে।" },
+    ],
 
     /* ── Footer ── */
     footerDesc: "ফরিদপুর মেডিকেল কলেজের সহকারী অধ্যাপক (সার্জারি)। ল্যাপারোস্কোপিক, লেজার ও ক্যান্সার সার্জারিতে বিশেষজ্ঞ — রোগীকেন্দ্রিক, ন্যূনতম অস্ত্রোপচার সেবায় প্রতিশ্রুতিবদ্ধ।",
