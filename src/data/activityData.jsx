@@ -3,6 +3,12 @@
  * Covers: Academic, Surgery, Social, and Research tabs.
  */
 import { FaGraduationCap, FaMedal, FaGlobe, FaStarOfLife } from "react-icons/fa6";
+import surgery1 from "../assets/laparoscopic.png";
+import surgery2 from "../assets/laser2.png";
+import surgery3 from "../assets/lapar.jpeg";
+import surgery4 from "../assets/harnia.jpg";
+import surgery5 from "../assets/breast.jpg";
+import surgery6 from "../assets/laser.jpeg";
 
 export const academicData = {
   degrees: [
@@ -64,7 +70,7 @@ export const surgeryData = [
     tagColor: "#93C5FD",
     summary: "A 52-year-old patient presented with acute cholecystitis and multiple gallstones. Successful laparoscopic removal was performed with no complications, and the patient was discharged within 24 hours.",
     outcome: "Full recovery in 5 days",
-    img: "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=600&q=80",
+    img: surgery1,
   },
   {
     id: 2,
@@ -74,7 +80,7 @@ export const surgeryData = [
     tagColor: "#C9A96E",
     summary: "Patient suffered from Grade IV haemorrhoids for over three years. Performed precise laser haemorrhoidectomy under spinal anaesthesia. Patient reported near-zero post-operative pain.",
     outcome: "Pain-free in 48 hours",
-    img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80",
+    img: surgery2,
   },
   {
     id: 3,
@@ -84,7 +90,7 @@ export const surgeryData = [
     tagColor: "#FCA5A5",
     summary: "A 61-year-old male with rectal carcinoma underwent curative laparoscopic resection. The procedure was completed with clear margins and minimal blood loss.",
     outcome: "Successful curative resection",
-    img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80",
+    img: surgery3,
   },
   {
     id: 4,
@@ -94,7 +100,7 @@ export const surgeryData = [
     tagColor: "#93C5FD",
     summary: "A young professional with bilateral inguinal hernias underwent totally extra-peritoneal (TAPP) laparoscopic repair. Both sides addressed in a single sitting, minimal downtime.",
     outcome: "Back to work in 7 days",
-    img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80",
+    img: surgery4,
   },
   {
     id: 5,
@@ -104,7 +110,7 @@ export const surgeryData = [
     tagColor: "#FCA5A5",
     summary: "A 44-year-old female diagnosed with early-stage breast carcinoma underwent successful breast-conserving surgery. Clear surgical margins achieved with excellent cosmetic outcome.",
     outcome: "Breast-conserving success",
-    img: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=80",
+    img: surgery5,
   },
   {
     id: 6,
@@ -114,7 +120,7 @@ export const surgeryData = [
     tagColor: "#C9A96E",
     summary: "Complex trans-sphincteric anal fistula treated with laser fistulotomy technique. Sphincter preservation was prioritised, achieving complete healing without continence issues.",
     outcome: "Complete healing in 3 weeks",
-    img: "https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?w=600&q=80",
+    img: surgery6,
   },
 ];
 
