@@ -36,7 +36,7 @@ export const academicData = {
       icon: <FaGlobe />,
       degree: "FMAS",
       institution: "Association of Minimal Access Surgeons of India (AMASI)",
-      university: "Gurugram, India",
+      university: "Tamil Nadu, India",
       year: "2014",
       grade: "Fellowship",
     },
