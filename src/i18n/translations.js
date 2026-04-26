@@ -25,7 +25,7 @@ const translations = {
 
     /* ── HeroBanner ── */
     heroSlide1Title: "Dr. ASM Tanjilur Rahman",
-    heroSlide1Subtitle: "FCPS (Surgery) | FMAS (India) | Laparoscopic & Laser Surgeon",
+    heroSlide1Subtitle: "FCPS (Surgery) | FMAS (India) | Laparoscopic, Laser & Cancer Surgeon",
     heroSlide1Desc: "Assistant Professor of Surgery at Faridpur Medical College with fellowship training in laparoscopic colorectal & hernia surgery. Expert in laser, advanced laparoscopic, and cancer surgeries, providing patient-centered, minimally invasive care.",
     heroSlide1Badge: "15+ Years Experience",
     heroSlide2Tag: "Minimally Invasive",
@@ -269,7 +269,7 @@ const translations = {
 
     /* ── HeroBanner ── */
     heroSlide1Title: "ডা. এ.এস.এম. তানজিলুর রহমান",
-    heroSlide1Subtitle: "FCPS (সার্জারি) | FMAS (ভারত) | ল্যাপারোস্কোপিক ও লেজার সার্জন",
+    heroSlide1Subtitle: "FCPS (সার্জারি) | FMAS (ভারত) | ল্যাপারোস্কোপিক, লেজার ও ক্যান্সার সার্জন",
     heroSlide1Desc: "ফরিদপুর মেডিকেল কলেজের সহকারী অধ্যাপক (সার্জারি)। ল্যাপারোস্কোপিক কোলোরেক্টাল ও হার্নিয়া সার্জারিতে উচ্চতর প্রশিক্ষণপ্রাপ্ত। লেজার, উন্নত ল্যাপারোস্কোপিক ও ক্যান্সার সার্জারিতে বিশেষজ্ঞ।",
     heroSlide1Badge: "১৫+ বছরের অভিজ্ঞতা",
     heroSlide2Tag: "ন্যূনতম অস্ত্রোপচার",
