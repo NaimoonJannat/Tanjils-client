@@ -10,6 +10,10 @@ import surgery4 from "../assets/harnia.jpg";
 import surgery5 from "../assets/breast.jpg";
 import surgery6 from "../assets/laser.jpeg";
 
+import social1 from "../assets/social1.jpeg";
+import social2 from "../assets/social2.jpeg";
+import social3 from "../assets/social3.jpeg";
+
 export const academicData = {
   degrees: [
     {
@@ -127,58 +131,32 @@ export const surgeryData = [
 export const socialData = [
   {
     id: 1,
-    title: "Free Medical Camp — Char Fasson, Bhola",
-    date: "February 2024",
-    category: "Medical Camp",
-    participants: "400+ patients",
-    img: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=600&q=80",
-    desc: "In February 2024, Dr. ASM Tanjilur Rahman led a large-scale free surgical consultation camp on the remote coastal island of Char Fasson in Bhola district — one of the most geographically isolated regions of Bangladesh. Accessible only by boat, this community has historically been underserved by the formal healthcare system, with limited access to specialist surgical care.\n\nOver the course of two days, a multidisciplinary team of doctors, nurses, and medical volunteers attended to more than 400 patients. Services included clinical examinations, ultrasound diagnostics, wound dressings, post-operative follow-ups for previously operated patients, and free distribution of essential medicines. Special attention was given to patients with hernias, abdominal masses, skin tumours, and anorectal conditions who had been unable to travel to city hospitals due to financial and logistical barriers.\n\nSeveral critical cases identified during the camp were subsequently referred for surgery at Faridpur Medical College Hospital, with all costs waived. The camp was coordinated in partnership with local NGOs and Union Parishad representatives, ensuring community trust and wide outreach. Dr. Rahman has pledged to make this an annual event, expanding its scope each year to cover more specialties and surrounding chars.",
+    title: "Iftar Mahfil — Hasna-Ismail Foundation, Jhenaidah",
+    date: "April 2023",
+    category: "Community Event",
+    participants: "200+ guests",
+    img: social2,
+    desc: "On the 22nd of Ramadan 1444 Hijri (14 April 2023), Dr. ASM Tanjilur Rahman participated in an Iftar Mahfil organised by the Hasna-Ismail Foundation at Ukilpara, Arapur, Jhenaidah. The event brought together members of the local community — including residents, students, and healthcare workers — to share in the spirit of Ramadan through collective prayer and a communal Iftar gathering.\n\nThe venue was decorated in the traditional festive style, with tables set out under an open canopy to accommodate a large gathering. The Foundation, which is rooted in the local community of Arapur, organised the event as part of its broader social outreach activities during the holy month. Dr. Rahman attended in his capacity both as a supporter of the Foundation and as a community figure committed to grassroots engagement.\n\nBeyond the religious observance, the Iftar served as an informal platform for community dialogue, where concerns about local healthcare access were discussed. Dr. Rahman used the occasion to encourage attendees to seek timely medical consultation and to raise awareness about available surgical services at Faridpur Medical College Hospital. The Foundation plans to continue hosting such events annually, combining religious tradition with meaningful community outreach.",
   },
   {
     id: 2,
-    title: "Health Awareness Programme — Faridpur",
+    title: "Breast Cancer Awareness Seminar",
     date: "December 2023",
     category: "Awareness",
     participants: "250+ attendees",
-    img: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&q=80",
-    desc: "In December 2023, Dr. Rahman organised and led a half-day community health awareness programme at a local school auditorium in Faridpur, drawing an audience of over 250 residents including teachers, homemakers, farmers, shopkeepers, and local government officials.\n\nThe programme focused on three core themes: early detection of common cancers (breast, colorectal, and thyroid), the importance of not delaying surgical consultation for symptoms such as lumps, bleeding, or persistent abdominal pain, and practical guidance on maintaining a healthy lifestyle to reduce surgical risk. Interactive demonstrations, bilingual handouts in Bengali and English, and a live Q&A session made the event highly engaging and accessible for all literacy levels.\n\nDr. Rahman stressed that in rural Bangladesh, many patients present at advanced stages of disease simply because they did not recognise early warning signs or feared the cost of treatment. The programme aimed to dismantle those barriers through education. A follow-up free screening booth was set up the following morning, during which 40 participants sought further individual consultation. The event received coverage in local newspapers and inspired similar programmes in adjacent upazilas.",
+    img: social3,
+    desc: "Dr. ASM Tanjilur Rahman delivered a dedicated breast cancer awareness seminar, presenting under the theme 'স্তন ক্যান্সার সনাক্ত করুন — আপনার হাতই হোক প্রথম হাতিয়ার' (Detect Breast Cancer — Let Your Hands Be the First Weapon). The session focused on empowering women and their families with the knowledge to perform self-examination and recognise early warning signs of breast cancer.\n\nDr. Rahman outlined the global and national burden of breast cancer, stressing that Bangladesh sees a disproportionately high number of late-stage presentations due to social stigma, limited awareness, and delayed care-seeking behaviour. Using clinical slides and patient-friendly visual aids, he walked attendees through the step-by-step technique of breast self-examination, explained what abnormal findings might look like, and clarified at what point to seek professional evaluation.\n\nThe seminar drew an audience of over 250, including female students, homemakers, nurses, and community health workers. A live Q&A session followed the presentation, during which attendees raised questions about risk factors, family history, and the availability of mammography in public hospitals. Dr. Rahman also spoke about the role of breast-conserving surgery in early-stage disease, reassuring the audience that early detection dramatically improves outcomes. Printed Bengali-language guides were distributed at the end of the session.",
   },
   {
     id: 3,
-    title: "Blood Donation Drive — Dhaka Medical",
-    date: "October 2023",
-    category: "Blood Drive",
-    participants: "120+ donors",
-    img: "https://images.unsplash.com/photo-1615461065929-4f8ffed6ca40?w=600&q=80",
-    desc: "On World Blood Donor Day, October 2023, Dr. Rahman coordinated a structured blood donation drive within the campus of Dhaka Medical College Hospital, mobilising over 120 voluntary donors — primarily medical students, intern doctors, and nursing staff.\n\nThe drive was conceived in response to a recurring crisis in the surgical wards: during major elective operations, particularly for cancer resections and trauma surgeries, compatible blood units were frequently unavailable at short notice, causing dangerous delays. Dr. Rahman worked with the hospital's blood bank to streamline the donation-to-storage pipeline, ensuring that all units collected were processed, screened, and made shelf-ready within 48 hours.\n\nBeyond logistics, the drive carried a strong educational message. Dr. Rahman delivered a brief address reminding participants that a single donation can save up to three lives and that surgical patients are among the most dependent on timely transfusions. Each donor received a certificate of appreciation and a personalised blood group card. Plans are underway to make this a quarterly initiative, with a target of registering 500 regular voluntary donors by the end of 2025.",
+    title: "Dushtha Sahayata Prokolpo — Food & Financial Aid, Jhenaidah",
+    date: "March 2024",
+    category: "Charity",
+    participants: "300+ families",
+    img: social1,
+    desc: "On 29 March 2024, the Hasna-Ismail Foundation conducted its 'Dushtha Sahayata Prokolpo' (Poor Assistance Project) at Ukilpara, Arapur, Jhenaidah — a structured relief initiative providing direct financial grants and food packages to economically vulnerable families in the area. Dr. ASM Tanjilur Rahman supported and participated in the programme as part of his ongoing commitment to community welfare beyond the clinical setting.\n\nThe project targeted households identified through local Union Parishad records and community referrals as being in acute financial hardship — including day labourers, widows, persons with disabilities, and families affected by illness. Each beneficiary received a food package containing rice, lentils, cooking oil, and other essentials, alongside a financial contribution intended to address immediate livelihood needs.\n\nThe distribution was conducted in an organised and transparent manner, with volunteers managing queues and Foundation members overseeing the hand-to-hand allocation to prevent duplication. Dr. Rahman addressed the gathering briefly, emphasising that access to nutrition and financial stability are inseparable from health — and that preventable illness often stems from poverty and poor diet. The Foundation has committed to making this project a recurring quarterly initiative, with plans to expand coverage to neighbouring upazilas by the end of 2024.",
   },
-  {
-    id: 4,
-    title: "Cleft Lip Repair Mission — Mymensingh",
-    date: "August 2023",
-    category: "Charity Surgery",
-    participants: "35 children",
-    img: "https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&q=80",
-    desc: "In August 2023, Dr. Rahman joined an international charitable surgical mission in Mymensingh to perform free cleft lip and cleft palate repair surgeries on children from low-income families. The mission, co-organised with a visiting surgical team from South Korea, operated out of Mymensingh Medical College Hospital over a focused five-day period.\n\nThirty-five children aged between four months and eleven years underwent corrective surgery, many of whom had been living with the condition since birth due to the prohibitive cost of private surgical care — which can exceed 40,000 BDT per procedure. Beyond the physical correction, the psychosocial impact was profound: parents reported that their children had faced severe social stigma, difficulty feeding, and speech impairments that affected schooling.\n\nDr. Rahman led the anaesthesia coordination for paediatric cases and performed eight of the surgeries himself, with the remaining cases handled jointly with the visiting team. Post-operative care protocols, including feeding guidance and wound management instructions, were provided in Bengali. A three-month remote follow-up programme was established via phone, with local community health workers assigned to each family. Dr. Rahman described the mission as one of the most personally meaningful experiences of his surgical career.",
-  },
-  {
-    id: 5,
-    title: "Telemedicine Initiative — Rural Bangladesh",
-    date: "June 2023",
-    category: "Telemedicine",
-    participants: "500+ consultations",
-    img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=600&q=80",
-    desc: "Recognising that geography should not be a barrier to quality surgical advice, Dr. Rahman launched a structured weekly telemedicine consultation service in June 2023, specifically targeting patients in the remote divisions of Rajshahi and Sylhet — areas with limited access to tertiary surgical expertise.\n\nRunning every Thursday evening, the service operates through a secure video platform and is publicised through union-level health workers, local radio, and community Facebook groups. Patients are assisted by a trained volunteer who helps them log in and describe their symptoms. Dr. Rahman reviews any relevant imaging or reports shared digitally and provides a clear recommendation — whether to seek urgent in-person care, continue with medication, or schedule a planned elective surgery.\n\nIn its first six months, over 500 consultations were conducted, covering conditions including hernias, gallstones, anorectal disorders, and suspected abdominal malignancies. Approximately 18% of patients were triaged for urgent referral, potentially averting late presentations. The initiative has drawn interest from other surgeons at Faridpur Medical College, and Dr. Rahman is working to expand the service into a multi-specialist platform by the end of 2025, with dedicated slots for gynaecology and orthopaedics.",
-  },
-  {
-    id: 6,
-    title: "Medical Scholarship Fund — Faridpur",
-    date: "March 2023",
-    category: "Education",
-    participants: "12 beneficiaries",
-    img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80",
-    desc: "In March 2023, Dr. ASM Tanjilur Rahman established a merit-based medical scholarship fund at Faridpur Medical College, aimed at supporting economically disadvantaged students who demonstrate academic excellence but lack the financial means to continue their education without assistance.\n\nThe fund was seeded with a personal contribution from Dr. Rahman and supplemented by donations from colleagues and former patients. In its inaugural year, twelve students — eight in the MBBS programme and four in nursing — received grants covering tuition fees, hostel accommodation, and a monthly stipend for books and study materials. Recipients were selected through a transparent panel review process evaluating both financial need and academic performance.\n\nDr. Rahman has spoken openly about his motivation: having witnessed bright students drop out due to financial hardship during his own years as a trainee, he wanted to create a safety net that allows talent to flourish regardless of economic background. The fund also includes a mentorship component, where scholarship recipients are paired with senior doctors for career guidance. By 2025, the fund aims to support 30 students annually and is exploring formal registration as an independent charitable trust to attract wider institutional donations.",
-  },
+  
 ];
 
 export const researchData = [
