@@ -55,7 +55,7 @@ const translations = {
 
     /* ── About ── */
     aboutTag: "About the Surgeon",
-    aboutDesc: "Dr. ASM Tanjilur Rahman is a highly skilled Laser, Advanced Laparoscopic and Cancer Surgeon with specialized fellowship training in Laparoscopic Colorectal and Hernia Surgery from GEM Hospital, India. He serves as Assistant Professor of Surgery at Faridpur Medical College, delivering evidence-based, patient-centered care focused on faster recovery and optimal outcomes.",
+    aboutDesc: "Dr. ASM Tanjilur Rahman is a highly skilled Laser, Advanced Laparoscopic and Cancer Surgeon with specialized fellowship training in Laparoscopic Colorectal and Hernia Surgery from GEM Hospital, India. He performed many world class surgical procedures like laser piles, laparoscopic pancreatic and gastric surgery for the first time outside Dhaka  city in Faridpur with excellent outcome and patient&apos;s satisfaction. He has been spending more than a decade to deliver best quality different modern surgical care to the under privileged people of southwestern part of Bangladesh far away from capital city. He serves as Assistant Professor of Surgery at Faridpur Medical College, delivering evidence-based, patient-centered care focused on faster recovery and optimal outcomes.",
     aboutBadgeNum: "15+",
     aboutBadgeLabel: "Years Experience",
     aboutCredTag: "FCPS · FMAS · Fellowship",
@@ -313,7 +313,7 @@ const translations = {
 
     /* ── About ── */
     aboutTag: "সার্জন পরিচিতি",
-    aboutDesc: "ডা. এ.এস.এম. তানজিলুর রহমান একজন অত্যন্ত দক্ষ লেজার, উন্নত ল্যাপারোস্কোপিক ও ক্যান্সার সার্জন। তিনি ভারতের GEM হাসপাতাল থেকে ল্যাপারোস্কোপিক কোলোরেক্টাল ও হার্নিয়া সার্জারিতে বিশেষ ফেলোশিপ প্রশিক্ষণ নিয়েছেন। তিনি ফরিদপুর মেডিকেল কলেজে সহকারী অধ্যাপক (সার্জারি) হিসেবে কর্মরত এবং দ্রুত আরোগ্য ও সর্বোত্তম ফলাফলের লক্ষ্যে রোগীকেন্দ্রিক সেবা প্রদান করেন।",
+    aboutDesc: "ডা. এ.এস.এম. তানজিলুর রহমান একজন অত্যন্ত দক্ষ লেজার, উন্নত ল্যাপারোস্কোপিক ও ক্যান্সার সার্জন। তিনি ভারতের GEM হাসপাতাল থেকে ল্যাপারোস্কোপিক কোলোরেক্টাল ও হার্নিয়া সার্জারিতে বিশেষ ফেলোশিপ প্রশিক্ষণ নিয়েছেন। তিনি ফরিদপুরে ঢাকার বাইরে প্রথমবারের মতো লেজার পাইলস, ল্যাপারোস্কোপিক প্যানক্রিয়াটিক ও গ্যাস্ট্রিক সার্জারির মতো বিশ্বমানের অনেক অপারেশন সফলভাবে সম্পন্ন করেছেন, যা রোগীদের উচ্চ সন্তুষ্টি অর্জন করেছে। গত এক দশকেরও বেশি সময় ধরে তিনি দেশের দক্ষিণ-পশ্চিমাঞ্চলের সুবিধাবঞ্চিত মানুষের জন্য উন্নতমানের আধুনিক সার্জিক্যাল চিকিৎসা সেবা প্রদান করে আসছেন। তিনি ফরিদপুর মেডিকেল কলেজে সহকারী অধ্যাপক (সার্জারি) হিসেবে কর্মরত এবং দ্রুত আরোগ্য ও সর্বোত্তম ফলাফলের লক্ষ্যে রোগীকেন্দ্রিক সেবা প্রদান করেন।",
     aboutBadgeNum: "১৫+",
     aboutBadgeLabel: "বছরের অভিজ্ঞতা",
     aboutCredTag: "FCPS · FMAS · ফেলোশিপ",
